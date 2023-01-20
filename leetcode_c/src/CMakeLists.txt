@@ -1,7 +1,8 @@
 include_directories(../include)
 link_directories(../lib)
 
-set(CMAKE_C_FLAGS_DEBUG "-O0 -Wall -g -ggdb3") 
+set(CMAKE_C_FLAGS_DEBUG "-O0 -Wall -g -ggdb3 -fsanitize=address -fno-omit-frame-pointer")
+#set(CMAKE_C_FLAGS_DEBUG "-O0 -Wall -g -ggdb3") # for gdb, for valgrind
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -Wall -g -ggdb3 -fsanitize=address -fno-omit-frame-pointer")
 #set(CMAKE_CXX_FLAGS_DEBUG "-O0 -Wall -g -ggdb3") # for gdb, for valgrind
 set(CMAKE_C_FLAGS_RELEASE "-O3 -Wall")

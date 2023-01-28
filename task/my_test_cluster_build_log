@@ -1,0 +1,70 @@
+** going verbose **
+rm -f core* 
+/home/zryang/my_ceph/build/bin/ceph-authtool --create-keyring --gen-key --name=mon. /home/zryang/my_ceph/build/keyring --cap mon 'allow *' 
+/home/zryang/my_ceph/build/bin/ceph-authtool --gen-key --name=client.admin --cap mon 'allow *' --cap osd 'allow *' --cap mds 'allow *' --cap mgr 'allow *' /home/zryang/my_ceph/build/keyring 
+/home/zryang/my_ceph/build/bin/monmaptool --create --clobber --addv a [v2:127.0.0.1:40578,v1:127.0.0.1:40579] --addv b [v2:127.0.0.1:40580,v1:127.0.0.1:40581] --addv c [v2:127.0.0.1:40582,v1:127.0.0.1:40583] --print /tmp/ceph_monmap.223355 
+rm -rf -- /home/zryang/my_ceph/build/dev/mon.a 
+mkdir -p /home/zryang/my_ceph/build/dev/mon.a 
+/home/zryang/my_ceph/build/bin/ceph-mon --mkfs -c /home/zryang/my_ceph/build/ceph.conf -i a --monmap=/tmp/ceph_monmap.223355 --keyring=/home/zryang/my_ceph/build/keyring 
+rm -rf -- /home/zryang/my_ceph/build/dev/mon.b 
+mkdir -p /home/zryang/my_ceph/build/dev/mon.b 
+/home/zryang/my_ceph/build/bin/ceph-mon --mkfs -c /home/zryang/my_ceph/build/ceph.conf -i b --monmap=/tmp/ceph_monmap.223355 --keyring=/home/zryang/my_ceph/build/keyring 
+rm -rf -- /home/zryang/my_ceph/build/dev/mon.c 
+mkdir -p /home/zryang/my_ceph/build/dev/mon.c 
+/home/zryang/my_ceph/build/bin/ceph-mon --mkfs -c /home/zryang/my_ceph/build/ceph.conf -i c --monmap=/tmp/ceph_monmap.223355 --keyring=/home/zryang/my_ceph/build/keyring 
+rm -- /tmp/ceph_monmap.223355 
+/home/zryang/my_ceph/build/bin/ceph-mon -i a -c /home/zryang/my_ceph/build/ceph.conf 
+/home/zryang/my_ceph/build/bin/ceph-mon -i b -c /home/zryang/my_ceph/build/ceph.conf 
+/home/zryang/my_ceph/build/bin/ceph-mon -i c -c /home/zryang/my_ceph/build/ceph.conf 
+Populating config ...
+Setting debug configs ...
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring -i /home/zryang/my_ceph/build/dev/mgr.x/keyring auth add mgr.x mon 'allow profile mgr' mds 'allow *' osd 'allow *' 
+added key for mgr.x
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring config set mgr mgr/dashboard/x/ssl_server_port 41578 --force 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring config set mgr mgr/prometheus/x/server_port 9283 --force 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring config set mgr mgr/restful/x/server_port 42578 --force 
+Starting mgr.x
+/home/zryang/my_ceph/build/bin/ceph-mgr -i x -c /home/zryang/my_ceph/build/ceph.conf 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring -h 
+waiting for mgr dashboard module to start
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring -h 
+waiting for mgr dashboard module to start
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring -h 
+waiting for mgr dashboard module to start
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring -h 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring dashboard ac-user-create admin -i /home/zryang/my_ceph/build/dashboard-admin-secret.txt administrator --force-password 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring dashboard create-self-signed-cert 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring osd new 2e76e357-cd57-499b-8bc1-7b940b7fc482 -i /home/zryang/my_ceph/build/dev/osd0/new.json 
+/home/zryang/my_ceph/build/bin/ceph-osd -i 0 -c /home/zryang/my_ceph/build/ceph.conf 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring osd new f75c03fb-484e-4cb8-b3f4-77a54666a9c9 -i /home/zryang/my_ceph/build/dev/osd1/new.json 
+2023-01-29T01:41:58.262+0800 7f6792e2b640 -1 Falling back to public interface
+2023-01-29T01:42:00.446+0800 7f6792e2b640 -1 osd.0 0 log_to_monitors true
+/home/zryang/my_ceph/build/bin/ceph-osd -i 1 -c /home/zryang/my_ceph/build/ceph.conf 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring osd new 733d97a4-1e3d-4adb-b382-fece091f2336 -i /home/zryang/my_ceph/build/dev/osd2/new.json 
+2023-01-29T01:42:03.987+0800 7f2285c83640 -1 Falling back to public interface
+2023-01-29T01:42:06.359+0800 7f2285c83640 -1 osd.1 0 log_to_monitors true
+/home/zryang/my_ceph/build/bin/ceph-osd -i 2 -c /home/zryang/my_ceph/build/ceph.conf 
+2023-01-29T01:42:09.407+0800 7f988c8ae640 -1 Falling back to public interface
+2023-01-29T01:42:10.827+0800 7f988c8ae640 -1 osd.2 0 log_to_monitors true
+OSDs started
+mkdir -p /home/zryang/my_ceph/build/dev/mds.a 
+/home/zryang/my_ceph/build/bin/ceph-authtool --create-keyring --gen-key --name=mds.a /home/zryang/my_ceph/build/dev/mds.a/keyring 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring -i /home/zryang/my_ceph/build/dev/mds.a/keyring auth add mds.a mon 'allow profile mds' osd 'allow rw tag cephfs *=*' mds allow mgr 'allow profile mds' 
+added key for mds.a
+/home/zryang/my_ceph/build/bin/ceph-mds -i a -c /home/zryang/my_ceph/build/ceph.conf 
+mkdir -p /home/zryang/my_ceph/build/dev/mds.b 
+/home/zryang/my_ceph/build/bin/ceph-authtool --create-keyring --gen-key --name=mds.b /home/zryang/my_ceph/build/dev/mds.b/keyring 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring -i /home/zryang/my_ceph/build/dev/mds.b/keyring auth add mds.b mon 'allow profile mds' osd 'allow rw tag cephfs *=*' mds allow mgr 'allow profile mds' 
+added key for mds.b
+/home/zryang/my_ceph/build/bin/ceph-mds -i b -c /home/zryang/my_ceph/build/ceph.conf 
+mkdir -p /home/zryang/my_ceph/build/dev/mds.c 
+/home/zryang/my_ceph/build/bin/ceph-authtool --create-keyring --gen-key --name=mds.c /home/zryang/my_ceph/build/dev/mds.c/keyring 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring -i /home/zryang/my_ceph/build/dev/mds.c/keyring auth add mds.c mon 'allow profile mds' osd 'allow rw tag cephfs *=*' mds allow mgr 'allow profile mds' 
+added key for mds.c
+/home/zryang/my_ceph/build/bin/ceph-mds -i c -c /home/zryang/my_ceph/build/ceph.conf 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring fs volume ls 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring fs volume create a 
+Volume created successfully (no MDS daemons created)
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring fs authorize a client.fs_a / rwp 
+/home/zryang/my_ceph/build/bin/ceph -c /home/zryang/my_ceph/build/ceph.conf -k /home/zryang/my_ceph/build/keyring fs authorize * client.fs / rwp 
+vstart cluster complete. Use stop.sh to stop. See out/* (e.g. 'tail -f out/????') for debug output.

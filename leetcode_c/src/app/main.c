@@ -1,15 +1,16 @@
 #include <stdio.h>
-#include "../../include/number/two_sum.h"
+#include "../../include/array/duplicate_zeros.h"
 
 int main(int argc, char* argv[]) {
     /* code */
-    int input[4] = {2,7,11,15};
-    int target = 9;
-    int* retArray = NULL;
-    int retSize = 0;
-    retArray = twoSum(input, 4, target, &retSize);
+    int inputArray[] = {1,0,2,3,0,4,5,0};
+    int arrSize = sizeof(inputArray) / sizeof(int);
+    duplicateZeros(inputArray, arrSize);
 
-    free(retArray);
+    for (size_t i = 0; i < arrSize; i++) {
+        printf("%d ", inputArray[i]);
+    }
+    printf("\n");
 
     return 0;
 }

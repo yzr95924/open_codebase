@@ -8,3 +8,4 @@ Question List
 6. [medium] 974. 和可被 K 整除的子数组 [ans](./include/array/sub_sum_divisible.h)
 7. [medium] 1094. 拼车 [ans](./include/array/car_pooling.h)
 8. [medium] 1109. 航班预订统计 [ans](./include/array/flight_bookings.h)
+9. [easy] 121. Best Time to Buy and Sell Stock [ans](./include/array/best_time_sell_stock.h)

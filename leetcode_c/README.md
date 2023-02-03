@@ -9,3 +9,5 @@ Question List
 7. [medium] 1094. 拼车 [ans](./include/array/car_pooling.h)
 8. [medium] 1109. 航班预订统计 [ans](./include/array/flight_bookings.h)
 9. [easy] 121. Best Time to Buy and Sell Stock [ans](./include/array/best_time_sell_stock.h)
+10. [medium] 122. Best Time to Buy and Sell Stock 2 [ans](./include/array/best_time_sell_stock_2.h)
+11. [medium] 413. Arithmetic Slices [ans](./include/array/arith_slices.h) 

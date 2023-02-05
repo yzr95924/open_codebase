@@ -1,7 +1,7 @@
 /**
  * @file two_sum.h
  * @author Zuoru YANG (zryang@cse.cuhk.edu.hk)
- * @brief test
+ * @brief https://leetcode.cn/problems/two-sum/
  * @version 0.1
  * @date 2023-01-30
  * 
@@ -9,8 +9,8 @@
  * 
  */
 
-#ifndef TWO_SUM_H
-#define TWO_SUM_H
+#ifndef LEETCODE_TWO_SUM_H
+#define LEETCODE_TWO_SUM_H
 
 #include "../const.h"
 

@@ -14,14 +14,33 @@
 
 #include "../const.h"
 
+static int CountSlices(int* nums, int startIdx, int endIdx) {
+    int diff = nums[startIdx] - nums[startIdx + 1];
+    int ret = 0;
+
+    for (int i = startIdx + 1; i <= endIdx - 1; i++) {
+        if (nums[i] - nums[i + 1] != diff) {
+            break;
+        } else {
+            ret++;
+        }
+    }
+
+    return ret;
+}
+
 int numberOfArithmeticSlices(int* nums, int numsSize){
     if (numsSize < 3) {
         return 0;
     }
 
-    // TODO: 
-
-    return 0;
+    int arithmeticNum = 0;
+    for (int i = 0; i < numsSize - 2; i++) {
+        // numsSize - 3, numsSize - 2, numsSize - 1
+        arithmeticNum += CountSlices(nums, i, numsSize - 1);
+    }
+   
+    return arithmeticNum;
 }
 
 #endif

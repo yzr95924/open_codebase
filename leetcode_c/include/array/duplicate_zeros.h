@@ -9,10 +9,6 @@
  * 
  */
 
-// 输入：arr = [1,0,2,3,0,4,5,0]
-// 输出：[1,0,0,2,3,0,0,4]
-// 解释：调用函数后，输入的数组将被修改为：[1,0,0,2,3,0,0,4]
-
 #ifndef LEETCODE_DUPLICATE_ZEROS_H
 #define LEETCODE_DUPLICATE_ZEROS_H
 

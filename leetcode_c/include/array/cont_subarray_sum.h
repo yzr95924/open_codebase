@@ -1,3 +1,14 @@
+/**
+ * @file cont_subarray_sum.h
+ * @author Zuoru YANG (zryang@cse.cuhk.edu.hk)
+ * @brief https://leetcode.cn/problems/continuous-subarray-sum/
+ * @version 0.1
+ * @date 2023-02-05
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef LEETCODE_CONT_SUBARRAY_SUM_H
 #define LEETCODE_CONT_SUBARRAY_SUM_H
 

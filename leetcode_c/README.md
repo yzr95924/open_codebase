@@ -13,3 +13,4 @@ Question List
 11. [medium] 413. 等差数列划分 [ans](./include/array/arith_slices.h) 
 12. [medium] 43. 字符串相乘 [ans](./include/str/multiply_str.h)
 13. [medium] 5. 最长回文子串 [ans](./include/str/long_palind_sub_str.h)
+14. [medium] 1208. get equal sub string [ans](./include/str/get_equal_sub_str.h)

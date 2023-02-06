@@ -13,5 +13,5 @@ Question List
 11. [medium] 413. 等差数列划分 [ans](./include/array/arith_slices.h) 
 12. [medium] 43. 字符串相乘 [ans](./include/str/multiply_str.h)
 13. [medium] 5. 最长回文子串 [ans](./include/str/long_palind_sub_str.h)
-14. [medium] 1208. get equal sub string [ans](./include/str/get_equal_sub_str.h)
-15. [medium] 209. Minimum Size Subarray Sum [ans](./include/array/min_size_sub_array.h)
+14. [medium] 1208. 尽可能使字符串相等 [ans](./include/str/get_equal_sub_str.h)
+15. [medium] 209. 长度最小的子数组 [ans](./include/array/min_size_sub_array.h)

@@ -13,43 +13,45 @@
 #define LEETCODE_CAR_FLEET_H
 
 #include "../const.h"
-#include "../third/utarray.h"
 
 typedef struct {
     int startPos;
     double costTime;
 } Item_t;
 
-int CompFunc(const void* a, const void* b) {
+static int CompFunc(const void* a, const void* b) {
     const Item_t* input1 = (Item_t*)a;
     const Item_t* input2 = (Item_t*)b;
     return (input2->startPos - input1->startPos); // descend 
 }
 
-UT_icd itemICD = {sizeof(Item_t), NULL, NULL, NULL};
-
 int carFleet(int target, int* position, int positionSize, int* speed, int speedSize){
-    UT_array* carVec;
-    utarray_new(carVec, &itemICD);
-    Item_t tmpItem;
+    Item_t* carVec = (Item_t*)calloc(positionSize, sizeof(Item_t));   
+
+    if (positionSize == 0) {
+        return 0;
+    }
 
     for (int i = 0; i < positionSize; i++) {
-        tmpItem.startPos = position[i];
-        tmpItem.costTime = (double)(target - position[i]) / speed[i];
-        utarray_push_back(carVec, &tmpItem);
+        carVec[i].startPos = position[i];
+        carVec[i].costTime = (double)(target - position[i]) / speed[i];
     }
 
     // sort carVec
-    utarray_sort(carVec, CompFunc);
+    qsort(carVec, positionSize, sizeof(Item_t), CompFunc);
 
-    Item_t* tmpPtr = NULL;
-    while ((tmpPtr = (Item_t*)utarray_next(carVec, tmpPtr))) {
-        printf("%d, %lf\n", tmpPtr->startPos, tmpPtr->costTime);
+    int ret = 1;
+    for (int i = 0; i < positionSize - 1; i++) {
+        if (carVec[i].costTime < carVec[i + 1].costTime) {
+            ret++;
+        } else {
+            carVec[i + 1].costTime = carVec[i].costTime;
+        }
     }
 
-    utarray_free(carVec);
+    free(carVec);
 
-    return 0;
+    return ret;
 }
 
 #endif

@@ -19,3 +19,4 @@ Question List
 17. [medium] 1004. 最大连续1的个数 III [ans](./include/array/max_con_ones_3.h)
 18. [medium] 853. 车队 [ans](./include/sorting/car_fleet.h)
 19. [easy] 1071. 字符串的最大公因子 [ans](./include/str/greatest_common_divisor_str.h)
+20. [medium] 406. Queue Recostruction by Height [ans](./inculde/sorting/queue_rebuild_by_height.h)

@@ -21,20 +21,27 @@
 #define MIN(a,b) (((a) <= (b)) ? (a) : (b))
 #define MAX(a,b) (((a) >= (b)) ? (a) : (b))
 
-int** ConvertTwoDemArrayToPtr(int* startPos, size_t row, size_t col) {
+int** ConvertTwoDemArrayToPtr(int* startPos, int size, int* itemSize) {
     int** ret = NULL;
-    ret = (int**)malloc(sizeof(int*) * row);
-    for (int i = 0; i < row; i++) {
-        ret[i] = (int*)malloc(sizeof(int) * col);
+    ret = (int**)calloc(size, sizeof(int*));
+    int curIdx = 0;
+
+    for (int i = 0; i < size; i++) {
+        ret[i] = (int*)calloc(itemSize[i], sizeof(int));
+        for (int j = 0; j < itemSize[i]; j++) {
+            ret[i][j] = startPos[curIdx];
+            curIdx++;
+        }
     }
 
     return ret;
 }
 
-void FreeTwoDemArray(int** inputArray, size_t row) {
-    for (int i = 0; i < row; i++) {
+void FreeTwoDemArray(int** inputArray, int size) {
+    for (int i = 0; i < size; i++) {
         free(inputArray[i]);
     }
+    free(inputArray);
     return ;
 }
 

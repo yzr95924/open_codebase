@@ -144,6 +144,10 @@ void PopMyStack(MyStack_T* stackPtr, int* outVal) {
     return ;
 }
 
+int TopMyStack(MyStack_T* stackPtr) {
+    return (stackPtr->data[stackPtr->stackTopIdx]);
+}
+
 void FreeMyStack(MyStack_T* stackPtr) {
     free(stackPtr->data);
     free(stackPtr);

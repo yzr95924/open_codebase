@@ -17,6 +17,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
 
 #define MIN(a,b) (((a) <= (b)) ? (a) : (b))
 #define MAX(a,b) (((a) >= (b)) ? (a) : (b))
@@ -43,6 +44,15 @@ void FreeTwoDemArray(int** inputArray, int size) {
     }
     free(inputArray);
     return ;
+}
+
+int GetFactorial(int inputVal) {
+    int ret = 1;
+    for (int i = inputVal; i > 0; i--) {
+        ret *= i;
+    }
+
+    return ret;
 }
 
 #endif

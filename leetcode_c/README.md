@@ -1,4 +1,4 @@
-Question List
+Question List (in C)
 ----------------------------
 1. [easy] 1. 两数之和 [ans](./include/array/two_sum.h) 
 2. [easy] 1089. 复写零 [ans](./include/array/duplicate_zeros.h) 
@@ -21,3 +21,5 @@ Question List
 19. [easy] 1071. 字符串的最大公因子 [ans](./include/str/greatest_common_divisor_str.h)
 20. [medium] 406. 根据身高重建队列 [ans](./include/sorting/queue_rebuild_by_height.h)
 21. [medium] 165. 比较版本号 [ans](./include/str/compare_version.h)
+22. [medium] 46. 全排列 [ans](./include/backtrack/permutations.h)
+23. [medium] 962. 最大宽度坡 [ans](./include/array/max_width_ramp.h)

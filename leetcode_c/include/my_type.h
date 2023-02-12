@@ -145,6 +145,10 @@ void PopMyStack(MyStack_T* stackPtr, int* outVal) {
 }
 
 int TopMyStack(MyStack_T* stackPtr) {
+    if (IsEmptyMyStack(stackPtr)) {
+        printf("stack is empty.\n");
+        return -1;
+    }
     return (stackPtr->data[stackPtr->stackTopIdx]);
 }
 

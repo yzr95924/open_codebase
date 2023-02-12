@@ -1,4 +1,4 @@
-#include "../../include/array/max_width_ramp.h"
+#include "../../include/array/daily_temperature.h"
 
 int main(int argc, char* argv[]) {
     /* code */
@@ -14,11 +14,17 @@ int main(int argc, char* argv[]) {
     // int ret = carFleet(12, posArray, posSize, speedArray, speedSize);
     // printf("ret: %d\n", ret);
 
-    int nums[] = {6,0,8,2,1,5};
+    int nums[] = {73,74,75,71,69,72,76,73};
     int arraySize = sizeof(nums) / sizeof(int);
 
-    int ret =maxWidthRamp(nums, arraySize); 
-    printf("ret: %d\n", ret);
+    int retSize;
+    int* ret = dailyTemperatures(nums, arraySize, &retSize);
+
+    for (int i = 0; i < retSize; i++) {
+        printf("%d\n", ret[i]);
+    }
+
+    free(ret);
 
     return 0;
 }

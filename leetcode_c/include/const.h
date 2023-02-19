@@ -46,8 +46,8 @@ void FreeTwoDemArray(int** inputArray, int size) {
     return ;
 }
 
-int GetFactorial(int inputVal) {
-    int ret = 1;
+uint64_t GetFactorial(int inputVal) {
+    uint64_t ret = 1;
     for (int i = inputVal; i > 0; i--) {
         ret *= i;
     }

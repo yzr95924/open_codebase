@@ -1,4 +1,4 @@
-#include "../../include/backtrack/subsets.h"
+#include "../../include/backtrack/combine.h"
 
 int main(int argc, char* argv[]) {
 
@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
     int* retColumnSize;
     int** retAns;
 
-    retAns = subsets(nums, numsSize, &retSize, &retColumnSize);
+    retAns = combine(3, 2, &retSize, &retColumnSize);
 
     for (int i = 0; i < retSize; i++) {
         printf("[ ");

@@ -14,15 +14,61 @@
 
 #include "../const.h"
 
-int** combine(int n, int k, int* returnSize, int** returnColumnSizes){
-    int retSize = GetFactorial(n) / (GetFactorial(k) * GetFactorial(n - k));
-    int** retAns = (int**)calloc(retSize, sizeof(int*));
+typedef struct {
+    int** retAns;
+    int cnt;
+} AnsWrapper_T;
 
-    for (int i = 0; i < retSize; i++) {
-        retAns[i] = (int*)calloc(k, sizeof(int));
+typedef struct {
+    int* curAns;
+    int curSize;
+} BackTrackState_T;
+
+static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
+    int n, int k, int startIdx) {
+    if (btState->curSize == k) {
+        memcpy(ansWrapper->retAns[ansWrapper->cnt],
+            btState->curAns, sizeof(int) * k);
+        ansWrapper->cnt++;
+        return ;
     }
 
-    return retAns;
+    for (int i = startIdx; i <= n; i++) {
+        // do op
+        btState->curAns[btState->curSize] = i;
+        btState->curSize++;
+
+        BackTrack(ansWrapper, btState, n, k, i + 1);
+
+        // revert op
+        btState->curSize--;
+    }
+
+    return ;
+}
+
+int** combine(int n, int k, int* returnSize, int** returnColumnSizes){
+    *returnSize = GetFactorial(n) / (GetFactorial(k) * GetFactorial(n - k));
+
+    AnsWrapper_T ansWrapper;
+    ansWrapper.retAns = (int**)calloc(*returnSize, sizeof(int*));
+    ansWrapper.cnt = 0;
+    for (int i = 0; i < *returnSize; i++) {
+        ansWrapper.retAns[i] = (int*)calloc(k, sizeof(int));
+    }
+
+    *returnColumnSizes = (int*)calloc(*returnSize, sizeof(int));
+    for (int i = 0; i < *returnSize; i++) {
+        (*returnColumnSizes)[i] = k;
+    }
+
+    BackTrackState_T btState;
+    btState.curSize = 0;
+    btState.curAns = (int*)calloc(k, sizeof(int));
+
+    BackTrack(&ansWrapper, &btState, n, k, 1);
+
+    return ansWrapper.retAns;
 }
 
 #endif

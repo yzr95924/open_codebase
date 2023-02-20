@@ -19,8 +19,6 @@ static void adjustArray(int* const tailPos, int remainSize) {
     int* prePtr = tailPos - 1;
 
     for (int i = 0; i < remainSize; i++) {
-        printf("tail: %d\n", *tailPos);
-        printf("pre: %d\n", *prePtr);
         *tailPos = *prePtr;
         tailPtr--;
         prePtr--;
@@ -40,8 +38,6 @@ void duplicateZeros(int* arr, int arrSize){
             // [1,0,2,3,0,4,5,0] --> [1,0,0,2,3,0,4,5]
             adjustArray(tailPtr, remainSize);
             arr[i + 1] = 0;
-            printf("remain size: %d\n", remainSize);
-            printf("debug\n");
             for (int j = 0; j < arrSize; j++) {
                 printf("%d ", arr[j]);
             }

@@ -1,4 +1,4 @@
-#include "../../include/str/multiply_str.h"
+#include "../../include/backtrack/permutation_seq.h"
 
 int main(int argc, char* argv[]) {
 
@@ -8,14 +8,11 @@ int main(int argc, char* argv[]) {
     // int retSize;
     // int* retColumnSize;
     // int** retAns;
-    char input1[] = "9";
-    char input2[] = "99";
 
-    char* ret;
-    ret = multiply(input1, input2);
-    printf("ret: %s\n", ret);
-
-    free(ret);
+    char* retAns;
+    retAns = getPermutation(2, 2);
+    printf("ret: %s\n", retAns);
+    free(retAns);
 
 
     // retAns = combine(3, 2, &retSize, &retColumnSize);

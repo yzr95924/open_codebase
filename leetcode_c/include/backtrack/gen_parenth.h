@@ -22,7 +22,7 @@ typedef struct {
 typedef struct {
     char* curAns;
     int curSize;
-} BtState_T;
+} BackTrackState_T;
 
 static bool CheckValid(char* inputStr, int targetSize) {
     int map[2] = {0};
@@ -47,7 +47,7 @@ static bool CheckValid(char* inputStr, int targetSize) {
     return true;
 }
 
-static void BackTrack(AnsWrapper_T* ansWrapper, BtState_T* btState,
+static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
     int targetSize) {
     char choice[2] = {'(', ')'};
 
@@ -85,7 +85,7 @@ char ** generateParenthesis(int n, int* returnSize){
     ansWrapper.retAns = (char**)calloc(maxAnsCnt, sizeof(char*));
     ansWrapper.cnt = 0;
 
-    BtState_T btState;
+    BackTrackState_T btState;
     btState.curAns = (char*)calloc(2 * n, sizeof(char));
     btState.curSize = 0;
 

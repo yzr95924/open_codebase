@@ -37,6 +37,7 @@ Question List (in C)
 22. 括号生成 [ans](./include/backtrack/gen_parenth.h)[medium]
 37. 解数独 [ans](./include/backtrack/solve_sudoku.h)[hard]
 46. 全排列 [ans](./include/backtrack/permutations.h)[medium]
+60. 排列序列 [ans](./include/)
 77. 组合 [ans](./include/backtrack/combine.h)[medium]
 78. 子集 [ans](./include/backtrack/subsets.h)[medium]
 

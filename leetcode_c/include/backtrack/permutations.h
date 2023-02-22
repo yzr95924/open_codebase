@@ -4,9 +4,9 @@
  * @brief https://leetcode.cn/problems/permutations/
  * @version 0.1
  * @date 2023-02-11
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef LEETCODE_PERMUTATIONS_H
@@ -28,7 +28,7 @@ typedef struct {
 static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
     int* nums, int numsSize) {
     if (btState->curIdx > numsSize - 1) {
-        // find a ans
+        // find an ans
         memcpy(ansWrapper->retAns[ansWrapper->cnt],
             btState->curAns, sizeof(int) * numsSize);
         ansWrapper->cnt++;
@@ -65,7 +65,7 @@ int** permute(int* nums, int numsSize, int* returnSize, int** returnColumnSizes)
 
     *returnColumnSizes = (int*)calloc(totalAnsCnt, sizeof(int));
     for (int i = 0; i < totalAnsCnt; i++) {
-        (*returnColumnSizes)[i] = numsSize;    
+        (*returnColumnSizes)[i] = numsSize;
     }
 
     BackTrackState_T btState;

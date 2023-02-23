@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
     // int** retAns;
 
     char* retAns;
-    retAns = getPermutation(2, 2);
+    retAns = getPermutation(3, 2);
     printf("ret: %s\n", retAns);
     free(retAns);
 

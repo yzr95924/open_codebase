@@ -44,7 +44,7 @@ static int ConvertChar2Num(int n, char* inputStr) {
 }
 
 static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
-    int n) {
+    int n, int pruneNum) {
     if (btState->curSize == n) {
         // find an ans
         for (int i = 0; i < n; i++) {
@@ -59,7 +59,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
     }
 
     for (int i = 1; i <= n; i++) {
-        if (btState->curSize == 0 && i == 1) {
+        if (btState->curSize == 0 && i != pruneNum) {
             // pruning
             continue;
         } else {
@@ -69,7 +69,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
                 btState->usedArray[i] = true;
                 btState->curSize++;
 
-                BackTrack(ansWrapper, btState, n);
+                BackTrack(ansWrapper, btState, n, pruneNum);
 
                 // revert op
                 btState->usedArray[i] = false;
@@ -88,12 +88,12 @@ int CmpFunc(const void* a, const void* b) {
 }
 
 char* getPermutation(int n, int k){
-    int totalAnsCnt = GetFactorial(n);
+    int totalAnsSliceCnt = GetFactorial(n - 1);
     AnsWrapper_T ansWrapper;
 
-    ansWrapper.ansArray = (AnsItem_T*)calloc(totalAnsCnt, sizeof(AnsItem_T));
+    ansWrapper.ansArray = (AnsItem_T*)calloc(totalAnsSliceCnt, sizeof(AnsItem_T));
     ansWrapper.cnt = 0;
-    for (int i = 0; i < totalAnsCnt; i++) {
+    for (int i = 0; i < totalAnsSliceCnt; i++) {
         ansWrapper.ansArray[i].ans = (char*)calloc(n, sizeof(char));
     }
 
@@ -102,15 +102,26 @@ char* getPermutation(int n, int k){
     btState.curAns = (char*)calloc(n, sizeof(char));
     btState.curSize = 0;
 
-    BackTrack(&ansWrapper, &btState, n);
+    // count prune
+    int new_k = k % totalAnsSliceCnt;
+    int pruneNum = 0;
+    if (new_k == 0) {
+        pruneNum = k / totalAnsSliceCnt;
+        new_k = totalAnsSliceCnt - 1;
+    } else {
+        pruneNum = k / totalAnsSliceCnt + 1;
+        new_k -= 1;
+    }
+
+    BackTrack(&ansWrapper, &btState, n, pruneNum);
 
     qsort(&ansWrapper.ansArray[0], ansWrapper.cnt, sizeof(AnsItem_T), CmpFunc);
 
     char* retAns = (char*)calloc(n + 1, sizeof(char));
-    memcpy(retAns, ansWrapper.ansArray[k - 1].ans, n);
+    memcpy(retAns, ansWrapper.ansArray[new_k].ans, n);
     retAns[n] = '\0';
 
-    for (int i = 0; i < totalAnsCnt; i++) {
+    for (int i = 0; i < totalAnsSliceCnt; i++) {
         free(ansWrapper.ansArray[i].ans);
     }
     free(ansWrapper.ansArray);

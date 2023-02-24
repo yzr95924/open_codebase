@@ -29,6 +29,7 @@ Question List (in C)
 853. 车队 [ans](./include/sorting/car_fleet.h)[medium]
 
 ## 字符串
+8. 字符串转换整数 (atoi) [ans](./include/str/my_atoi.h)[medium]
 43. 字符串相乘 [ans](./include/str/multiply_str.h)[medium]
 165. 比较版本号 [ans](./include/str/compare_version.h)[medium]
 1071. 字符串的最大公因子 [ans](./include/str/greatest_common_divisor_str.h)[easy]
@@ -48,3 +49,5 @@ Question List (in C)
 84. 柱状图中最大的矩形 [ans](./include/array/largest_rectangle_his.h)[medium]
 739. 每日温度 [ans](./include/array/daily_temperature.h)[medium]
 962. 最大宽度坡 [ans](./include/array/max_width_ramp.h)[medium]
+
+## 双指针

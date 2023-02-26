@@ -51,3 +51,7 @@ Question List (in C)
 962. 最大宽度坡 [ans](./include/array/max_width_ramp.h)[medium]
 
 ## 双指针
+876. 链表的中间结点 [ans](./include/two_pointer/)[easy]
+
+## 数学
+7. 整数反转 [ans](./include/math/reverse_integer.h)[medium]

@@ -55,3 +55,6 @@ Question List (in C)
 
 ## 数学
 7. 整数反转 [ans](./include/math/reverse_integer.h)[medium]
+
+## BFS
+111. 二叉树的最小深度 [ans](./include/bfs/min_depth_binary_tree.h)[easy]

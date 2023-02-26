@@ -1,4 +1,4 @@
-#include "../../include/backtrack/permutation_seq.h"
+#include "../../include/str/my_atoi.h"
 
 int main(int argc, char* argv[]) {
 
@@ -9,11 +9,10 @@ int main(int argc, char* argv[]) {
     // int* retColumnSize;
     // int** retAns;
 
-    char* retAns;
-    retAns = getPermutation(3, 2);
-    printf("ret: %s\n", retAns);
-    free(retAns);
-
+    char retAns[] = "2147483646";
+    int ret;
+    ret = myAtoi(retAns);
+    printf("ret: %d\n", ret);
 
     // retAns = combine(3, 2, &retSize, &retColumnSize);
 

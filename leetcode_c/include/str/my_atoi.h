@@ -22,57 +22,89 @@ int myAtoi(char * s){
         return 0;
     }
 
-    if (s[0] <= '0' || s[0] >= '9') {
-        // start not num
-        if (s[0] != " " && s[0] != '-' && s[0] != '+') {
-            return 0;
+    // jump the first space
+    int realStartIdx = 0;
+    for (int i = 0; i < inputSize; i++) {
+        if (s[i] == ' ') {
+            realStartIdx++;
+        } else {
+            break;
         }
     }
 
-    int64_t curVal = 0;
-    int weight = 1;
-    int leftIdx = inputSize - 1;
-    bool isOut = false;
-    for (int i = inputSize - 1; i >= 0; i--) {
-        if (s[i] >= '0' && s[i] <= '9') {
-            // it is a number
-            curVal += (int)(s[i] - '0') * weight;
-            weight *= 10;
-            leftIdx = i;
-
-            if (curVal > ((uint64_t)(1) << 31)) {
-                isOut = true;
+    bool isPositive = true;
+    // check whether is a word
+    if (s[realStartIdx] < '0' || s[realStartIdx] > '9') {
+        // start not num
+        switch (s[realStartIdx]) {
+            case '-': {
+                isPositive = false;
+                realStartIdx++;
                 break;
             }
+            case '+': {
+                realStartIdx++;
+                break;
+            }
+            default: {
+                return 0;
+            }
+        }
+    }
+
+    int realEndIdx = realStartIdx;
+    for (int i = realStartIdx; i < inputSize; i++) {
+        if (s[i] < '0' || s[i] > '9') {
+            break;
+        } else {
+            realEndIdx++;
+        }
+    }
+
+    // traverse the array backward
+    uint64_t curVal = 0;
+    uint64_t weight = 1;
+    bool isOut = false;
+    for (int i = realEndIdx; i >= realStartIdx; i--) {
+        if (s[i] >= '0' && s[i] <= '9') {
+            // it is a number
+            curVal += (uint64_t)(s[i] - '0') * weight;
+
+            if (isPositive) {
+                if (curVal > (((uint64_t)(1) << 31) - 1) ||
+                    (weight > INT32_MAX && s[realStartIdx] != '0')) {
+                    printf("here: weight: %lu\n", weight);
+                    isOut = true;
+                    break;
+                }
+            } else {
+                if (curVal > (((uint64_t)(1) << 31)) ||
+                    (weight > INT32_MAX && s[realStartIdx] != '0')) {
+                    isOut = true;
+                    break;
+                }
+            }
+
+            weight *= (uint64_t)10;
         } else {
             // it is not a number
             continue;
         }
     }
 
-    if (leftIdx - 1 >= 0) {
-        // check symbol
-        if (s[leftIdx - 1] == '-') {
-            // it is negative
-            if (isOut) {
-                retVal = INT32_MIN;
-            } else {
-                retVal = -1 * curVal;
-            }
-        } else {
-            // it is positive
-            if (isOut) {
-                retVal = INT32_MAX;
-            } else {
-                retVal = (int32_t)curVal;
-            }
-        }
-    } else {
+    if (isPositive) {
         // it is positive
         if (isOut) {
             retVal = INT32_MAX;
         } else {
             retVal = (int32_t)curVal;
+        }
+    } else {
+        // it is negative
+        if (isOut) {
+            retVal = INT32_MIN;
+        } else {
+            retVal = (int32_t)(-curVal);
         }
     }
 

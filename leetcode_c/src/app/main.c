@@ -1,4 +1,4 @@
-#include "../../include/str/my_atoi.h"
+#include "../../include/bfs/word_ladder.h"
 
 int main(int argc, char* argv[]) {
 
@@ -8,11 +8,6 @@ int main(int argc, char* argv[]) {
     // int retSize;
     // int* retColumnSize;
     // int** retAns;
-
-    char retAns[] = "2147483646";
-    int ret;
-    ret = myAtoi(retAns);
-    printf("ret: %d\n", ret);
 
     // retAns = combine(3, 2, &retSize, &retColumnSize);
 

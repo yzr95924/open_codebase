@@ -20,8 +20,21 @@ int main(int argc, char* argv[]) {
     //     free(retAns[i]);
     // }
 
-    // // free(retColumnSize);
-    // free(retAns);
+    char beginWord[] = "hit";
+    char endWord[] = "cog";
+
+    int realWordList[][2] = {{1, 2},{3, 4}};
+
+    int** worldListPtr = (int**)ConvertFixedTwoArrayToPtr((uint8_t*)&realWordList[0][0],
+        2, 2, sizeof(int));
+
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            printf("%d\n", worldListPtr[i][j]);
+        }
+    }
+
+    FreeFixedTwoArray((uint8_t**)worldListPtr, 2);
 
     return 0;
 }

@@ -4,9 +4,9 @@
  * @brief https://leetcode.cn/problems/two-sum/
  * @version 0.1
  * @date 2023-01-30
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef LEETCODE_C_CONST_H
@@ -36,6 +36,32 @@ int** ConvertTwoDemArrayToPtr(int* startPos, int size, int* itemSize) {
     }
 
     return ret;
+}
+
+uint8_t** ConvertFixedTwoArrayToPtr(uint8_t* startPtr, size_t rowCnt,
+    size_t colCnt, size_t itemByteSize) {
+    uint8_t** retPtr = NULL;
+    retPtr = (uint8_t**)malloc(rowCnt * sizeof(uint8_t*));
+
+    size_t readByteOffset = 0;
+
+    for (size_t i = 0; i < rowCnt; i++) {
+        retPtr[i] = (uint8_t*)malloc(colCnt * itemByteSize);
+        for (size_t j = 0; j < colCnt; j++) {
+            memcpy(&retPtr[i][j * itemByteSize], startPtr + readByteOffset, itemByteSize);
+            readByteOffset += itemByteSize;
+        }
+    }
+
+    return retPtr;
+}
+
+void FreeFixedTwoArray(uint8_t** inputArray, size_t rowCnt) {
+    for (int i = 0; i < rowCnt; i++) {
+        free(inputArray[i]);
+    }
+    free(inputArray);
+    return ;
 }
 
 void FreeTwoDemArray(int** inputArray, int size) {

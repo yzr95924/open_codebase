@@ -1,4 +1,4 @@
-#include "../../include/bfs/word_ladder.h"
+#include "../../include/bfs/bus_routes.h"
 
 int main(int argc, char* argv[]) {
 
@@ -20,21 +20,17 @@ int main(int argc, char* argv[]) {
     //     free(retAns[i]);
     // }
 
-    char beginWord[] = "hit";
-    char endWord[] = "cog";
+    int realRoutes[][3] = {{1,2,7},{3,6,7}};
+    int source = 1;
+    int target = 6;
 
-    int realWordList[][2] = {{1, 2},{3, 4}};
+    int** routes = (int**)ConvertFixedTwoArrayToPtr((uint8_t*)&realRoutes[0][0],
+        2, 3, sizeof(int));
+    int routeCol[] = {3, 3};
 
-    int** worldListPtr = (int**)ConvertFixedTwoArrayToPtr((uint8_t*)&realWordList[0][0],
-        2, 2, sizeof(int));
+    numBusesToDestination(routes, 2, routeCol, source, target);
 
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 2; j++) {
-            printf("%d\n", worldListPtr[i][j]);
-        }
-    }
-
-    FreeFixedTwoArray((uint8_t**)worldListPtr, 2);
+    FreeFixedTwoArray((uint8_t**)routes, 2);
 
     return 0;
 }

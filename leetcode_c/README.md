@@ -59,3 +59,5 @@ Question List (in C)
 ## BFS
 111. 二叉树的最小深度 [ans](./include/bfs/min_depth_binary_tree.h)[easy]
 127. 单词接龙 [ans](./include/bfs/word_ladder.h)[hard]
+139. 单词拆分 [ans](./include/bfs/word_break.h)[medium]
+815. 公交路线 [ans](./include/bfs/bus_routes.h)[hard]

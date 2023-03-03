@@ -17,7 +17,8 @@
 
 #define EMPTY_POS -1
 
-#define MAX_WORD_LEN 10
+#define MAX_WORD_LEN (10 + 1)
+#define MAX_WORD_LIST_SIZE 5000
 
 typedef struct {
     char word[MAX_WORD_LEN];
@@ -86,7 +87,7 @@ void FreeMyQueue(MyQueue_T* queuePtr) {
     return ;
 }
 
-bool CheckDiffWord(char* input1, char* input2) {
+int CheckDiffWord(char* input1, char* input2) {
     int count = 0;
     for (size_t i = 0; i < strlen(input1); i++) {
         if (input1[i] != input2[i]) {
@@ -94,11 +95,7 @@ bool CheckDiffWord(char* input1, char* input2) {
         }
     }
 
-    if (count == 1) {
-        return true;
-    }
-
-    return false;
+    return count;
 }
 
 int BFS(char* beginWord, char* endWord, char** wordList,
@@ -110,22 +107,24 @@ int BFS(char* beginWord, char* endWord, char** wordList,
     bool* flagArray = (bool*)calloc(wordListSize, sizeof(bool));
 
     inputWord.distance = 0;
-    memcpy(inputWord.word, beginWord, strlen(beginWord));
+    memcpy(inputWord.word, beginWord, strlen(beginWord) + 1);
     EnMyQueue(queuePtr, &inputWord);
 
     while (!IsEmptyMyQueue(queuePtr)) {
         DeMyQueue(queuePtr, &curWord);
         curDistance = curWord.distance;
 
-        if (strcmp(curWord.word, endWord) == 0) {
+        if (CheckDiffWord(curWord.word, endWord) == 0) {
+            free(flagArray);
             return curDistance + 1;
         }
 
         for (size_t i = 0; i < wordListSize; i++) {
-            if ((flagArray[i] == false) && CheckDiffWord(curWord.word, wordList[i])) {
+            if ((flagArray[i] == false) &&
+                (CheckDiffWord(curWord.word, wordList[i]) == 1)) {
                 flagArray[i] = true;
                 inputWord.distance = curDistance + 1;
-                memcpy(inputWord.word, wordList[i], strlen(wordList[i]));
+                memcpy(inputWord.word, wordList[i], strlen(wordList[i]) + 1);
                 EnMyQueue(queuePtr, &inputWord);
             }
         }
@@ -142,7 +141,7 @@ int ladderLength(char * beginWord, char * endWord, char ** wordList, int wordLis
         return 0;
     }
 
-    MyQueue_T* queuePtr = InitMyQueue(5000);
+    MyQueue_T* queuePtr = InitMyQueue(MAX_WORD_LIST_SIZE);
 
     int retAns = BFS(beginWord, endWord, wordList, wordListSize, queuePtr);
 

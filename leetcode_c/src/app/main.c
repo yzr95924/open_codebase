@@ -28,7 +28,9 @@ int main(int argc, char* argv[]) {
         2, 3, sizeof(int));
     int routeCol[] = {3, 3};
 
-    numBusesToDestination(routes, 2, routeCol, source, target);
+    int ret = numBusesToDestination(routes, 2, routeCol, source, target);
+
+    printf("ret: %d\n", ret);
 
     FreeFixedTwoArray((uint8_t**)routes, 2);
 

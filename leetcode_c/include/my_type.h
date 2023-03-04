@@ -4,9 +4,9 @@
  * @brief my data type
  * @version 0.1
  * @date 2023-02-08
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef LEETCODE_MY_TYPE_H
@@ -19,7 +19,7 @@
 /**
  *********************************************
  ***               for queue
- ********************************************* 
+ *********************************************
  */
 
 typedef struct {
@@ -32,7 +32,7 @@ typedef struct {
 
 MyQueue_T* InitMyQueue(int capacity) {
     MyQueue_T* queuePtr = (MyQueue_T*)calloc(1, sizeof(MyQueue_T));
-    queuePtr->data = (int*)calloc(capacity, sizeof(int));
+    queuePtr->data = (int*)calloc(capacity, sizeof(*(queuePtr->data)));
     queuePtr->head = EMPTY_POS;
     queuePtr->rear = EMPTY_POS;
     queuePtr->capacity = capacity;
@@ -41,23 +41,24 @@ MyQueue_T* InitMyQueue(int capacity) {
     return queuePtr;
 }
 
-void EnMyQueue(MyQueue_T* queuePtr, int inVal) {
+void EnMyQueue(MyQueue_T* queuePtr, int* inVal) {
     if (queuePtr->head == EMPTY_POS) {
         queuePtr->head = 0;
     }
     queuePtr->rear = (queuePtr->rear + 1) % queuePtr->capacity;
-    queuePtr->data[queuePtr->rear] = inVal;
+    memcpy(&queuePtr->data[queuePtr->rear], inVal, sizeof(*(queuePtr->data)));
 
     queuePtr->curSize++;
     return ;
 }
 
 void DeMyQueue(MyQueue_T* queuePtr, int* outVal) {
-    *outVal = queuePtr->data[queuePtr->head];
+    memcpy(outVal, &queuePtr->data[queuePtr->head], sizeof(*(queuePtr->data)));
+
     if (queuePtr->head == queuePtr->rear) {
         queuePtr->rear = EMPTY_POS;
         queuePtr->head = EMPTY_POS;
-    } 
+    }
     queuePtr->head = (queuePtr->head + 1) % queuePtr->capacity;
 
     queuePtr->curSize--;
@@ -87,7 +88,7 @@ void FreeMyQueue(MyQueue_T* queuePtr) {
 /**
  *********************************************
  ***               for stack
- ********************************************* 
+ *********************************************
  */
 
 typedef struct {
@@ -99,7 +100,7 @@ typedef struct {
 
 MyStack_T* InitMyStack(int capacity) {
     MyStack_T* stackPtr = (MyStack_T*)calloc(1, sizeof(MyStack_T));
-    stackPtr->data = (int*)calloc(capacity, sizeof(int));
+    stackPtr->data = (int*)calloc(capacity, sizeof(*(stackPtr->data)));
     stackPtr->stackTopIdx = EMPTY_POS;
     stackPtr->capacity = capacity;
     stackPtr->curSize = 0;
@@ -110,7 +111,7 @@ MyStack_T* InitMyStack(int capacity) {
 bool IsFullMyStack(MyStack_T* stackPtr) {
     if (stackPtr->stackTopIdx == (stackPtr->capacity - 1)) {
         return true;
-    } 
+    }
     return false;
 }
 
@@ -121,13 +122,13 @@ bool IsEmptyMyStack(MyStack_T* stackPtr) {
     return false;
 }
 
-void PushMyStack(MyStack_T* stackPtr, int inVal) {
+void PushMyStack(MyStack_T* stackPtr, int* inVal) {
     if (IsFullMyStack(stackPtr)) {
         printf("stack is full.\n");
         return ;
     }
     stackPtr->stackTopIdx++;
-    stackPtr->data[stackPtr->stackTopIdx] = inVal;
+    memcpy(&stackPtr->data[stackPtr->stackTopIdx], inVal, sizeof(*(stackPtr->data)));
     stackPtr->curSize++;
     return ;
 }
@@ -137,8 +138,8 @@ void PopMyStack(MyStack_T* stackPtr, int* outVal) {
         printf("stack is empty.\n");
         return ;
     }
-    
-    *outVal = stackPtr->data[stackPtr->stackTopIdx];
+
+    memcpy(outVal, &stackPtr->data[stackPtr->stackTopIdx], sizeof(*(stackPtr->data)));
     stackPtr->stackTopIdx--;
     stackPtr->curSize--;
     return ;
@@ -161,7 +162,7 @@ void FreeMyStack(MyStack_T* stackPtr) {
 /**
  *********************************************
  ***               for list
- ********************************************* 
+ *********************************************
  */
 
 typedef struct {
@@ -172,7 +173,7 @@ typedef struct {
 
 MyList_T* InitMyList(int capacity) {
     MyList_T* listPtr = (MyList_T*)calloc(1, sizeof(MyList_T));
-    listPtr->data = (int*)calloc(capacity, sizeof(int));
+    listPtr->data = (int*)calloc(capacity, sizeof(*(listPtr->data)));
     listPtr->capacity = capacity;
     listPtr->curSize = 0;
 
@@ -199,17 +200,17 @@ void FreeMyList(MyList_T* listPtr) {
     return ;
 }
 
-void AppendMyList(MyList_T* listPtr, int inVal) {
+void AppendMyList(MyList_T* listPtr, int* inVal) {
     if (IsFullMyList(listPtr)) {
         printf("list is full.\n");
         return ;
     }
-    listPtr->data[listPtr->curSize] = inVal;
+    memcpy(&listPtr->data[listPtr->curSize], inVal, sizeof(*(listPtr->data)));
     listPtr->curSize++;
     return ;
 }
 
-void InsertMyList(MyList_T* listPtr, int posIdx, int inVal) {
+void InsertMyList(MyList_T* listPtr, int posIdx, int* inVal) {
     if (IsFullMyList(listPtr)) {
         printf("list is full.\n");
     }
@@ -223,7 +224,7 @@ void InsertMyList(MyList_T* listPtr, int posIdx, int inVal) {
         listPtr->data[i + 1] = listPtr->data[i];
     }
 
-    listPtr->data[posIdx] = inVal;
+    memcpy(&listPtr->data[listPtr->curSize], inVal, sizeof(*(listPtr->data)));
     listPtr->curSize++;
 
     return ;

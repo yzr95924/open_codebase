@@ -1,4 +1,4 @@
-#include "../../include/bfs/bus_routes.h"
+#include "../../include/bfs/shortest_bridge.h"
 
 int main(int argc, char* argv[]) {
 
@@ -20,19 +20,18 @@ int main(int argc, char* argv[]) {
     //     free(retAns[i]);
     // }
 
-    int realRoutes[][3] = {{1,2,7},{3,6,7}};
-    int source = 1;
-    int target = 6;
+    int realRoutes[][5] = {{1,1,1,1,1},{1,0,0,0,1},{1,0,1,0,1},{1,0,0,0,1},{1,1,1,1,1}};
+    uint32_t rowSize = 5;
+    uint32_t colSize = 5;
 
     int** routes = (int**)ConvertFixedTwoArrayToPtr((uint8_t*)&realRoutes[0][0],
-        2, 3, sizeof(int));
-    int routeCol[] = {3, 3};
+        rowSize, colSize, sizeof(int));
 
-    int ret = numBusesToDestination(routes, 2, routeCol, source, target);
+    int ret = shortestBridge(routes, rowSize, NULL);
 
     printf("ret: %d\n", ret);
 
-    FreeFixedTwoArray((uint8_t**)routes, 2);
+    FreeFixedTwoArray((uint8_t**)routes, rowSize);
 
     return 0;
 }

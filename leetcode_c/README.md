@@ -41,6 +41,7 @@ Question List (in C)
 60. 排列序列 [ans](./include/backtrack/permutation_seq.h)[hard]
 77. 组合 [ans](./include/backtrack/combine.h)[medium]
 78. 子集 [ans](./include/backtrack/subsets.h)[medium]
+113. 路径总和 II [ans](./include/backtrack/path_sum_2.h)[medium]
 
 ## 栈
 678. 有效的括号字符串 [ans](./include/stack/valid_paren_str.h)[medium]

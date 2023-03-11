@@ -8,6 +8,7 @@ Question List (in C)
 523. 连续的子数组和 [ans](./include/array/cont_subarray_sum.h)[medium]
 560. 和为 K 的子数组 [ans](./include/array/sub_sum_k.h)[medium]
 974. 和可被 K 整除的子数组 [ans](./include/array/sub_sum_divisible.h)[medium]
+1590. 使数组和能被P整除 [ans](./include/prefix_sum/make_sum_divisible_by_p.h)[medium]
 
 ## 差分
 121. 买卖股票的最佳时机 [ans](./include/array/best_time_sell_stock.h)[easy]

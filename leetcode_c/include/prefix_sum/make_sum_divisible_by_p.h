@@ -85,12 +85,14 @@ int minSubarray(int* nums, int numsSize, int p){
 
     HashTableItem_t* index = NULL;
     int y = 0, res = numsSize;
+    int curRemainder = 0;
     for (int i = 0; i < numsSize; i++) {
         InsertHashTable(&index, y, i); // f[i] mod p = y，因此哈希表记录 y 对应的下标为 i
         y = (y + nums[i]) % p;
-        if (FindHashTable(index, (y - x + p) % p)) {
+        curRemainder = (y - x + p) % p;
+        if (FindHashTable(index, curRemainder)) {
             int val = 0;
-            GetHashTable(index, (y - x + p) % p, &val);
+            GetHashTable(index, curRemainder, &val);
             res = MIN(res, i - val + 1);
         }
     }

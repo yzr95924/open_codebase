@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
     int nums[] = {3,1,4,2};
     int p = 6;
 
-    int ret = minSubarray(nums, sizeof(nums) / sizeof(int), 6);
+    int ret = minSubarray(nums, sizeof(nums) / sizeof(int), p);
     printf("ret: %d\n", ret);
 
     return 0;

@@ -1,12 +1,12 @@
 #!/bin/bash
-bash ./script/cleanup.sh 
+bash ./script/cleanup.sh
 if [ ! -d "bin" ]; then
 echo "build the executable output directory"
 mkdir -p bin
 echo "Done!"
 fi
 
-if [ ! -d "lib" ]; then 
+if [ ! -d "lib" ]; then
 echo "build the library output directory"
 mkdir -p lib
 echo "Done!"
@@ -20,6 +20,6 @@ fi
 
 cd ./build
 rm -rf ./*
-cmake ..
+cmake .. 
 make -j4
 cd ..

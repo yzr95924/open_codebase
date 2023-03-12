@@ -1,16 +1,20 @@
-#include "../../include/prefix_sum/make_sum_divisible_by_p.h"
+#include "../../include/my_hash_type.h"
 
 int main(int argc, char* argv[]) {
-    int key_1 = 1;
-    int val_1 = 2;
-    int key_2 = 1;
-    int val_2 = 3;
+    HashTblItem_T* hashTable = NULL;
+    int key1 = 1;
+    int val2 = 2;
 
-    int nums[] = {3,1,4,2};
-    int p = 6;
+    InsertHashTable(&hashTable, key1, val2);
 
-    int ret = minSubarray(nums, sizeof(nums) / sizeof(int), p);
-    printf("ret: %d\n", ret);
+    int outputVal;
+    if (GetHashTable(hashTable, key1, &outputVal)) {
+        printf("find the item: %d\n", outputVal);
+    } else {
+        printf("cannot find the item.\n");
+    }
+
+    FreeHashTable(hashTable);
 
     return 0;
 }

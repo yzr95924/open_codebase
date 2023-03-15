@@ -4,9 +4,9 @@
  * @brief https://leetcode.cn/problems/combinations/
  * @version 0.1
  * @date 2023-02-17
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef LEETCODE_COMBINE_H
@@ -48,7 +48,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
 }
 
 int** combine(int n, int k, int* returnSize, int** returnColumnSizes){
-    *returnSize = GetFactorial(n) / (GetFactorial(k) * GetFactorial(n - k));
+    *returnSize = YZRGetFactorial(n) / (YZRGetFactorial(k) * YZRGetFactorial(n - k));
 
     AnsWrapper_T ansWrapper;
     ansWrapper.retAns = (int**)calloc(*returnSize, sizeof(int*));

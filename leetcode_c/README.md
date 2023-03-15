@@ -1,8 +1,5 @@
 Question List (in C)
 ----------------------------
-## 暴力
-1. 两数之和 [ans](./include/array/two_sum.h)[easy]
-1089. 复写零 [ans](./include/array/duplicate_zeros.h)[easy]
 
 ## 前缀和
 523. 连续的子数组和 [ans](./include/array/cont_subarray_sum.h)[medium]
@@ -56,7 +53,10 @@ Question List (in C)
 876. 链表的中间结点 [ans](./include/two_pointer/)[easy]
 
 ## 数学
+1. 两数之和 [ans](./include/math/two_sum.h)[easy]
+2. 两数相加 [ans](./include/math/add_two_numbers.h)[medium]
 7. 整数反转 [ans](./include/math/reverse_integer.h)[medium]
+1089. 复写零 [ans](./include/math/duplicate_zeros.h)[easy]
 
 ## BFS
 111. 二叉树的最小深度 [ans](./include/bfs/min_depth_binary_tree.h)[easy]

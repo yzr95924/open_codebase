@@ -88,7 +88,7 @@ int CmpFunc(const void* a, const void* b) {
 }
 
 char* getPermutation(int n, int k){
-    int totalAnsSliceCnt = GetFactorial(n - 1);
+    int totalAnsSliceCnt = YZRGetFactorial(n - 1);
     AnsWrapper_T ansWrapper;
 
     ansWrapper.ansArray = (AnsItem_T*)calloc(totalAnsSliceCnt, sizeof(AnsItem_T));

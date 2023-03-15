@@ -54,7 +54,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
 }
 
 int** permute(int* nums, int numsSize, int* returnSize, int** returnColumnSizes){
-    int totalAnsCnt = GetFactorial(numsSize);
+    int totalAnsCnt = YZRGetFactorial(numsSize);
     AnsWrapper_T ansWrapper;
 
     ansWrapper.retAns = (int**)calloc(totalAnsCnt, sizeof(int*));

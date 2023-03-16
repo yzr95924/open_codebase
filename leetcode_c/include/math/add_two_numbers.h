@@ -25,54 +25,54 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
 {
     uint64_t l1Val = 0;
     uint64_t l2Val = 0;
-    ListNode* curNode = NULL;
-    uint64_t weightCnt = 1;
-
-    // iterate l1
-    curNode = l1;
-    while (curNode != NULL) {
-        l1Val += (curNode->val * weightCnt);
-        curNode = curNode->next;
-        weightCnt *= 10;
-    }
-
-    // iterate l2
-    curNode = l2;
-    weightCnt = 1;
-    while (curNode != NULL) {
-        l2Val += (curNode->val * weightCnt);
-        curNode = curNode->next;
-        weightCnt *= 10;
-    }
+    uint64_t carry = 0;
+    ListNode* curl1Node = l1;
+    ListNode* curl2Node = l2;
 
     ListNode* retHead = NULL;
-    uint64_t totalSum = l1Val + l2Val;
+    ListNode* tailNodePtr = NULL;
+    while (curl1Node != NULL || curl2Node != NULL) {
+        if (curl1Node != NULL) {
+            l1Val = curl1Node->val;
+            curl1Node = curl1Node->next;
+        } else {
+            l1Val = 0;
+        }
 
-    if (totalSum == 0) {
-        retHead = (ListNode*)malloc(sizeof(ListNode));
-        retHead->val = 0;
-        retHead->next = NULL;
-        return retHead;
+        if (curl2Node != NULL) {
+            l2Val = curl2Node->val;
+            curl2Node = curl2Node->next;
+        } else {
+            l2Val = 0;
+        }
+
+        uint64_t newVal;
+        newVal = l1Val + l2Val + carry;
+        if (newVal > 9) {
+            newVal -= 10;
+            carry = 1;
+        } else {
+            carry = 0;
+        }
+
+        if (retHead == NULL) {
+            tailNodePtr = (ListNode*)malloc(sizeof(ListNode));
+            tailNodePtr->val = newVal;
+            tailNodePtr->next = NULL;
+            retHead = tailNodePtr;
+        } else {
+            tailNodePtr->next = (ListNode*)malloc(sizeof(ListNode));
+            tailNodePtr->next->val = newVal;
+            tailNodePtr = tailNodePtr->next;
+            tailNodePtr->next = NULL;
+        }
     }
 
-    weightCnt = 10;
-    // covert to output
-    retHead = NULL;
-    ListNode* tailPtr = NULL;
-    while (totalSum != 0) {
-        if (retHead == NULL) {
-            tailPtr = (ListNode*)malloc(sizeof(ListNode));
-            tailPtr->val = totalSum % weightCnt;
-            tailPtr->next = NULL;
-            retHead = tailPtr;
-            printf("%d\n", tailPtr->val);
-        } else {
-            tailPtr->next = (ListNode*)malloc(sizeof(ListNode));
-            tailPtr->next->val = totalSum % weightCnt;
-            printf("%d\n", tailPtr->next->val);
-            tailPtr = tailPtr->next;
-        }
-        totalSum /= 10;
+    if (carry == 1) {
+        tailNodePtr->next = (ListNode*)malloc(sizeof(ListNode));
+        tailNodePtr->next->val = 1;
+        tailNodePtr = tailNodePtr->next;
+        tailNodePtr->next = NULL;
     }
 
     return retHead;

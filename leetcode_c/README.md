@@ -27,6 +27,7 @@ Question List (in C)
 853. 车队 [ans](./include/sorting/car_fleet.h)[medium]
 
 ## 字符串
+6. N字形变换 [ans](./include/str/zigzag_conversion.h)[medium]
 8. 字符串转换整数 (atoi) [ans](./include/str/my_atoi.h)[medium]
 43. 字符串相乘 [ans](./include/str/multiply_str.h)[medium]
 165. 比较版本号 [ans](./include/str/compare_version.h)[medium]

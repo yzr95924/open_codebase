@@ -34,6 +34,7 @@ Question List (in C)
 1071. 字符串的最大公因子 [ans](./include/str/greatest_common_divisor_str.h)[easy]
 
 ## 回溯
+17. 电话号码的字母组合 [ans](./include/backtrack/letter_combine_of_phone_num.h)[medium]
 22. 括号生成 [ans](./include/backtrack/gen_parenth.h)[medium]
 37. 解数独 [ans](./include/backtrack/solve_sudoku.h)[hard]
 46. 全排列 [ans](./include/backtrack/permutations.h)[medium]

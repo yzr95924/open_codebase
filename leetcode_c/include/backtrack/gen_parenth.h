@@ -53,7 +53,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
 
     if (btState->curSize == targetSize) {
         if (CheckValid(btState->curAns, targetSize)) {
-            ansWrapper->retAns[ansWrapper->cnt] = calloc(targetSize + 1, sizeof(char));
+            ansWrapper->retAns[ansWrapper->cnt] = (char*)calloc(targetSize + 1, sizeof(char));
             memcpy(ansWrapper->retAns[ansWrapper->cnt],
                 btState->curAns,
                 btState->curSize);

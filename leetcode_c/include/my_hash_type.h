@@ -21,7 +21,8 @@ typedef struct {
     UT_hash_handle hh;
 } HashTblItem_T;
 
-void InsertHashTable(HashTblItem_T** hashTable, int key, int val) {
+void InsertHashTable(HashTblItem_T** hashTable, int key, int val)
+{
     HashTblItem_T* curItem = NULL;
     HASH_FIND_INT(*hashTable, &key, curItem);
 
@@ -37,7 +38,8 @@ void InsertHashTable(HashTblItem_T** hashTable, int key, int val) {
     return ;
 }
 
-bool GetHashTable(const HashTblItem_T* hashTable, int key, int* val) {
+bool GetHashTable(const HashTblItem_T* hashTable, int key, int* val)
+{
     HashTblItem_T* curItem = NULL;
     HASH_FIND_INT(hashTable, &key, curItem);
     if (curItem == NULL) {
@@ -49,7 +51,8 @@ bool GetHashTable(const HashTblItem_T* hashTable, int key, int* val) {
     return true;
 };
 
-void FreeHashTable(HashTblItem_T* hashTable) {
+void FreeHashTable(HashTblItem_T* hashTable)
+{
     HashTblItem_T* curItem;
     HashTblItem_T* tmp;
     HASH_ITER(hh, hashTable, curItem, tmp) {

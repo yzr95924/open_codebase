@@ -24,6 +24,7 @@ Question List (in C)
 1208. 尽可能使字符串相等 [ans](./include/sliding_win/get_equal_sub_str.h)[medium]
 
 ## 排序
+56. 合并区间 [ans](./include/sorting/merge_intervals.h)[medium]
 406. 根据身高重建队列 [ans](./include/sorting/queue_rebuild_by_height.h)[medium]
 853. 车队 [ans](./include/sorting/car_fleet.h)[medium]
 

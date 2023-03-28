@@ -2,7 +2,8 @@ Question List (in C)
 ----------------------------
 
 ## 前缀和 && Hash
-128. 最长连续序列 [ans](./include/prefix_sum/longest_consecutive_seq.h)[medium]
+128. 最长连续序列 [ans](./include/prefix_sum_hash/longest_consecutive_seq.h)[medium]
+146. LRU 缓存 [ans](./include/prefix_sum_hash/lru_cache.h)[medium]
 523. 连续的子数组和 [ans](./include/array/cont_subarray_sum.h)[medium]
 560. 和为 K 的子数组 [ans](./include/array/sub_sum_k.h)[medium]
 974. 和可被 K 整除的子数组 [ans](./include/array/sub_sum_divisible.h)[medium]

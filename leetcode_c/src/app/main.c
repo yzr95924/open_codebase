@@ -1,36 +1,32 @@
-#include "../../include/sorting/merge_intervals.h"
+#include "../../include/my_struct/yzr_dl_list.h"
 
 int main(int argc, char* argv[]) {
+    YzrDLList* tmpList = YzrDLListCreate();
+    YzrDLListInsertFirst(tmpList, 1, 1);
+    YzrDLListInsertFirst(tmpList, 2, 2);
+    YzrDLListInsertFirst(tmpList, 3, 3);
 
-    int inputArray[][2] = {{1,4},{0,0}};
-    int itemCnt = 2;
+    YzrDLListInsertLast(tmpList, 4, 4);
+    YzrDLListInsertAfterKey(tmpList, 3, 5, 5);
 
-    int** inputArrayPtr = (int**)YZRConvertFixedTwoArrayToPtr((uint8_t*)&inputArray[0][0],
-        itemCnt, 2, sizeof(int));
-
-    int colSize[1] = {2};
-    int retSize = 0;
-    int* retColSize = NULL;
-    int** retArray = merge(inputArrayPtr, itemCnt, colSize, &retSize, &retColSize);
-
-    for (int i = 0; i < retSize; i++) {
-        printf("{%d, %d} ", retArray[i][0], retArray[i][1]);
+    YzrDLListNode* curNode = tmpList->headNode;
+    while (curNode != NULL) {
+        printf("curNode: %d\n", curNode->key);
+        curNode = curNode->nextNode;
     }
 
-    free(retColSize);
-    for (int i = 0; i < itemCnt; i++) {
-        free(retArray[i]);
+    YzrDLListNode* findNode = YzrDLListFindKey(tmpList, 2);
+    YzrDLListDeleteWithPtr(tmpList, findNode);
+
+    printf("--------------------------\n");
+
+    curNode = tmpList->headNode;
+    while (curNode != NULL) {
+        printf("curNode: %d\n", curNode->key);
+        curNode = curNode->nextNode;
     }
-    free(retArray);
 
-    YZRFreeFixedTwoArray((uint8_t**)inputArrayPtr, itemCnt);
-    // Interval_T inputArray[2] = {{1,4}, {0,4}};
-
-    // qsort(inputArray, 2, sizeof(Interval_T), CompFunc);
-
-    // for (int i = 0; i < 2; i++) {
-    //     printf("%d %d\n", inputArray[i].leftBound, inputArray[i].rightBound);
-    // }
+    YzrDLListFree(tmpList);
 
     return 0;
 }

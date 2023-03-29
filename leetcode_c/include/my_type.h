@@ -85,79 +85,7 @@ void FreeMyQueue(MyQueue_T* queuePtr) {
     return ;
 }
 
-/**
- *********************************************
- ***               for stack
- *********************************************
- */
 
-typedef struct {
-    int* data;
-    int stackTopIdx;
-    int curSize;
-    int capacity;
-} MyStack_T;
-
-MyStack_T* InitMyStack(int capacity) {
-    MyStack_T* stackPtr = (MyStack_T*)calloc(1, sizeof(MyStack_T));
-    stackPtr->data = (int*)calloc(capacity, sizeof(*(stackPtr->data)));
-    stackPtr->stackTopIdx = EMPTY_POS;
-    stackPtr->capacity = capacity;
-    stackPtr->curSize = 0;
-
-    return stackPtr;
-}
-
-bool IsFullMyStack(MyStack_T* stackPtr) {
-    if (stackPtr->stackTopIdx == (stackPtr->capacity - 1)) {
-        return true;
-    }
-    return false;
-}
-
-bool IsEmptyMyStack(MyStack_T* stackPtr) {
-    if (stackPtr->stackTopIdx == EMPTY_POS) {
-        return true;
-    }
-    return false;
-}
-
-void PushMyStack(MyStack_T* stackPtr, int* inVal) {
-    if (IsFullMyStack(stackPtr)) {
-        printf("stack is full.\n");
-        return ;
-    }
-    stackPtr->stackTopIdx++;
-    memcpy(&stackPtr->data[stackPtr->stackTopIdx], inVal, sizeof(*(stackPtr->data)));
-    stackPtr->curSize++;
-    return ;
-}
-
-void PopMyStack(MyStack_T* stackPtr, int* outVal) {
-    if (IsEmptyMyStack(stackPtr)) {
-        printf("stack is empty.\n");
-        return ;
-    }
-
-    memcpy(outVal, &stackPtr->data[stackPtr->stackTopIdx], sizeof(*(stackPtr->data)));
-    stackPtr->stackTopIdx--;
-    stackPtr->curSize--;
-    return ;
-}
-
-int TopMyStack(MyStack_T* stackPtr) {
-    if (IsEmptyMyStack(stackPtr)) {
-        printf("stack is empty.\n");
-        return -1;
-    }
-    return (stackPtr->data[stackPtr->stackTopIdx]);
-}
-
-void FreeMyStack(MyStack_T* stackPtr) {
-    free(stackPtr->data);
-    free(stackPtr);
-    return ;
-}
 
 /**
  *********************************************

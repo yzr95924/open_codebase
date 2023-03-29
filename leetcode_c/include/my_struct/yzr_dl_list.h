@@ -14,12 +14,14 @@
 
 #include "../const.h"
 
-typedef struct {
+struct YzrDLListNode {
     int data;
     int key;
-    YzrDLListNode* nextNode;
-    YzrDLListNode* prevNode;
-} YzrDLListNode;
+    struct YzrDLListNode* nextNode;
+    struct YzrDLListNode* prevNode;
+};
+
+typedef struct YzrDLListNode YzrDLListNode;
 
 typedef struct {
     YzrDLListNode* headNode;
@@ -27,7 +29,7 @@ typedef struct {
     int curSize;
 } YzrDLList;
 
-YzrDLList* YzrDLListCreateList()
+YzrDLList* YzrDLListCreate()
 {
     YzrDLList* newList = NULL;
     newList = (YzrDLList*)calloc(1, sizeof(YzrDLList));
@@ -190,7 +192,7 @@ YzrDLListNode* YzrDLListFindKey(YzrDLList* inputList, int key)
     return curNode;
 }
 
-void YzrDLListDeleteAll(YzrDLList* inputList)
+void YzrDLListFree(YzrDLList* inputList)
 {
     YzrDLListNode* curNode = inputList->headNode;
     YzrDLListNode* delNode = NULL;

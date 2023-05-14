@@ -16,12 +16,21 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <errno.h>
-#include <sys/types.h>
 #include <unistd.h>
 #include <time.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <dirent.h>
 
 #define MAX_READ_BUF_SIZE (4096)
 
+#ifndef RETURN_OK
+#define RETURN_OK 0
+#endif
+
+#ifndef RETURN_ERROR
+#define RETURN_ERROR 1
+#endif
 
 #endif

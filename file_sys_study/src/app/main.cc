@@ -19,10 +19,15 @@ extern "C" {
 }
 #endif
 
-#define CUR_MODULE_NAME "MAIN"
+#define MODULE_NAME "MAIN"
 
 int main(int argc, char* argv[]) {
     /* code */
-    Logging(DEBUG_LOG_LEVEL, CUR_MODULE_NAME, "hello world");
+    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "input src name %s\n", argv[1]);
+    // ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "input dest name %s\n", argv[2]);
+    // Chap2CopyFile(argv[1], argv[2]);
+    // ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "done\n");
+    Chap2LckFile(argv[1]);
+    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "done\n");
     return 0;
 }

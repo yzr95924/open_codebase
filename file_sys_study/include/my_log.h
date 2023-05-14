@@ -30,7 +30,7 @@ typedef enum {
 #define LOG_TIME_BUF_SIZE (64)
 
 #define _FILE strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__
-#define LOG_FMT "[%s][%s][%s][%s:%d:%s][%s]"
+#define LOG_FMT "[%s][%s][%s][%s:%d:%s]: %s"
 #define LOG_ARGS(TIME_BUF, LOG_TAG, MODULE_NAME, FILE_NAME, CUR_LINE_NUM, FUNC_NAME, MSG) \
     TIME_BUF, LOG_TAG, MODULE_NAME, FILE_NAME, CUR_LINE_NUM, FUNC_NAME, MSG
 #define ERROR_LOG_TAG "ERROR"

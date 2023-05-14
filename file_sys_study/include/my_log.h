@@ -30,11 +30,16 @@ typedef enum {
 #define LOG_TIME_BUF_SIZE (64)
 
 #define _FILE strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__
-#define LOG_FMT "%s | %s | %s | %s | %s:%d | %s"
-#define LOG_ARGS(TIME_BUF, LOG_TAG, MODULE_NAME) TIME_BUF, LOG_TAG, MODULE_NAME, _FILE, __FUNCTION__, __LINE__
+#define LOG_FMT "[%s][%s][%s][%s:%d:%s][%s]"
+#define LOG_ARGS(TIME_BUF, LOG_TAG, MODULE_NAME, FILE_NAME, CUR_LINE_NUM, FUNC_NAME, MSG) \
+    TIME_BUF, LOG_TAG, MODULE_NAME, FILE_NAME, CUR_LINE_NUM, FUNC_NAME, MSG
 #define ERROR_LOG_TAG "ERROR"
 #define INFO_LOG_TAG "INFO"
 #define DEBUG_LOG_TAG "DEBUG"
+
+#define ZUORU_LOGGING(logType, logModule, message, args...) \
+    Logging(logType, logModule, _FILE, __LINE__, __FUNCTION__, \
+    message, ##args);
 
 static inline void TimeNow(char *inputBuf)
 {
@@ -49,7 +54,9 @@ static inline void TimeNow(char *inputBuf)
     return;
 }
 
-static inline void Logging(LOG_LEVEL_TYPE_T logType, const char *logModule, const char *fmt, ...)
+static inline void Logging(LOG_LEVEL_TYPE_T logType, const char *logModule,
+    const char *fileName, int curLineNum, const char* funcName,
+    const char *fmt, ...)
 {
     char inputTimeBuf[LOG_TIME_BUF_SIZE] = { 0 };
     char msgBuf[BUFSIZ] = { 0 };
@@ -67,13 +74,16 @@ static inline void Logging(LOG_LEVEL_TYPE_T logType, const char *logModule, cons
         case NO_LOG_LEVEL:
             return;
         case ERROR_LOG_LEVEL:
-            fprintf(stderr, LOG_FMT, LOG_ARGS(inputTimeBuf, ERROR_LOG_TAG, logModule), msgBuf);
+            fprintf(stderr, LOG_FMT, LOG_ARGS(ERROR_LOG_TAG, inputTimeBuf, logModule,
+                fileName, curLineNum, funcName, msgBuf));
             break;
         case INFO_LOG_LEVEL:
-            fprintf(stderr, LOG_FMT, LOG_ARGS(inputTimeBuf, INFO_LOG_TAG, logModule), msgBuf);
+            fprintf(stderr, LOG_FMT, LOG_ARGS(INFO_LOG_TAG, inputTimeBuf, logModule,
+                fileName, curLineNum, funcName, msgBuf));
             break;
         case DEBUG_LOG_LEVEL:
-            fprintf(stderr, LOG_FMT, LOG_ARGS(inputTimeBuf, DEBUG_LOG_TAG, logModule), msgBuf);
+            fprintf(stderr, LOG_FMT, LOG_ARGS(DEBUG_LOG_TAG, inputTimeBuf, logModule,
+                fileName, curLineNum, funcName, msgBuf));
             break;
     }
     return;

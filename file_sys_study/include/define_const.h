@@ -25,6 +25,11 @@
 
 #define MAX_READ_BUF_SIZE (4096)
 
+#define likely(x) __builtin_expect(!!(x), 1)
+#define unlikely(x) __builtin_expect(!!(x), 0)
+
+#define ARRAY_SIZE(x) (sizeof(x) / sizeof(x[0]))
+
 #ifndef RETURN_OK
 #define RETURN_OK 0
 #endif

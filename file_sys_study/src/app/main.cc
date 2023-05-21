@@ -19,15 +19,15 @@ extern "C" {
 }
 #endif
 
+#include <bits/stdc++.h>
+
 #define MODULE_NAME "MAIN"
 
 int main(int argc, char* argv[]) {
     /* code */
     ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "input src name %s\n", argv[1]);
-    // ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "input dest name %s\n", argv[2]);
-    // Chap2CopyFile(argv[1], argv[2]);
-    // ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "done\n");
-    Chap2LckFile(argv[1]);
+    int testArray[4] = {1, 2, 4, 10};
     ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "done\n");
+    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "array size: %lu\n", ARRAY_SIZE(testArray));
     return 0;
 }

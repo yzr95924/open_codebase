@@ -137,8 +137,8 @@ int32_t Chap2LckFile(const char *testFilePath)
 {
     int32_t ret = RETURN_OK;
     struct flock testLock = {
+        .l_type = F_WRLCK,
         .l_whence = SEEK_SET,
-        .l_type = F_WRLCK
     };
 
     int testFileFd = open(testFilePath, O_RDWR);

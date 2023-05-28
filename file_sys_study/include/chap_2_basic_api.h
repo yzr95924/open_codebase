@@ -12,8 +12,9 @@
 #ifndef CHAP_2_BASIC_API_H
 #define CHAP_2_BASIC_API_H
 
-#include "../../common_include/define_const.h"
+#include "../../common_include/c_include.h"
 #include "../../common_include/my_log.h"
+#include "../../common_include/define_const.h"
 
 /**
  * @brief copy file from the src to dest

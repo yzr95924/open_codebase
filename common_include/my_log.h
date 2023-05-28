@@ -15,6 +15,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdarg.h>
 
 typedef enum {
     NO_LOG_LEVEL = 0,

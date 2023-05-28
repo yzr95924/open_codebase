@@ -29,5 +29,6 @@ int main(int argc, char* argv[]) {
     int testArray[4] = {1, 2, 4, 10};
     ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "done\n");
     ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "array size: %lu\n", ARRAY_SIZE(testArray));
+    Chap2ListDir(".");
     return 0;
 }

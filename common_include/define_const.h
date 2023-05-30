@@ -17,6 +17,7 @@
 // length config use MACRO
 #define MAX_READ_BUF_SIZE 4096
 #define CRYPTO_BLOCK_SIZE 16
+#define MAX_HASH_SIZE 32
 
 // unit conversion
 static const uint64_t MiB_2_B = (1ULL << 20);

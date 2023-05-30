@@ -1,8 +1,14 @@
 find_package(Boost)
+find_package(OpenSSL)
 
-if(Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS})
-    link_directories(${Boost_LIBRARY_DIRS})
+if(BOOST_FOUND)
+    include_directories(${BOOST_INCLUDE_DIRS})
+    link_directories(${BOOST_LIBRARY_DIRS})
+endif()
+
+if (OPENSSL_FOUND)
+    include_directories(${OPENSSL_INCLUDE_DIRS})
+    link_directories(${OPENSSL_LIBRARY_DIRS})
 endif()
 
 include_directories(${Boost_INCLUDE_DIRS} ../include)
@@ -23,6 +29,9 @@ set(CMAKE_LINKER "/usr/bin/llvm-ld")
 set(CMAKE_NM "/usr/bin/llvm-nm")
 set(CMAKE_OBJDUMP "/usr/bin/llvm-objdump")
 set(CMAKE_RANLIB "/usr/bin/llvm-ranlib")
+
+set(OPENSSL_LIB ssl crypto)
+list(APPEND THIRD_PARTY_LIB ${OPENSSL_LIB})
 
 add_subdirectory(app)
 add_subdirectory(crypto)

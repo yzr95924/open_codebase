@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
-project(ProjectTemplate)
+project(OPEN_CODEBASE_BENCHMARK_LIB)
 
 #set(CMAKE_BUILD_TYPE "Release")
 set(CMAKE_BUILD_TYPE "Debug")

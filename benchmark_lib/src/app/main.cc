@@ -9,11 +9,26 @@
  *
  */
 
-#include <bits/stdc++.h>
-using namespace std;
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "../../include/basic_io/basic_io_w.h"
+
+#ifdef __cplusplus
+}
+#endif
+
+#define MODULE_ID "MAIN"
+
+extern int g_var;
 
 int main(int argc, char *argv[]) {
     /* code */
-    uint64_t *test = (uint64_t*) malloc(sizeof(uint64_t));
+    PrintGlobalPtr();
+
+    int* outPtr = &g_var;
+    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "out ptr: %p\n", outPtr);
+
     return 0;
 }

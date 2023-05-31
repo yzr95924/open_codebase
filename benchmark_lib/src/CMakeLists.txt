@@ -31,7 +31,9 @@ set(CMAKE_OBJDUMP "/usr/bin/llvm-objdump")
 set(CMAKE_RANLIB "/usr/bin/llvm-ranlib")
 
 set(OPENSSL_LIB ssl crypto)
-list(APPEND THIRD_PARTY_LIB ${OPENSSL_LIB})
+set(SYS_LIB pthread)
+list(APPEND THIRD_PARTY_LIB ${OPENSSL_LIB} ${SYS_LIB})
 
 add_subdirectory(app)
 add_subdirectory(crypto)
+add_subdirectory(basic_io)

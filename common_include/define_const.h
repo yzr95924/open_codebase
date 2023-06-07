@@ -44,4 +44,12 @@ static const char ALPHABET[] = {'a', 'b', 'c', 'd', 'e', 'f',
 #define RETURN_ERROR 1
 #endif
 
+// var status flag
+#ifndef IN
+#define IN
+#endif
+#ifndef OUT
+#define OUT
+#endif
+
 #endif

@@ -29,8 +29,8 @@ typedef struct {
 
 void Usage()
 {
-    fprintf(stderr, "%s -c [cipher type] -h [hash type] "
-        "-t [thread nums] -s [chunk size (KiB)]\n"
+    fprintf(stdout, "%s -c [cipher type] -h [hash type] "
+        "-t [thread num] -s [chunk size (KiB)]\n"
         "-c [cipher type]:\n"
         "\tAES-256-GCM: 0\n"
         "\tAES-128-GCM: 1\n"
@@ -46,6 +46,7 @@ void Usage()
         "\tSHA-256: 0\n"
         "\tMD5: 1\n"
         "\tSHA-1: 2\n", MODULE_ID);
+    return;
 }
 
 void CryptoTestOneThead(INPUT_PARAM_T *in_param, OUTPUT_PARAM_T *out_param)
@@ -86,19 +87,19 @@ void CryptoTestOneThead(INPUT_PARAM_T *in_param, OUTPUT_PARAM_T *out_param)
         enc_chunk_size = crypto_util->EncryptWithKeyIV(cipher_ctx, input_buf,
             chunk_size, key, iv, output_buf);
         gettimeofday(&end_time, NULL);
-        out_param->enc_time += Zuoru_GetTimeDiff(start_time, end_time);
+        out_param->enc_time += ZUORU_GetTimeDiff(start_time, end_time);
 
         gettimeofday(&start_time, NULL);
         crypto_util->GenerateHash(md_ctx, input_buf, chunk_size,
             hash);
         gettimeofday(&end_time, NULL);
-        out_param->hash_time += Zuoru_GetTimeDiff(start_time, end_time);
+        out_param->hash_time += ZUORU_GetTimeDiff(start_time, end_time);
 
         gettimeofday(&start_time, NULL);
         enc_chunk_size = crypto_util->DecryptWithKeyIV(cipher_ctx, output_buf,
             enc_chunk_size, key, iv, tmp_data_buf);
         gettimeofday(&end_time, NULL);
-        out_param->dec_time += Zuoru_GetTimeDiff(start_time, end_time);
+        out_param->dec_time += ZUORU_GetTimeDiff(start_time, end_time);
     }
     close(rand_dev_fd);
 
@@ -296,7 +297,7 @@ int main(int argc, char *argv[])
 
     free(out_param_array);
     ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "total mem usage: %llu (KiB)\n",
-        Zuoru_GetMemUsage());
+        ZUORU_GetMemUsage());
 
     return RETURN_OK;
 }

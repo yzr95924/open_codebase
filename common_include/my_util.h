@@ -19,7 +19,7 @@
 
 #include "define_const.h"
 
-inline double Zuoru_GetTimeDiff(struct timeval start_time, struct timeval end_time)
+inline double ZUORU_GetTimeDiff(struct timeval start_time, struct timeval end_time)
 {
     double total_sec = 0;
     total_sec = static_cast<double>(end_time.tv_sec - start_time.tv_sec) * SEC_2_US +
@@ -28,7 +28,7 @@ inline double Zuoru_GetTimeDiff(struct timeval start_time, struct timeval end_ti
     return total_sec;
 }
 
-inline void Zuoru_PrintBinaryBuf(const uint8_t *buf, size_t buf_size)
+inline void ZUORU_PrintBinaryBuf(const uint8_t *buf, size_t buf_size)
 {
     for (size_t i = 0; i < buf_size; i++) {
         fprintf(stdout, "%02x", buf[i]);
@@ -37,7 +37,7 @@ inline void Zuoru_PrintBinaryBuf(const uint8_t *buf, size_t buf_size)
     return ;
 }
 
-inline uint64_t Zuoru_GetStrongSeed()
+inline uint64_t ZUORU_GetStrongSeed()
 {
     uint64_t a = clock();
     struct timeval currentTime;
@@ -59,7 +59,7 @@ inline uint64_t Zuoru_GetStrongSeed()
     return c;
 }
 
-inline uint64_t Zuoru_GetMemUsage()
+inline uint64_t ZUORU_GetMemUsage()
 {
     const char *stat_file_path = "/proc/self/statm";
     FILE *stat_file_hdl = NULL;
@@ -79,7 +79,7 @@ inline uint64_t Zuoru_GetMemUsage()
     return (total_vmrss_size * page_size_KB);
 }
 
-inline void Zuoru_GenRandomStr(uint8_t *buf, size_t buf_size)
+inline void ZUORU_GenRandomStr(uint8_t *buf, size_t buf_size)
 {
     uint8_t *pos;
     for (size_t idx = 0; idx < buf_size; idx++) {

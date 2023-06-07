@@ -24,5 +24,8 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <getopt.h>
+#include <sys/time.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
 
 #endif

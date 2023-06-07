@@ -34,7 +34,7 @@ inline void ZUORU_PrintBinaryBuf(const uint8_t *buf, size_t buf_size)
         fprintf(stdout, "%02x", buf[i]);
     }
     fprintf(stdout, "\n");
-    return ;
+    return;
 }
 
 inline uint64_t ZUORU_GetStrongSeed()
@@ -86,7 +86,7 @@ inline void ZUORU_GenRandomStr(uint8_t *buf, size_t buf_size)
         pos = buf + idx;
         *pos = (uint8_t)ALPHABET[rand() % sizeof(ALPHABET)];
     }
-    return ;
+    return;
 }
 
 #endif

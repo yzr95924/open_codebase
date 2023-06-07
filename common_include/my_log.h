@@ -38,53 +38,53 @@ typedef enum {
 #define INFO_LOG_TAG "INFO"
 #define DEBUG_LOG_TAG "DEBUG"
 
-#define ZUORU_LOGGING(logType, logModule, message, args...) \
-    Logging(logType, logModule, _FILE, __LINE__, __FUNCTION__, \
+#define ZUORU_LOGGING(log_type, log_module, message, args...) \
+    Logging(log_type, log_module, _FILE, __LINE__, __FUNCTION__, \
     message, ##args);
 
-static inline void TimeNow(char *inputBuf)
+static inline void TimeNow(char *input_buf)
 {
-    time_t rawTime;
-    struct tm *timeInfo;
-    struct tm tmpTime;
+    time_t raw_time;
+    struct tm *time_info;
+    struct tm tmp_time;
 
-    time(&rawTime);
-    timeInfo = localtime_r(&rawTime, &tmpTime);
+    time(&raw_time);
+    time_info = localtime_r(&raw_time, &tmp_time);
 
-    strftime(inputBuf, LOG_TIME_BUF_SIZE, "%Y-%m-%d %H:%M:%S", timeInfo);
+    strftime(input_buf, LOG_TIME_BUF_SIZE, "%Y-%m-%d %H:%M:%S", time_info);
     return;
 }
 
-static inline void Logging(LOG_LEVEL_TYPE_T logType, const char *logModule,
-    const char *fileName, int curLineNum, const char* funcName,
+static inline void Logging(LOG_LEVEL_TYPE_T log_type, const char *log_module,
+    const char *file_name, int cur_line_num, const char* func_name,
     const char *fmt, ...)
 {
-    char inputTimeBuf[LOG_TIME_BUF_SIZE] = { 0 };
-    char msgBuf[BUFSIZ] = { 0 };
-    if (logType > LOG_LEVEL) {
+    char input_time_buf[LOG_TIME_BUF_SIZE] = { 0 };
+    char msg_buf[BUFSIZ] = { 0 };
+    if (log_type > LOG_LEVEL) {
         return;
     }
 
     va_list ap;
     va_start(ap, fmt);
-    vsnprintf(msgBuf, BUFSIZ, fmt, ap);
+    vsnprintf(msg_buf, BUFSIZ, fmt, ap);
     va_end(ap);
 
-    TimeNow(inputTimeBuf);
-    switch (logType) {
+    TimeNow(input_time_buf);
+    switch (log_type) {
         case NO_LOG_LEVEL:
             return;
         case ERROR_LOG_LEVEL:
-            fprintf(stderr, LOG_FMT, LOG_ARGS(ERROR_LOG_TAG, inputTimeBuf, logModule,
-                fileName, curLineNum, funcName, msgBuf));
+            fprintf(stderr, LOG_FMT, LOG_ARGS(ERROR_LOG_TAG, input_time_buf, log_module,
+                file_name, cur_line_num, func_name, msg_buf));
             break;
         case INFO_LOG_LEVEL:
-            fprintf(stderr, LOG_FMT, LOG_ARGS(INFO_LOG_TAG, inputTimeBuf, logModule,
-                fileName, curLineNum, funcName, msgBuf));
+            fprintf(stderr, LOG_FMT, LOG_ARGS(INFO_LOG_TAG, input_time_buf, log_module,
+                file_name, cur_line_num, func_name, msg_buf));
             break;
         case DEBUG_LOG_LEVEL:
-            fprintf(stderr, LOG_FMT, LOG_ARGS(DEBUG_LOG_TAG, inputTimeBuf, logModule,
-                fileName, curLineNum, funcName, msgBuf));
+            fprintf(stderr, LOG_FMT, LOG_ARGS(DEBUG_LOG_TAG, input_time_buf, log_module,
+                file_name, cur_line_num, func_name, msg_buf));
             break;
     }
     return;

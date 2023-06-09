@@ -47,6 +47,7 @@ ZUORU_QUEUE_T* Zuoru_InitQueue(int capacity)
 bool Zuoru_EnQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *inVal)
 {
     if (unlikely(queuePtr->curSize + 1 > queuePtr->capacity)) {
+        fprintf(stderr, "queue is full\n");
         return false;
     }
 
@@ -63,6 +64,7 @@ bool Zuoru_EnQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *inVal)
 bool Zuoru_DeQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *outVal)
 {
     if (unlikely(queuePtr->curSize == 0)) {
+        fprintf(stderr, "queue is empty\n");
         return false;
     }
 
@@ -77,24 +79,107 @@ bool Zuoru_DeQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *outVal)
     return true;
 }
 
-bool Zuoru_IsFullQueue(ZUORU_QUEUE_T *queuePtr) {
+bool Zuoru_IsFullQueue(ZUORU_QUEUE_T *queuePtr)
+{
     if (queuePtr->curSize == queuePtr->capacity) {
         return true;
     }
     return false;
 }
 
-bool Zuoru_IsEmptyQueue(ZUORU_QUEUE_T *queuePtr) {
+bool Zuoru_IsEmptyQueue(ZUORU_QUEUE_T *queuePtr)
+{
     if (queuePtr->curSize == 0) {
         return true;
     }
     return false;
 }
 
-void Zuoru_FreeQueue(ZUORU_QUEUE_T *queuePtr) {
+void Zuoru_FreeQueue(ZUORU_QUEUE_T *queuePtr)
+{
     free(queuePtr->data);
     free(queuePtr);
     return;
+}
+
+/**
+ *********************************************
+ ***               for list
+ *********************************************
+ */
+
+typedef struct {
+    ZUORU_DATA_T *data;
+    int capacity;
+    int curSize;
+} ZUORU_LIST_T;
+
+ZUORU_LIST_T* Zuoru_InitList(int capacity)
+{
+    ZUORU_LIST_T *listPtr = (ZUORU_LIST_T*)calloc(1, sizeof(ZUORU_LIST_T));
+    listPtr->data = (ZUORU_DATA_T*)calloc(capacity, sizeof(ZUORU_DATA_T));
+    listPtr->capacity = 0;
+    listPtr->curSize = 0;
+
+    return listPtr;
+}
+
+bool Zuoru_IsFullList(ZUORU_LIST_T *listPtr)
+{
+    if (listPtr->curSize == listPtr->capacity) {
+        return true;
+    }
+    return false;
+}
+
+bool Zuoru_IsEmptyList(ZUORU_LIST_T *listPtr)
+{
+    if (listPtr->curSize == 0) {
+        return true;
+    }
+    return false;
+}
+
+void Zuoru_FreeList(ZUORU_LIST_T *listPtr)
+{
+    free(listPtr->data);
+    free(listPtr);
+}
+
+bool Zuoru_AppendList(ZUORU_LIST_T *listPtr, ZUORU_DATA_T *inVal)
+{
+    if (Zuoru_IsFullList(listPtr)) {
+        fprintf(stderr, "list is full\n");
+        return false;
+    }
+
+    memcpy(&listPtr->data[listPtr->curSize], inVal, sizeof(ZUORU_DATA_T));
+    listPtr->curSize++;
+
+    return true;
+}
+
+bool Zuoru_InsertList(ZUORU_LIST_T *listPtr, int posIdx, ZUORU_DATA_T *inVal)
+{
+    if (Zuoru_IsFullList(listPtr)) {
+        fprintf(stderr, "list is full\n");
+        return false;
+    }
+
+    if (posIdx > listPtr->curSize) {
+        fprintf(stderr, "list insert pos is invalid, posIdx: %d, curSize%d\n",
+            posIdx, listPtr->curSize);
+        return false;
+    }
+
+    for (size_t idx = listPtr->curSize - 1; idx >= posIdx; idx--) {
+        memcpy(&listPtr->data[idx + 1], &listPtr->data[idx], sizeof(ZUORU_DATA_T));
+    }
+
+    memcpy(&listPtr->data[posIdx], inVal, sizeof(ZUORU_DATA_T));
+    listPtr->curSize++;
+
+    return true;
 }
 
 #endif

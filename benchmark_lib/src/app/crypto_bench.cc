@@ -11,6 +11,7 @@
 
 #include "../../include/crypto/crypto_util.h"
 #include "../../../common_include/my_util.h"
+#include "../../../common_include/c_my_data_struct.h"
 
 #define MODULE_ID "CryptoBench"
 #define TEST_FILE_SIZE ((1ULL << 20) * 512)
@@ -116,6 +117,8 @@ void CryptoTestOneThead(INPUT_PARAM_T *in_param, OUTPUT_PARAM_T *out_param)
 
 int main(int argc, char *argv[])
 {
+    fprintf(stderr, MY_DATA_STRUCT_LOG_FMT "queue is full\n",
+        MY_DATA_STRUCT_LOG_MSG);
     uint64_t chunk_size = 0;
     uint64_t thread_num = 0;
     const char opt_str[] = "c:h:t:s:";

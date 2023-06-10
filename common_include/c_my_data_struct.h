@@ -18,6 +18,15 @@
 
 typedef int ZUORU_DATA_T;
 
+int Zuoru_CompFunc(const void *rawInput1, const void *rawInput2)
+{
+    ZUORU_DATA_T *input1 = (ZUORU_DATA_T*)rawInput1;
+    ZUORU_DATA_T *input2 = (ZUORU_DATA_T*)rawInput2;
+    int ret = *input1 - *input2; // ascend
+
+    return ret;
+}
+
 /**
  *********************************************
  ***               for queue
@@ -118,7 +127,7 @@ ZUORU_LIST_T* Zuoru_InitList(int capacity)
 {
     ZUORU_LIST_T *listPtr = (ZUORU_LIST_T*)calloc(1, sizeof(ZUORU_LIST_T));
     listPtr->data = (ZUORU_DATA_T*)calloc(capacity, sizeof(ZUORU_DATA_T));
-    listPtr->capacity = 0;
+    listPtr->capacity = capacity;
     listPtr->curSize = 0;
 
     return listPtr;
@@ -172,7 +181,7 @@ bool Zuoru_InsertList(ZUORU_LIST_T *listPtr, int posIdx, ZUORU_DATA_T *inVal)
         return false;
     }
 
-    for (size_t idx = listPtr->curSize - 1; idx >= posIdx; idx--) {
+    for (int idx = listPtr->curSize - 1; idx >= posIdx; idx--) {
         memcpy(&listPtr->data[idx + 1], &listPtr->data[idx], sizeof(ZUORU_DATA_T));
     }
 
@@ -181,5 +190,48 @@ bool Zuoru_InsertList(ZUORU_LIST_T *listPtr, int posIdx, ZUORU_DATA_T *inVal)
 
     return true;
 }
+
+bool Zuoru_FindList(ZUORU_LIST_T *listPtr, ZUORU_DATA_T* inVal, int *posIdx)
+{
+    for (int idx = 0; idx < listPtr->curSize; idx++) {
+        if (memcmp(&listPtr->data[idx], inVal, sizeof(ZUORU_DATA_T)) == 0) {
+            *posIdx = idx;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Zuoru_DeleteList(ZUORU_LIST_T *listPtr, int posIdx, ZUORU_DATA_T *delVal)
+{
+    if (Zuoru_IsEmptyList(listPtr)) {
+        fprintf(stderr, "list is empty\n");
+        return false;
+    }
+
+    if (posIdx >= listPtr->curSize) {
+        fprintf(stderr, "list del pos is invalid, posIdx: %d, curSize%d\n",
+            posIdx, listPtr->curSize);
+        return false;
+    }
+
+    memcpy(delVal, &listPtr->data[posIdx], sizeof(ZUORU_DATA_T));
+
+    for (int idx = 0; idx < listPtr->curSize - 1; idx++) {
+        memcpy(&listPtr->data[idx], &listPtr->data[idx + 1],
+            sizeof(ZUORU_DATA_T));
+    }
+
+    listPtr->curSize--;
+    return true;
+}
+
+void Zuoru_SortList(ZUORU_LIST_T *listPtr)
+{
+    qsort(listPtr->data, listPtr->curSize, sizeof(ZUORU_DATA_T), Zuoru_CompFunc);
+    return ;
+}
+
 
 #endif

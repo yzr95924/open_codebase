@@ -1,32 +1,59 @@
-#include "../../include/my_struct/yzr_dl_list.h"
+/**
+ * @file main.c
+ * @author Zuoru YANG (zryang@cse.cuhk.edu.hk)
+ * @brief the main process
+ * @version 0.1
+ * @date 2023-06-11
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
+
+#include "../../../common_include/c_my_data_struct.h"
+#include "../../../common_include/my_log.h"
+
+#define MODULE_ID "LeetCodeMain"
 
 int main(int argc, char* argv[]) {
-    YzrDLList* tmpList = YzrDLListCreate();
-    YzrDLListInsertFirst(tmpList, 1, 1);
-    YzrDLListInsertFirst(tmpList, 2, 2);
-    YzrDLListInsertFirst(tmpList, 3, 3);
+    ZUORU_LIST_T *listPtr = Zuoru_InitList(10);
 
-    YzrDLListInsertLast(tmpList, 4, 4);
-    YzrDLListInsertAfterKey(tmpList, 3, 5, 5);
+    ZUORU_DATA_T val = 1;
+    Zuoru_AppendList(listPtr, &val);
+    val = 2;
+    Zuoru_AppendList(listPtr, &val);
+    val = 5;
+    Zuoru_AppendList(listPtr, &val);
+    val = 1;
+    Zuoru_AppendList(listPtr, &val);
+    val = 4;
+    Zuoru_AppendList(listPtr, &val);
 
-    YzrDLListNode* curNode = tmpList->headNode;
-    while (curNode != NULL) {
-        printf("curNode: %d\n", curNode->key);
-        curNode = curNode->nextNode;
+    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "after init\n");
+    for (int idx = 0; idx < listPtr->curSize; idx++) {
+        fprintf(stderr, "%d ", listPtr->data[idx]);
     }
+    fprintf(stderr, "\n");
 
-    YzrDLListNode* findNode = YzrDLListFindKey(tmpList, 2);
-    YzrDLListDeleteWithPtr(tmpList, findNode);
-
-    printf("--------------------------\n");
-
-    curNode = tmpList->headNode;
-    while (curNode != NULL) {
-        printf("curNode: %d\n", curNode->key);
-        curNode = curNode->nextNode;
+    Zuoru_SortList(listPtr);
+    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "after sort\n");
+    for (int idx = 0; idx < listPtr->curSize; idx++) {
+        fprintf(stderr, "%d ", listPtr->data[idx]);
     }
+    fprintf(stderr, "\n");
 
-    YzrDLListFree(tmpList);
+    val = 100;
+    Zuoru_InsertList(listPtr, 1, &val);
+    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "after insert\n");
+    for (int idx = 0; idx < listPtr->curSize; idx++) {
+        fprintf(stderr, "%d ", listPtr->data[idx]);
+    }
+    fprintf(stderr, "\n");
+
+    int posIdx;
+    if (Zuoru_FindList(listPtr, &val, &posIdx)) {
+        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "find ret: %d\n",
+            posIdx);
+    }
 
     return 0;
 }

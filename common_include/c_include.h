@@ -27,5 +27,7 @@
 #include <sys/time.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <math.h>
+#include <stdbool.h>
 
 #endif

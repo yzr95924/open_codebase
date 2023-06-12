@@ -10,6 +10,7 @@
  */
 
 #ifndef MY_DATA_STRUCT_H
+#define MY_DATA_STRUCT_H
 
 #include "define_const.h"
 #include "c_include.h"
@@ -403,6 +404,28 @@ ZUORU_DL_LIST_NODE_T* Zuoru_InsertTailDLList(ZUORU_DL_LIST_T *dlListPtr, ZUORU_D
     return newNode;
 }
 
+ZUORU_DL_LIST_NODE_T* Zuoru_InsertAfterNodeDLList(ZUORU_DL_LIST_T *dlListPtr, ZUORU_DL_LIST_NODE_T *targetNode,
+    ZUORU_DL_LIST_NODE_T *inVal)
+{
+    ZUORU_DL_LIST_NODE_T *newNode = (ZUORU_DL_LIST_NODE_T*)calloc(1, sizeof(ZUORU_DL_LIST_NODE_T));
+    memcpy(newNode, inVal, sizeof(ZUORU_DL_LIST_NODE_T));
+    newNode->next = NULL;
+    newNode->prev = NULL;
+
+    if (targetNode == dlListPtr->tail) {
+        newNode->next = NULL;
+        dlListPtr->tail = newNode;
+    } else {
+        newNode->next = targetNode->next;
+        targetNode->next->prev = newNode;
+    }
+
+    newNode->prev = targetNode;
+    targetNode->next = newNode;
+    dlListPtr->curSize++;
+    return newNode;
+}
+
 bool Zuoru_FindDLList(ZUORU_DL_LIST_T *dlListPtr, ZUORU_DATA_T *inVal, ZUORU_DL_LIST_NODE_T *findNode)
 {
     ZUORU_DL_LIST_NODE_T *curNode = dlListPtr->head;
@@ -420,6 +443,29 @@ bool Zuoru_FindDLList(ZUORU_DL_LIST_T *dlListPtr, ZUORU_DATA_T *inVal, ZUORU_DL_
     }
 
     memcpy(findNode, curNode, sizeof(ZUORU_DATA_T));
+    return true;
+}
+
+bool Zuoru_DelDLListWithPtr(ZUORU_DL_LIST_T *dlListPtr, ZUORU_DL_LIST_NODE_T *targetNode)
+{
+    if (dlListPtr->curSize == 0) {
+        return false;
+    }
+
+    if (targetNode == dlListPtr->head) {
+        dlListPtr->head = targetNode->next;
+    } else {
+        targetNode->prev->next = targetNode->next;
+    }
+
+    if (targetNode == dlListPtr->tail) {
+        dlListPtr->tail = targetNode->prev;
+    } else {
+        targetNode->next->prev = targetNode->prev;
+    }
+
+    dlListPtr->curSize--;
+    free(targetNode);
     return true;
 }
 

@@ -10,50 +10,27 @@
  */
 
 #include "../../../common_include/c_my_data_struct.h"
+#include "../../../common_include/c_my_hash.h"
 #include "../../../common_include/my_log.h"
 
 #define MODULE_ID "LeetCodeMain"
 
 int main(int argc, char* argv[]) {
-    ZUORU_ARR_LIST_T *listPtr = Zuoru_InitArrList(10);
+    ZUORU_HASH_TBL_INT_ITEM_H **hashTblPtr = NULL;
+    hashTblPtr = Zuoru_InitIntHashTbl();
+    ZUORU_HASH_TBL_INT_ITEM_H *tmpItem;
 
-    ZUORU_DATA_T val = 1;
-    Zuoru_AppendArrList(listPtr, &val);
-    val = 2;
-    Zuoru_AppendArrList(listPtr, &val);
-    val = 5;
-    Zuoru_AppendArrList(listPtr, &val);
-    val = 1;
-    Zuoru_AppendArrList(listPtr, &val);
-    val = 4;
-    Zuoru_AppendArrList(listPtr, &val);
+    ZUORU_DATA_T testVal = 1;
+    Zuoru_InsertIntHashTbl(hashTblPtr, 1, &testVal);
+    testVal = 2;
+    Zuoru_InsertIntHashTbl(hashTblPtr, 2, &testVal);
 
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "after init\n");
-    for (int idx = 0; idx < listPtr->curSize; idx++) {
-        fprintf(stderr, "%d ", listPtr->data[idx]);
+    if (Zuoru_FindIntHashTbl(hashTblPtr, 1, &tmpItem)) {
+        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "find the key, val: %d\n",
+            tmpItem->hashVal);
     }
-    fprintf(stderr, "\n");
 
-    Zuoru_SortArrList(listPtr);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "after sort\n");
-    for (int idx = 0; idx < listPtr->curSize; idx++) {
-        fprintf(stderr, "%d ", listPtr->data[idx]);
-    }
-    fprintf(stderr, "\n");
-
-    val = 100;
-    Zuoru_InsertArrList(listPtr, 1, &val);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "after insert\n");
-    for (int idx = 0; idx < listPtr->curSize; idx++) {
-        fprintf(stderr, "%d ", listPtr->data[idx]);
-    }
-    fprintf(stderr, "\n");
-
-    int posIdx;
-    if (Zuoru_FindArrList(listPtr, &val, &posIdx)) {
-        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "find ret: %d\n",
-            posIdx);
-    }
+    Zuoru_FreeIntHashTbl(hashTblPtr);
 
     return 0;
 }

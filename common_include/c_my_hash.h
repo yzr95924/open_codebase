@@ -52,7 +52,8 @@ ZUORU_HASH_TBL_INT_ITEM_H** Zuoru_InitIntHashTbl()
     return hashTblPtr;
 }
 
-void Zuoru_InsertIntHashTbl(ZUORU_HASH_TBL_INT_ITEM_H **hashTblPtr, int key, ZUORU_HASH_DATA_T *inVal)
+ZUORU_HASH_TBL_INT_ITEM_H* Zuoru_InsertIntHashTbl(ZUORU_HASH_TBL_INT_ITEM_H **hashTblPtr,
+    int key, ZUORU_HASH_DATA_T *inVal)
 {
     ZUORU_HASH_TBL_INT_ITEM_H *tmpHashItem;
 
@@ -63,7 +64,7 @@ void Zuoru_InsertIntHashTbl(ZUORU_HASH_TBL_INT_ITEM_H **hashTblPtr, int key, ZUO
         HASH_ADD_INT(*hashTblPtr, hashKey, tmpHashItem);
     }
     memcpy(&tmpHashItem->hashVal, inVal, sizeof(ZUORU_HASH_DATA_T));
-    return;
+    return tmpHashItem;
 }
 
 bool Zuoru_FindIntHashTbl(ZUORU_HASH_TBL_INT_ITEM_H **hashTblPtr, int key,

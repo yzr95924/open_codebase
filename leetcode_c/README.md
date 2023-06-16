@@ -71,3 +71,6 @@ Question List (in C)
 139. 单词拆分 [ans](./include/bfs/word_break.h)[medium]
 815. 公交路线 [ans](./include/bfs/bus_routes.h)[hard]
 934. 最短的桥 [ans](./include/bfs/shortest_bridge.h)[medium]
+
+## 系统应用
+146. LRU 缓存 [ans](./src/app_sys/lru_cache.c)[medium]

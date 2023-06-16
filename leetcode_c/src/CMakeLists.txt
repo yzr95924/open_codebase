@@ -17,4 +17,5 @@ set(CMAKE_NM "/usr/bin/llvm-nm")
 set(CMAKE_OBJDUMP "/usr/bin/llvm-objdump")
 set(CMAKE_RANLIB "/usr/bin/llvm-ranlib")
 
-add_subdirectory(app)
+add_subdirectory(main)
+add_subdirectory(app_sys)

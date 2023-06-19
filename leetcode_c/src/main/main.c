@@ -11,24 +11,15 @@
 
 #include "../../../common_include/my_log.h"
 #include "../../include/app_sys.h"
+#include "../../include/math_q.h"
 
 #define MODULE_ID "LeetCodeMain"
 
 int main(int argc, char* argv[]) {
-    LRUCache *lruCacheObj = lRUCacheCreate(2);
 
-    lRUCachePut(lruCacheObj, 2, 1);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "insert [2,1]\n");
-    lRUCachePut(lruCacheObj, 1, 1);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "insert [1,1]\n");
-    lRUCachePut(lruCacheObj, 2, 3);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "insert [2,3]\n");
-    lRUCachePut(lruCacheObj, 4, 1);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "insert [4,1]\n");
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "get value 1: %d\n", lRUCacheGet(lruCacheObj, 1));
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "get value 2: %d\n", lRUCacheGet(lruCacheObj, 2));
+    int testNum = 121;
 
-    lRUCacheFree(lruCacheObj);
+    printf("test num: %d\n", isPalindrome(testNum));
 
     return 0;
 }

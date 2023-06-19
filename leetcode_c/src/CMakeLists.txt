@@ -19,3 +19,4 @@ set(CMAKE_RANLIB "/usr/bin/llvm-ranlib")
 
 add_subdirectory(main)
 add_subdirectory(app_sys)
+add_subdirectory(math)

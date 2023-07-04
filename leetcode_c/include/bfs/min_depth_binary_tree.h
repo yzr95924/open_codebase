@@ -56,7 +56,7 @@ void EnMyQueue(MyQueue_T* queuePtr, TreeNode* inVal) {
 }
 
 void DeMyQueue(MyQueue_T* queuePtr, TreeNode* outVal) {
-    mempcpy(outVal, &queuePtr->data[queuePtr->head], sizeof(TreeNode));
+    memcpy(outVal, &queuePtr->data[queuePtr->head], sizeof(TreeNode));
     if (queuePtr->head == queuePtr->rear) {
         queuePtr->rear = EMPTY_POS;
         queuePtr->head = EMPTY_POS;

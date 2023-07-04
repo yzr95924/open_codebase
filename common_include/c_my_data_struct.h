@@ -56,7 +56,7 @@ ZUORU_QUEUE_T* Zuoru_InitQueue(int capacity)
 
 bool Zuoru_EnQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *inVal)
 {
-    if (unlikely(queuePtr->curSize + 1 > queuePtr->capacity)) {
+    if (queuePtr->curSize + 1 > queuePtr->capacity) {
         fprintf(stderr, "queue is full\n");
         return false;
     }
@@ -73,7 +73,7 @@ bool Zuoru_EnQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *inVal)
 
 bool Zuoru_DeQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *outVal)
 {
-    if (unlikely(queuePtr->curSize == 0)) {
+    if (queuePtr->curSize == 0) {
         fprintf(stderr, "queue is empty\n");
         return false;
     }

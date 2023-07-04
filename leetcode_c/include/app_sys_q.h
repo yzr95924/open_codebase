@@ -1,7 +1,7 @@
 /**
- * @file app_sys.h
+ * @file app_sys_q.h
  * @author Zuoru YANG (zryang@cse.cuhk.edu.hk)
- * @brief some questions about application systems
+ * @brief the question set about application systems
  * @version 0.1
  * @date 2023-06-14
  *
@@ -10,8 +10,8 @@
  */
 
 
-#ifndef LEETCODE_C_APP_SYS_H
-#define LEETCODE_C_APP_SYS_H
+#ifndef LEETCODE_C_APP_SYS_Q_H
+#define LEETCODE_C_APP_SYS_Q_H
 
 #include "../../common_include/c_include.h"
 

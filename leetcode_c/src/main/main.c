@@ -10,7 +10,7 @@
  */
 
 #include "../../../common_include/my_log.h"
-#include "../../include/app_sys.h"
+#include "../../include/app_sys_q.h"
 #include "../../include/math_q.h"
 
 #define MODULE_ID "LeetCodeMain"

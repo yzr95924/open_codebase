@@ -64,6 +64,7 @@ Question List (in C)
 4. 寻找两个正序数组的中位数 [ans](./include/math/median_two_sorted_array.h)[hard]
 7. 整数反转 [ans](./include/math/reverse_integer.h)[medium]
 9. 回文数 [ans](./src/math/palindrome_num.c)[easy]
+13. 罗马数字转整数 [ans](./src/math/roman_2_int.c)[easy]
 1089. 复写零 [ans](./include/math/duplicate_zeros.h)[easy]
 
 ## BFS

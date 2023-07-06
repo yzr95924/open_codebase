@@ -1,9 +1,9 @@
 /**
- * @file min_depth_bin_tree.c
+ * @file level_order_trav.c
  * @author Zuoru YANG (zryang@cse.cuhk.edu.hk)
- * @brief https://leetcode.cn/problems/minimum-depth-of-binary-tree/
+ * @brief https://leetcode.cn/problems/binary-tree-level-order-traversal/description/
  * @version 0.1
- * @date 2023-07-05
+ * @date 2023-07-06
  *
  * @copyright Copyright (c) 2023
  *
@@ -93,25 +93,48 @@ void Zuoru_FreeQueue(ZUORU_QUEUE_T *queuePtr)
     return;
 }
 
-int minDepth(struct TreeNode* root)
+/**
+ * @brief Binary Tree Level Order Traversal
+ *
+ * @param root root ptr
+ * @param returnSize return array
+ * @param returnColumnSizes
+ * @return int**
+ */
+int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes)
 {
+    int **retArr = NULL;
+    int maxLevelNodeNum = 2000 / 2;
+    int maxLevel = 2000;
+    *returnSize = 0;
+    int curLevel = 0;
+    int curLevelIdx = 0;
+
     if (root == NULL) {
-        return 0;
+        return NULL;
     }
 
-    ZUORU_QUEUE_T *myQueuePtr = Zuoru_InitQueue(100000);
+    retArr = (int**)calloc(maxLevel, sizeof(int*));
+    for (int idx = 0; idx < maxLevel; idx++) {
+        retArr[idx] = (int*)calloc(maxLevelNodeNum, sizeof(int));
+    }
+    *returnColumnSizes = (int*)calloc(maxLevel, sizeof(int));
+
+    ZUORU_QUEUE_T *myQueuePtr = Zuoru_InitQueue(maxLevel);
     Zuoru_EnQueue(myQueuePtr, root);
-    int depth = 1;
 
     struct TreeNode tmpTreeNode;
-    while (!Zuoru_IsEmptyQueue(myQueuePtr)) {
+    while(!Zuoru_IsEmptyQueue(myQueuePtr)) {
         int curQueueSize = myQueuePtr->curSize;
 
         for (int idx = 0; idx < curQueueSize; idx++) {
             Zuoru_DeQueue(myQueuePtr, &tmpTreeNode);
+            (*returnColumnSizes)[curLevel]++;
+            retArr[curLevel][curLevelIdx] = tmpTreeNode.val;
+            curLevelIdx++;
+
             if (tmpTreeNode.left == NULL && tmpTreeNode.right == NULL) {
-                Zuoru_FreeQueue(myQueuePtr);
-                return depth;
+                continue;
             }
             if (tmpTreeNode.left != NULL) {
                 Zuoru_EnQueue(myQueuePtr, tmpTreeNode.left);
@@ -120,9 +143,12 @@ int minDepth(struct TreeNode* root)
                 Zuoru_EnQueue(myQueuePtr, tmpTreeNode.right);
             }
         }
-        depth++;
+        curLevel++;
+        curLevelIdx = 0;
+        (*returnSize)++;
     }
 
     Zuoru_FreeQueue(myQueuePtr);
-    return depth;
+
+    return retArr;
 }

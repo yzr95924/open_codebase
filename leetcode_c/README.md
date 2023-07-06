@@ -68,11 +68,12 @@ Question List (in C)
 1089. 复写零 [ans](./include/math/duplicate_zeros.h)[easy]
 
 ## BFS
-111. 二叉树的最小深度 [ans](./include/bfs/min_depth_binary_tree.h)[easy]
+102. 二叉树的层序遍历 [ans](./src/bfs_q/level_order_trav.c)[medium]
+111. 二叉树的最小深度 [ans](./src/bfs_q/min_depth_bin_tree.c)[easy]
 127. 单词接龙 [ans](./include/bfs/word_ladder.h)[hard]
 139. 单词拆分 [ans](./include/bfs/word_break.h)[medium]
 815. 公交路线 [ans](./include/bfs/bus_routes.h)[hard]
 934. 最短的桥 [ans](./include/bfs/shortest_bridge.h)[medium]
 
 ## 系统应用
-146. LRU 缓存 [ans](./src/app_sys/lru_cache.c)[medium]
+146. LRU 缓存 [ans](./src/app_sys_q/lru_cache.c)[medium]

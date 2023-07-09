@@ -16,7 +16,6 @@
 #include "c_include.h"
 
 #define MY_DATA_STRUCT_EMPTY_POS -1
-
 typedef int ZUORU_DATA_T;
 
 int Zuoru_CompFunc(const void *rawInput1, const void *rawInput2)

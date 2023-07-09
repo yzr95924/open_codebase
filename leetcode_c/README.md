@@ -47,7 +47,7 @@ Question List (in C)
 113. 路径总和 II [ans](./include/backtrack/path_sum_2.h)[medium]
 
 ## 栈
-678. 有效的括号字符串 [ans](./include/stack/valid_paren_str.h)[medium]
+678. 有效的括号字符串 [ans](./src/stack_q/valid_paren_str.c)[medium]
 
 ## 单调栈
 84. 柱状图中最大的矩形 [ans](./include/array/largest_rectangle_his.h)[medium]

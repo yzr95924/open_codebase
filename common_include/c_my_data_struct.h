@@ -15,13 +15,13 @@
 #include "define_const.h"
 #include "c_include.h"
 
-#define MY_DATA_STRUCT_EMPTY_POS -1
-typedef int ZUORU_DATA_T;
+#define MY_DATA_STRUCT_EMPTY_POS (-1)
+typedef int Zuoru_Data;
 
-int Zuoru_CompFunc(const void *rawInput1, const void *rawInput2)
+int ZuoruCompFunc(const void *rawInput1, const void *rawInput2)
 {
-    ZUORU_DATA_T *input1 = (ZUORU_DATA_T*)rawInput1;
-    ZUORU_DATA_T *input2 = (ZUORU_DATA_T*)rawInput2;
+    Zuoru_Data *input1 = (Zuoru_Data*)rawInput1;
+    Zuoru_Data *input2 = (Zuoru_Data*)rawInput2;
     int ret = *input1 - *input2; // ascend
 
     return ret;
@@ -34,17 +34,17 @@ int Zuoru_CompFunc(const void *rawInput1, const void *rawInput2)
  */
 
 typedef struct {
-    ZUORU_DATA_T *data;
+    Zuoru_Data *data;
     int head;
     int rear;
     int capacity;
     int curSize;
-} ZUORU_QUEUE_T;
+} Zuoru_Queue;
 
-ZUORU_QUEUE_T* Zuoru_InitQueue(int capacity)
+Zuoru_Queue* ZuoruInitQueue(int capacity)
 {
-    ZUORU_QUEUE_T *queuePtr = (ZUORU_QUEUE_T*)calloc(1, sizeof(ZUORU_QUEUE_T));
-    queuePtr->data = (ZUORU_DATA_T*)calloc(capacity, sizeof(ZUORU_DATA_T));
+    Zuoru_Queue *queuePtr = (Zuoru_Queue*)calloc(1, sizeof(Zuoru_Queue));
+    queuePtr->data = (Zuoru_Data*)calloc(capacity, sizeof(Zuoru_Data));
     queuePtr->head = MY_DATA_STRUCT_EMPTY_POS;
     queuePtr->rear = MY_DATA_STRUCT_EMPTY_POS;
     queuePtr->capacity = capacity;
@@ -53,7 +53,7 @@ ZUORU_QUEUE_T* Zuoru_InitQueue(int capacity)
     return queuePtr;
 }
 
-bool Zuoru_EnQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *inVal)
+bool ZuoruEnQueue(Zuoru_Queue *queuePtr, Zuoru_Data *inVal)
 {
     if (queuePtr->curSize + 1 > queuePtr->capacity) {
         fprintf(stderr, "queue is full\n");
@@ -64,20 +64,20 @@ bool Zuoru_EnQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *inVal)
         queuePtr->head = 0;
     }
     queuePtr->rear = (queuePtr->rear + 1) % queuePtr->capacity;
-    memcpy(&queuePtr->data[queuePtr->rear], inVal, sizeof(ZUORU_DATA_T));
+    memcpy(&queuePtr->data[queuePtr->rear], inVal, sizeof(Zuoru_Data));
 
     queuePtr->curSize++;
     return true;
 }
 
-bool Zuoru_DeQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *outVal)
+bool ZuoruDeQueue(Zuoru_Queue *queuePtr, Zuoru_Data *outVal)
 {
     if (queuePtr->curSize == 0) {
         fprintf(stderr, "queue is empty\n");
         return false;
     }
 
-    memcpy(outVal, &queuePtr->data[queuePtr->head], sizeof(ZUORU_DATA_T));
+    memcpy(outVal, &queuePtr->data[queuePtr->head], sizeof(Zuoru_Data));
     if (queuePtr->head == queuePtr->rear) {
         queuePtr->rear = MY_DATA_STRUCT_EMPTY_POS;
         queuePtr->head = MY_DATA_STRUCT_EMPTY_POS;
@@ -88,7 +88,7 @@ bool Zuoru_DeQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *outVal)
     return true;
 }
 
-bool Zuoru_IsFullQueue(ZUORU_QUEUE_T *queuePtr)
+bool ZuoruIsFullQueue(Zuoru_Queue *queuePtr)
 {
     if (queuePtr->curSize == queuePtr->capacity) {
         return true;
@@ -96,7 +96,7 @@ bool Zuoru_IsFullQueue(ZUORU_QUEUE_T *queuePtr)
     return false;
 }
 
-bool Zuoru_IsEmptyQueue(ZUORU_QUEUE_T *queuePtr)
+bool ZuoruIsEmptyQueue(Zuoru_Queue *queuePtr)
 {
     if (queuePtr->curSize == 0) {
         return true;
@@ -104,7 +104,7 @@ bool Zuoru_IsEmptyQueue(ZUORU_QUEUE_T *queuePtr)
     return false;
 }
 
-void Zuoru_FreeQueue(ZUORU_QUEUE_T *queuePtr)
+void ZuoruFreeQueue(Zuoru_Queue *queuePtr)
 {
     free(queuePtr->data);
     free(queuePtr);
@@ -118,22 +118,22 @@ void Zuoru_FreeQueue(ZUORU_QUEUE_T *queuePtr)
  */
 
 typedef struct {
-    ZUORU_DATA_T *data;
+    Zuoru_Data *data;
     int capacity;
     int curSize;
-} ZUORU_ARR_LIST_T;
+} Zuoru_ArrList;
 
-ZUORU_ARR_LIST_T* Zuoru_InitArrList(int capacity)
+Zuoru_ArrList* ZuoruInitArrList(int capacity)
 {
-    ZUORU_ARR_LIST_T *arrListPtr = (ZUORU_ARR_LIST_T*)calloc(1, sizeof(ZUORU_ARR_LIST_T));
-    arrListPtr->data = (ZUORU_DATA_T*)calloc(capacity, sizeof(ZUORU_DATA_T));
+    Zuoru_ArrList *arrListPtr = (Zuoru_ArrList*)calloc(1, sizeof(Zuoru_ArrList));
+    arrListPtr->data = (Zuoru_Data*)calloc(capacity, sizeof(Zuoru_Data));
     arrListPtr->capacity = capacity;
     arrListPtr->curSize = 0;
 
     return arrListPtr;
 }
 
-bool Zuoru_IsFullArrList(ZUORU_ARR_LIST_T *arrListPtr)
+bool ZuoruIsFullArrList(Zuoru_ArrList *arrListPtr)
 {
     if (arrListPtr->curSize == arrListPtr->capacity) {
         return true;
@@ -141,7 +141,7 @@ bool Zuoru_IsFullArrList(ZUORU_ARR_LIST_T *arrListPtr)
     return false;
 }
 
-bool Zuoru_IsEmptyArrList(ZUORU_ARR_LIST_T *arrListPtr)
+bool ZuoruIsEmptyArrList(Zuoru_ArrList *arrListPtr)
 {
     if (arrListPtr->curSize == 0) {
         return true;
@@ -149,28 +149,28 @@ bool Zuoru_IsEmptyArrList(ZUORU_ARR_LIST_T *arrListPtr)
     return false;
 }
 
-void Zuoru_FreeArrList(ZUORU_ARR_LIST_T *arrListPtr)
+void ZuoruFreeArrList(Zuoru_ArrList *arrListPtr)
 {
     free(arrListPtr->data);
     free(arrListPtr);
 }
 
-bool Zuoru_AppendArrList(ZUORU_ARR_LIST_T *arrListPtr, ZUORU_DATA_T *inVal)
+bool ZuoruAppendArrList(Zuoru_ArrList *arrListPtr, Zuoru_Data *inVal)
 {
-    if (Zuoru_IsFullArrList(arrListPtr)) {
+    if (ZuoruIsFullArrList(arrListPtr)) {
         fprintf(stderr, "list is full\n");
         return false;
     }
 
-    memcpy(&arrListPtr->data[arrListPtr->curSize], inVal, sizeof(ZUORU_DATA_T));
+    memcpy(&arrListPtr->data[arrListPtr->curSize], inVal, sizeof(Zuoru_Data));
     arrListPtr->curSize++;
 
     return true;
 }
 
-bool Zuoru_InsertArrList(ZUORU_ARR_LIST_T *arrListPtr, int posIdx, ZUORU_DATA_T *inVal)
+bool ZuoruInsertArrList(Zuoru_ArrList *arrListPtr, int posIdx, Zuoru_Data *inVal)
 {
-    if (Zuoru_IsFullArrList(arrListPtr)) {
+    if (ZuoruIsFullArrList(arrListPtr)) {
         fprintf(stderr, "list is full\n");
         return false;
     }
@@ -182,19 +182,19 @@ bool Zuoru_InsertArrList(ZUORU_ARR_LIST_T *arrListPtr, int posIdx, ZUORU_DATA_T 
     }
 
     for (int idx = arrListPtr->curSize - 1; idx >= posIdx; idx--) {
-        memcpy(&arrListPtr->data[idx + 1], &arrListPtr->data[idx], sizeof(ZUORU_DATA_T));
+        memcpy(&arrListPtr->data[idx + 1], &arrListPtr->data[idx], sizeof(Zuoru_Data));
     }
 
-    memcpy(&arrListPtr->data[posIdx], inVal, sizeof(ZUORU_DATA_T));
+    memcpy(&arrListPtr->data[posIdx], inVal, sizeof(Zuoru_Data));
     arrListPtr->curSize++;
 
     return true;
 }
 
-bool Zuoru_FindArrList(ZUORU_ARR_LIST_T *arrListPtr, ZUORU_DATA_T* inVal, int *posIdx)
+bool ZuoruFindArrList(Zuoru_ArrList *arrListPtr, Zuoru_Data* inVal, int *posIdx)
 {
     for (int idx = 0; idx < arrListPtr->curSize; idx++) {
-        if (memcmp(&arrListPtr->data[idx], inVal, sizeof(ZUORU_DATA_T)) == 0) {
+        if (memcmp(&arrListPtr->data[idx], inVal, sizeof(Zuoru_Data)) == 0) {
             *posIdx = idx;
             return true;
         }
@@ -203,9 +203,9 @@ bool Zuoru_FindArrList(ZUORU_ARR_LIST_T *arrListPtr, ZUORU_DATA_T* inVal, int *p
     return false;
 }
 
-bool Zuoru_DeleteArrList(ZUORU_ARR_LIST_T *arrListPtr, int posIdx, ZUORU_DATA_T *delVal)
+bool ZuoruDeleteArrList(Zuoru_ArrList *arrListPtr, int posIdx, Zuoru_Data *delVal)
 {
-    if (Zuoru_IsEmptyArrList(arrListPtr)) {
+    if (ZuoruIsEmptyArrList(arrListPtr)) {
         fprintf(stderr, "list is empty\n");
         return false;
     }
@@ -216,20 +216,20 @@ bool Zuoru_DeleteArrList(ZUORU_ARR_LIST_T *arrListPtr, int posIdx, ZUORU_DATA_T 
         return false;
     }
 
-    memcpy(delVal, &arrListPtr->data[posIdx], sizeof(ZUORU_DATA_T));
+    memcpy(delVal, &arrListPtr->data[posIdx], sizeof(Zuoru_Data));
 
     for (int idx = 0; idx < arrListPtr->curSize - 1; idx++) {
         memcpy(&arrListPtr->data[idx], &arrListPtr->data[idx + 1],
-            sizeof(ZUORU_DATA_T));
+            sizeof(Zuoru_Data));
     }
 
     arrListPtr->curSize--;
     return true;
 }
 
-void Zuoru_SortArrList(ZUORU_ARR_LIST_T *arrListPtr)
+void ZuoruSortArrList(Zuoru_ArrList *arrListPtr)
 {
-    qsort(arrListPtr->data, arrListPtr->curSize, sizeof(ZUORU_DATA_T), Zuoru_CompFunc);
+    qsort(arrListPtr->data, arrListPtr->curSize, sizeof(Zuoru_Data), ZuoruCompFunc);
     return;
 }
 
@@ -240,16 +240,16 @@ void Zuoru_SortArrList(ZUORU_ARR_LIST_T *arrListPtr)
  */
 
 typedef struct {
-    ZUORU_DATA_T *data;
+    Zuoru_Data *data;
     int stackTopIdx;
     int curSize;
     int capacity;
-} ZUORU_STACK_T;
+} Zuoru_Stack;
 
-ZUORU_STACK_T* Zuoru_InitStack(int capacity)
+Zuoru_Stack* ZuoruInitStack(int capacity)
 {
-    ZUORU_STACK_T *stackPtr = (ZUORU_STACK_T*)calloc(1, sizeof(ZUORU_STACK_T));
-    stackPtr->data = (ZUORU_DATA_T*)calloc(capacity, sizeof(ZUORU_DATA_T));
+    Zuoru_Stack *stackPtr = (Zuoru_Stack*)calloc(1, sizeof(Zuoru_Stack));
+    stackPtr->data = (Zuoru_Data*)calloc(capacity, sizeof(Zuoru_Data));
     stackPtr->stackTopIdx = MY_DATA_STRUCT_EMPTY_POS;
     stackPtr->capacity = capacity;
     stackPtr->curSize = 0;
@@ -257,14 +257,14 @@ ZUORU_STACK_T* Zuoru_InitStack(int capacity)
     return stackPtr;
 }
 
-void Zuoru_FreeStack(ZUORU_STACK_T *stackPtr)
+void ZuoruFreeStack(Zuoru_Stack *stackPtr)
 {
     free(stackPtr->data);
     free(stackPtr);
     return;
 }
 
-bool Zuoru_IsFullStack(ZUORU_STACK_T *stackPtr)
+bool ZuoruIsFullStack(Zuoru_Stack *stackPtr)
 {
     if (stackPtr->stackTopIdx == (stackPtr->capacity - 1)) {
         return true;
@@ -272,7 +272,7 @@ bool Zuoru_IsFullStack(ZUORU_STACK_T *stackPtr)
     return false;
 }
 
-bool Zuoru_IsEmptyStack(ZUORU_STACK_T *stackPtr)
+bool ZuoruIsEmptyStack(Zuoru_Stack *stackPtr)
 {
     if (stackPtr->stackTopIdx == MY_DATA_STRUCT_EMPTY_POS) {
         return true;
@@ -280,41 +280,41 @@ bool Zuoru_IsEmptyStack(ZUORU_STACK_T *stackPtr)
     return false;
 }
 
-bool Zuoru_PushStack(ZUORU_STACK_T *stackPtr, ZUORU_DATA_T *inVal)
+bool ZuoruPushStack(Zuoru_Stack *stackPtr, Zuoru_Data *inVal)
 {
-    if (Zuoru_IsFullStack(stackPtr)) {
+    if (ZuoruIsFullStack(stackPtr)) {
         fprintf(stderr, "stack is full\n");
         return false;
     }
     stackPtr->stackTopIdx++;
     memcpy(&stackPtr->data[stackPtr->stackTopIdx], inVal,
-        sizeof(ZUORU_DATA_T));
+        sizeof(Zuoru_Data));
     stackPtr->curSize++;
     return true;
 }
 
-bool Zuoru_PopStack(ZUORU_STACK_T *stackPtr, ZUORU_DATA_T *outVal)
+bool ZuoruPopStack(Zuoru_Stack *stackPtr, Zuoru_Data *outVal)
 {
-    if (Zuoru_IsEmptyStack(stackPtr)) {
+    if (ZuoruIsEmptyStack(stackPtr)) {
         fprintf(stderr, "stack is empty\n");
         return false;
     }
 
     memcpy(outVal, &stackPtr->data[stackPtr->stackTopIdx],
-        sizeof(ZUORU_DATA_T));
+        sizeof(Zuoru_Data));
     stackPtr->stackTopIdx--;
     stackPtr->curSize--;
     return true;
 }
 
-bool Zuoru_TopStack(ZUORU_STACK_T *stackPtr, ZUORU_DATA_T *outVal)
+bool ZuoruTopStack(Zuoru_Stack *stackPtr, Zuoru_Data *outVal)
 {
-    if (Zuoru_IsEmptyStack(stackPtr)) {
+    if (ZuoruIsEmptyStack(stackPtr)) {
         fprintf(stderr, "stack is empty");
         return false;
     }
     memcpy(outVal, &stackPtr->data[stackPtr->stackTopIdx],
-        sizeof(ZUORU_DATA_T));
+        sizeof(Zuoru_Data));
 
     return true;
 }
@@ -325,33 +325,33 @@ bool Zuoru_TopStack(ZUORU_STACK_T *stackPtr, ZUORU_DATA_T *outVal)
  *********************************************
  */
 
-struct ZUORU_DL_LIST_NODE_T {
-    ZUORU_DATA_T data;
-    struct ZUORU_DL_LIST_NODE_T *next;
-    struct ZUORU_DL_LIST_NODE_T *prev;
+struct Zuoru_DLList_Node {
+    Zuoru_Data data;
+    struct Zuoru_DLList_Node *next;
+    struct Zuoru_DLList_Node *prev;
 };
 
-typedef struct ZUORU_DL_LIST_NODE_T ZUORU_DL_LIST_NODE_T;
+typedef struct Zuoru_DLList_Node Zuoru_DLList_Node;
 
 typedef struct {
-    ZUORU_DL_LIST_NODE_T *head;
-    ZUORU_DL_LIST_NODE_T *tail;
+    Zuoru_DLList_Node *head;
+    Zuoru_DLList_Node *tail;
     int curSize;
-} ZUORU_DL_LIST_T;
+} Zuoru_DLList;
 
-ZUORU_DL_LIST_T* Zuoru_InitDLList()
+Zuoru_DLList* ZuoruInitDLList()
 {
-    ZUORU_DL_LIST_T *dlListPtr = (ZUORU_DL_LIST_T*)calloc(1, sizeof(ZUORU_DL_LIST_T));
+    Zuoru_DLList *dlListPtr = (Zuoru_DLList*)calloc(1, sizeof(Zuoru_DLList));
     dlListPtr->head = NULL;
     dlListPtr->tail = NULL;
     dlListPtr->curSize = 0;
     return dlListPtr;
 }
 
-void Zuoru_FreeDLList(ZUORU_DL_LIST_T *dlListPtr)
+void ZuoruFreeDLList(Zuoru_DLList *dlListPtr)
 {
-    ZUORU_DL_LIST_NODE_T *curNode = dlListPtr->head;
-    ZUORU_DL_LIST_NODE_T *delNode = NULL;
+    Zuoru_DLList_Node *curNode = dlListPtr->head;
+    Zuoru_DLList_Node *delNode = NULL;
 
     while (curNode != NULL) {
         delNode = curNode;
@@ -363,10 +363,10 @@ void Zuoru_FreeDLList(ZUORU_DL_LIST_T *dlListPtr)
     return;
 }
 
-ZUORU_DL_LIST_NODE_T* Zuoru_InsertHeadDLList(ZUORU_DL_LIST_T *dlListPtr, ZUORU_DATA_T *inVal)
+Zuoru_DLList_Node* ZuoruInsertHeadDLList(Zuoru_DLList *dlListPtr, Zuoru_Data *inVal)
 {
-    ZUORU_DL_LIST_NODE_T *newNode = (ZUORU_DL_LIST_NODE_T*)calloc(1, sizeof(ZUORU_DL_LIST_NODE_T));
-    memcpy(&newNode->data, inVal, sizeof(ZUORU_DATA_T));
+    Zuoru_DLList_Node *newNode = (Zuoru_DLList_Node*)calloc(1, sizeof(Zuoru_DLList_Node));
+    memcpy(&newNode->data, inVal, sizeof(Zuoru_Data));
     newNode->next = NULL;
     newNode->prev = NULL;
 
@@ -383,10 +383,10 @@ ZUORU_DL_LIST_NODE_T* Zuoru_InsertHeadDLList(ZUORU_DL_LIST_T *dlListPtr, ZUORU_D
     return newNode;
 }
 
-ZUORU_DL_LIST_NODE_T* Zuoru_InsertTailDLList(ZUORU_DL_LIST_T *dlListPtr, ZUORU_DATA_T *inVal)
+Zuoru_DLList_Node* ZuoruInsertTailDLList(Zuoru_DLList *dlListPtr, Zuoru_Data *inVal)
 {
-    ZUORU_DL_LIST_NODE_T *newNode = (ZUORU_DL_LIST_NODE_T*)calloc(1, sizeof(ZUORU_DL_LIST_NODE_T));
-    memcpy(&newNode->data, inVal, sizeof(ZUORU_DATA_T));
+    Zuoru_DLList_Node *newNode = (Zuoru_DLList_Node*)calloc(1, sizeof(Zuoru_DLList_Node));
+    memcpy(&newNode->data, inVal, sizeof(Zuoru_Data));
     newNode->next = NULL;
     newNode->prev = NULL;
 
@@ -403,11 +403,11 @@ ZUORU_DL_LIST_NODE_T* Zuoru_InsertTailDLList(ZUORU_DL_LIST_T *dlListPtr, ZUORU_D
     return newNode;
 }
 
-ZUORU_DL_LIST_NODE_T* Zuoru_InsertAfterNodeDLList(ZUORU_DL_LIST_T *dlListPtr, ZUORU_DL_LIST_NODE_T *targetNode,
-    ZUORU_DL_LIST_NODE_T *inVal)
+Zuoru_DLList_Node* ZuoruInsertAfterNodeDLList(Zuoru_DLList *dlListPtr, Zuoru_DLList_Node *targetNode,
+    Zuoru_DLList_Node *inVal)
 {
-    ZUORU_DL_LIST_NODE_T *newNode = (ZUORU_DL_LIST_NODE_T*)calloc(1, sizeof(ZUORU_DL_LIST_NODE_T));
-    memcpy(newNode, inVal, sizeof(ZUORU_DL_LIST_NODE_T));
+    Zuoru_DLList_Node *newNode = (Zuoru_DLList_Node*)calloc(1, sizeof(Zuoru_DLList_Node));
+    memcpy(newNode, inVal, sizeof(Zuoru_DLList_Node));
     newNode->next = NULL;
     newNode->prev = NULL;
 
@@ -425,15 +425,15 @@ ZUORU_DL_LIST_NODE_T* Zuoru_InsertAfterNodeDLList(ZUORU_DL_LIST_T *dlListPtr, ZU
     return newNode;
 }
 
-bool Zuoru_FindDLList(ZUORU_DL_LIST_T *dlListPtr, ZUORU_DATA_T *inVal, ZUORU_DL_LIST_NODE_T *findNode)
+bool ZuoruFindDLList(Zuoru_DLList *dlListPtr, Zuoru_Data *inVal, Zuoru_DLList_Node *findNode)
 {
-    ZUORU_DL_LIST_NODE_T *curNode = dlListPtr->head;
+    Zuoru_DLList_Node *curNode = dlListPtr->head;
 
     if (dlListPtr->curSize == 0) {
         return false;
     }
 
-    while (memcmp(&curNode->data, inVal, sizeof(ZUORU_DATA_T)) != 0) {
+    while (memcmp(&curNode->data, inVal, sizeof(Zuoru_Data)) != 0) {
         if (curNode->next == NULL) {
             return false;
         } else {
@@ -441,11 +441,11 @@ bool Zuoru_FindDLList(ZUORU_DL_LIST_T *dlListPtr, ZUORU_DATA_T *inVal, ZUORU_DL_
         }
     }
 
-    memcpy(findNode, curNode, sizeof(ZUORU_DATA_T));
+    memcpy(findNode, curNode, sizeof(Zuoru_Data));
     return true;
 }
 
-bool Zuoru_DelDLListWithPtr(ZUORU_DL_LIST_T *dlListPtr, ZUORU_DL_LIST_NODE_T *targetNode)
+bool ZuoruDelDLListWithPtr(Zuoru_DLList *dlListPtr, Zuoru_DLList_Node *targetNode)
 {
     if (dlListPtr->curSize == 0) {
         return false;

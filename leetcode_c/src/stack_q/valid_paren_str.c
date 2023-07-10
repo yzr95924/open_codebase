@@ -11,20 +11,20 @@
 
 #include "../../include/stack_q.h"
 
-#define MY_DATA_STRUCT_EMPTY_POS -1
-typedef int ZUORU_DATA_T;
+#define MY_DATA_STRUCT_EMPTY_POS (-1)
+typedef int Zuoru_Data;
 
 typedef struct {
-    ZUORU_DATA_T *data;
+    Zuoru_Data *data;
     int stackTopIdx;
     int curSize;
     int capacity;
-} ZUORU_STACK_T;
+} Zuoru_Stack;
 
-ZUORU_STACK_T* Zuoru_InitStack(int capacity)
+Zuoru_Stack* ZuoruInitStack(int capacity)
 {
-    ZUORU_STACK_T *stackPtr = (ZUORU_STACK_T*)calloc(1, sizeof(ZUORU_STACK_T));
-    stackPtr->data = (ZUORU_DATA_T*)calloc(capacity, sizeof(ZUORU_DATA_T));
+    Zuoru_Stack *stackPtr = (Zuoru_Stack*)calloc(1, sizeof(Zuoru_Stack));
+    stackPtr->data = (Zuoru_Data*)calloc(capacity, sizeof(Zuoru_Data));
     stackPtr->stackTopIdx = MY_DATA_STRUCT_EMPTY_POS;
     stackPtr->capacity = capacity;
     stackPtr->curSize = 0;
@@ -32,14 +32,14 @@ ZUORU_STACK_T* Zuoru_InitStack(int capacity)
     return stackPtr;
 }
 
-void Zuoru_FreeStack(ZUORU_STACK_T *stackPtr)
+void ZuoruFreeStack(Zuoru_Stack *stackPtr)
 {
     free(stackPtr->data);
     free(stackPtr);
     return;
 }
 
-bool Zuoru_IsFullStack(ZUORU_STACK_T *stackPtr)
+bool ZuoruIsFullStack(Zuoru_Stack *stackPtr)
 {
     if (stackPtr->stackTopIdx == (stackPtr->capacity - 1)) {
         return true;
@@ -47,7 +47,7 @@ bool Zuoru_IsFullStack(ZUORU_STACK_T *stackPtr)
     return false;
 }
 
-bool Zuoru_IsEmptyStack(ZUORU_STACK_T *stackPtr)
+bool ZuoruIsEmptyStack(Zuoru_Stack *stackPtr)
 {
     if (stackPtr->stackTopIdx == MY_DATA_STRUCT_EMPTY_POS) {
         return true;
@@ -55,41 +55,41 @@ bool Zuoru_IsEmptyStack(ZUORU_STACK_T *stackPtr)
     return false;
 }
 
-bool Zuoru_PushStack(ZUORU_STACK_T *stackPtr, ZUORU_DATA_T *inVal)
+bool ZuoruPushStack(Zuoru_Stack *stackPtr, Zuoru_Data *inVal)
 {
-    if (Zuoru_IsFullStack(stackPtr)) {
+    if (ZuoruIsFullStack(stackPtr)) {
         fprintf(stderr, "stack is full\n");
         return false;
     }
     stackPtr->stackTopIdx++;
     memcpy(&stackPtr->data[stackPtr->stackTopIdx], inVal,
-        sizeof(ZUORU_DATA_T));
+        sizeof(Zuoru_Data));
     stackPtr->curSize++;
     return true;
 }
 
-bool Zuoru_PopStack(ZUORU_STACK_T *stackPtr, ZUORU_DATA_T *outVal)
+bool ZuoruPopStack(Zuoru_Stack *stackPtr, Zuoru_Data *outVal)
 {
-    if (Zuoru_IsEmptyStack(stackPtr)) {
+    if (ZuoruIsEmptyStack(stackPtr)) {
         fprintf(stderr, "stack is empty\n");
         return false;
     }
 
     memcpy(outVal, &stackPtr->data[stackPtr->stackTopIdx],
-        sizeof(ZUORU_DATA_T));
+        sizeof(Zuoru_Data));
     stackPtr->stackTopIdx--;
     stackPtr->curSize--;
     return true;
 }
 
-bool Zuoru_TopStack(ZUORU_STACK_T *stackPtr, ZUORU_DATA_T *outVal)
+bool ZuoruTopStack(Zuoru_Stack *stackPtr, Zuoru_Data *outVal)
 {
-    if (Zuoru_IsEmptyStack(stackPtr)) {
+    if (ZuoruIsEmptyStack(stackPtr)) {
         fprintf(stderr, "stack is empty");
         return false;
     }
     memcpy(outVal, &stackPtr->data[stackPtr->stackTopIdx],
-        sizeof(ZUORU_DATA_T));
+        sizeof(Zuoru_Data));
 
     return true;
 }
@@ -105,23 +105,23 @@ bool checkValidString(char * s)
 {
     int inputStrSize = strlen(s);
 
-    ZUORU_STACK_T *leftParenStk = Zuoru_InitStack(100);
-    ZUORU_STACK_T *starStk = Zuoru_InitStack(100);
-    ZUORU_DATA_T tmpData;
+    Zuoru_Stack *leftParenStk = ZuoruInitStack(100);
+    Zuoru_Stack *starStk = ZuoruInitStack(100);
+    Zuoru_Data tmpData;
     bool retAns = true;
 
     for (int idx = 0; idx < inputStrSize; idx++) {
         if (s[idx] == '(') {
-            Zuoru_PushStack(leftParenStk, &idx);
+            ZuoruPushStack(leftParenStk, &idx);
         } else if (s[idx] == '*') {
-            Zuoru_PushStack(starStk, &idx);
+            ZuoruPushStack(starStk, &idx);
         } else if (s[idx] == ')') {
-            if (!Zuoru_IsEmptyStack(leftParenStk)) {
-                Zuoru_PopStack(leftParenStk, &tmpData);
+            if (!ZuoruIsEmptyStack(leftParenStk)) {
+                ZuoruPopStack(leftParenStk, &tmpData);
                 continue;
             }
-            if (!Zuoru_IsEmptyStack(starStk)) {
-                Zuoru_PopStack(starStk, &tmpData);
+            if (!ZuoruIsEmptyStack(starStk)) {
+                ZuoruPopStack(starStk, &tmpData);
                 continue;
             }
             retAns = false;
@@ -131,32 +131,32 @@ bool checkValidString(char * s)
         }
     }
 
-    if (!Zuoru_IsEmptyStack(leftParenStk)) {
+    if (!ZuoruIsEmptyStack(leftParenStk)) {
         int curLeftParenStkSize = leftParenStk->curSize;
         int curStarStkSize = starStk->curSize;
-        ZUORU_DATA_T leftIdx;
-        ZUORU_DATA_T starIdx;
+        Zuoru_Data leftIdx;
+        Zuoru_Data starIdx;
 
         if (curStarStkSize >= curLeftParenStkSize) {
             for (int idx = 0; idx < curLeftParenStkSize; idx++) {
-                Zuoru_TopStack(leftParenStk, &leftIdx);
-                Zuoru_TopStack(starStk, &starIdx);
+                ZuoruTopStack(leftParenStk, &leftIdx);
+                ZuoruTopStack(starStk, &starIdx);
 
                 if (starIdx < leftIdx) {
                     retAns = false;
                     break;
                 }
 
-                Zuoru_PopStack(leftParenStk, &leftIdx);
-                Zuoru_PopStack(starStk, &starIdx);
+                ZuoruPopStack(leftParenStk, &leftIdx);
+                ZuoruPopStack(starStk, &starIdx);
             }
         } else {
             retAns = false;
         }
     }
 
-    Zuoru_FreeStack(leftParenStk);
-    Zuoru_FreeStack(starStk);
+    ZuoruFreeStack(leftParenStk);
+    ZuoruFreeStack(starStk);
 
     return retAns;
 }

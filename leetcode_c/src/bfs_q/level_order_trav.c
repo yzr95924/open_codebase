@@ -11,22 +11,22 @@
 
 #include "../../include/bfs_q.h"
 
-#define MY_DATA_STRUCT_EMPTY_POS -1
+#define MY_DATA_STRUCT_EMPTY_POS (-1)
 
-typedef struct TreeNode ZUORU_DATA_T;
+typedef struct TreeNode Zuoru_Data;
 
 typedef struct {
-    ZUORU_DATA_T *data;
+    Zuoru_Data *data;
     int head;
     int rear;
     int capacity;
     int curSize;
-} ZUORU_QUEUE_T;
+} Zuoru_Queue;
 
-ZUORU_QUEUE_T* Zuoru_InitQueue(int capacity)
+Zuoru_Queue* ZuoruInitQueue(int capacity)
 {
-    ZUORU_QUEUE_T *queuePtr = (ZUORU_QUEUE_T*)calloc(1, sizeof(ZUORU_QUEUE_T));
-    queuePtr->data = (ZUORU_DATA_T*)calloc(capacity, sizeof(ZUORU_DATA_T));
+    Zuoru_Queue *queuePtr = (Zuoru_Queue*)calloc(1, sizeof(Zuoru_Queue));
+    queuePtr->data = (Zuoru_Data*)calloc(capacity, sizeof(Zuoru_Data));
     queuePtr->head = MY_DATA_STRUCT_EMPTY_POS;
     queuePtr->rear = MY_DATA_STRUCT_EMPTY_POS;
     queuePtr->capacity = capacity;
@@ -35,7 +35,7 @@ ZUORU_QUEUE_T* Zuoru_InitQueue(int capacity)
     return queuePtr;
 }
 
-bool Zuoru_EnQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *inVal)
+bool ZuoruEnQueue(Zuoru_Queue *queuePtr, Zuoru_Data *inVal)
 {
     if (queuePtr->curSize + 1 > queuePtr->capacity) {
         fprintf(stderr, "queue is full\n");
@@ -46,20 +46,20 @@ bool Zuoru_EnQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *inVal)
         queuePtr->head = 0;
     }
     queuePtr->rear = (queuePtr->rear + 1) % queuePtr->capacity;
-    memcpy(&queuePtr->data[queuePtr->rear], inVal, sizeof(ZUORU_DATA_T));
+    memcpy(&queuePtr->data[queuePtr->rear], inVal, sizeof(Zuoru_Data));
 
     queuePtr->curSize++;
     return true;
 }
 
-bool Zuoru_DeQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *outVal)
+bool ZuoruDeQueue(Zuoru_Queue *queuePtr, Zuoru_Data *outVal)
 {
     if (queuePtr->curSize == 0) {
         fprintf(stderr, "queue is empty\n");
         return false;
     }
 
-    memcpy(outVal, &queuePtr->data[queuePtr->head], sizeof(ZUORU_DATA_T));
+    memcpy(outVal, &queuePtr->data[queuePtr->head], sizeof(Zuoru_Data));
     if (queuePtr->head == queuePtr->rear) {
         queuePtr->rear = MY_DATA_STRUCT_EMPTY_POS;
         queuePtr->head = MY_DATA_STRUCT_EMPTY_POS;
@@ -70,7 +70,7 @@ bool Zuoru_DeQueue(ZUORU_QUEUE_T *queuePtr, ZUORU_DATA_T *outVal)
     return true;
 }
 
-bool Zuoru_IsFullQueue(ZUORU_QUEUE_T *queuePtr)
+bool ZuoruIsFullQueue(Zuoru_Queue *queuePtr)
 {
     if (queuePtr->curSize == queuePtr->capacity) {
         return true;
@@ -78,7 +78,7 @@ bool Zuoru_IsFullQueue(ZUORU_QUEUE_T *queuePtr)
     return false;
 }
 
-bool Zuoru_IsEmptyQueue(ZUORU_QUEUE_T *queuePtr)
+bool ZuoruIsEmptyQueue(Zuoru_Queue *queuePtr)
 {
     if (queuePtr->curSize == 0) {
         return true;
@@ -86,7 +86,7 @@ bool Zuoru_IsEmptyQueue(ZUORU_QUEUE_T *queuePtr)
     return false;
 }
 
-void Zuoru_FreeQueue(ZUORU_QUEUE_T *queuePtr)
+void ZuoruFreeQueue(Zuoru_Queue *queuePtr)
 {
     free(queuePtr->data);
     free(queuePtr);
@@ -120,15 +120,15 @@ int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes
     }
     *returnColumnSizes = (int*)calloc(maxLevel, sizeof(int));
 
-    ZUORU_QUEUE_T *myQueuePtr = Zuoru_InitQueue(maxLevel);
-    Zuoru_EnQueue(myQueuePtr, root);
+    Zuoru_Queue *myQueuePtr = ZuoruInitQueue(maxLevel);
+    ZuoruEnQueue(myQueuePtr, root);
 
     struct TreeNode tmpTreeNode;
-    while(!Zuoru_IsEmptyQueue(myQueuePtr)) {
+    while(!ZuoruIsEmptyQueue(myQueuePtr)) {
         int curQueueSize = myQueuePtr->curSize;
 
         for (int idx = 0; idx < curQueueSize; idx++) {
-            Zuoru_DeQueue(myQueuePtr, &tmpTreeNode);
+            ZuoruDeQueue(myQueuePtr, &tmpTreeNode);
             (*returnColumnSizes)[curLevel]++;
             retArr[curLevel][curLevelIdx] = tmpTreeNode.val;
             curLevelIdx++;
@@ -137,10 +137,10 @@ int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes
                 continue;
             }
             if (tmpTreeNode.left != NULL) {
-                Zuoru_EnQueue(myQueuePtr, tmpTreeNode.left);
+                ZuoruEnQueue(myQueuePtr, tmpTreeNode.left);
             }
             if (tmpTreeNode.right != NULL) {
-                Zuoru_EnQueue(myQueuePtr, tmpTreeNode.right);
+                ZuoruEnQueue(myQueuePtr, tmpTreeNode.right);
             }
         }
         curLevel++;
@@ -148,7 +148,7 @@ int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes
         (*returnSize)++;
     }
 
-    Zuoru_FreeQueue(myQueuePtr);
+    ZuoruFreeQueue(myQueuePtr);
 
     return retArr;
 }

@@ -23,7 +23,7 @@ typedef struct {
     UT_hash_handle hh;
 } Zuoru_HashTbl_Item;
 
-typedef Zuoru_HashTbl_Item* Zuoru_Data;
+typedef Zuoru_HashTbl_Item* ZUORU_DataItem;
 
 Zuoru_HashTbl_Item** ZuoruInitIntHashTbl()
 {
@@ -83,33 +83,33 @@ void ZuoruFreeIntHashTbl(Zuoru_HashTbl_Item **hashTblPtr)
     return;
 }
 
-struct Zuoru_DLList_Node {
-    Zuoru_Data data;
-    struct Zuoru_DLList_Node *next;
-    struct Zuoru_DLList_Node *prev;
+struct ZUORU_DLListNode {
+    ZUORU_DataItem data;
+    struct ZUORU_DLListNode *next;
+    struct ZUORU_DLListNode *prev;
 };
 
-typedef struct Zuoru_DLList_Node Zuoru_DLList_Node;
+typedef struct ZUORU_DLListNode ZUORU_DLListNode;
 
 typedef struct {
-    Zuoru_DLList_Node *head;
-    Zuoru_DLList_Node *tail;
+    ZUORU_DLListNode *head;
+    ZUORU_DLListNode *tail;
     int curSize;
-} Zuoru_DLList;
+} ZUORU_DLList;
 
-Zuoru_DLList* ZuoruInitDLList()
+ZUORU_DLList* ZUORU_InitDLList()
 {
-    Zuoru_DLList *dlListPtr = (Zuoru_DLList*)calloc(1, sizeof(Zuoru_DLList));
+    ZUORU_DLList *dlListPtr = (ZUORU_DLList*)calloc(1, sizeof(ZUORU_DLList));
     dlListPtr->head = NULL;
     dlListPtr->tail = NULL;
     dlListPtr->curSize = 0;
     return dlListPtr;
 }
 
-void ZuoruFreeDLList(Zuoru_DLList *dlListPtr)
+void ZUORU_FreeDLList(ZUORU_DLList *dlListPtr)
 {
-    Zuoru_DLList_Node *curNode = dlListPtr->head;
-    Zuoru_DLList_Node *delNode = NULL;
+    ZUORU_DLListNode *curNode = dlListPtr->head;
+    ZUORU_DLListNode *delNode = NULL;
 
     while (curNode != NULL) {
         delNode = curNode;
@@ -121,10 +121,10 @@ void ZuoruFreeDLList(Zuoru_DLList *dlListPtr)
     return;
 }
 
-Zuoru_DLList_Node* ZuoruInsertHeadDLList(Zuoru_DLList *dlListPtr, Zuoru_Data *inVal)
+ZUORU_DLListNode* ZUORU_InsertHeadDLList(ZUORU_DLList *dlListPtr, ZUORU_DataItem *inVal)
 {
-    Zuoru_DLList_Node *newNode = (Zuoru_DLList_Node*)calloc(1, sizeof(Zuoru_DLList_Node));
-    memcpy(&newNode->data, inVal, sizeof(Zuoru_Data));
+    ZUORU_DLListNode *newNode = (ZUORU_DLListNode*)calloc(1, sizeof(ZUORU_DLListNode));
+    memcpy(&newNode->data, inVal, sizeof(ZUORU_DataItem));
     newNode->next = NULL;
     newNode->prev = NULL;
 
@@ -141,10 +141,10 @@ Zuoru_DLList_Node* ZuoruInsertHeadDLList(Zuoru_DLList *dlListPtr, Zuoru_Data *in
     return newNode;
 }
 
-Zuoru_DLList_Node* ZuoruInsertTailDLList(Zuoru_DLList *dlListPtr, Zuoru_Data *inVal)
+ZUORU_DLListNode* ZUORU_InsertTailDLList(ZUORU_DLList *dlListPtr, ZUORU_DataItem *inVal)
 {
-    Zuoru_DLList_Node *newNode = (Zuoru_DLList_Node*)calloc(1, sizeof(Zuoru_DLList_Node));
-    memcpy(&newNode->data, inVal, sizeof(Zuoru_Data));
+    ZUORU_DLListNode *newNode = (ZUORU_DLListNode*)calloc(1, sizeof(ZUORU_DLListNode));
+    memcpy(&newNode->data, inVal, sizeof(ZUORU_DataItem));
     newNode->next = NULL;
     newNode->prev = NULL;
 
@@ -161,11 +161,11 @@ Zuoru_DLList_Node* ZuoruInsertTailDLList(Zuoru_DLList *dlListPtr, Zuoru_Data *in
     return newNode;
 }
 
-Zuoru_DLList_Node* ZuoruInsertAfterNodeDLList(Zuoru_DLList *dlListPtr, Zuoru_DLList_Node *targetNode,
-    Zuoru_DLList_Node *inVal)
+ZUORU_DLListNode* ZUORU_InsertAfterNodeDLList(ZUORU_DLList *dlListPtr, ZUORU_DLListNode *targetNode,
+    ZUORU_DLListNode *inVal)
 {
-    Zuoru_DLList_Node *newNode = (Zuoru_DLList_Node*)calloc(1, sizeof(Zuoru_DLList_Node));
-    memcpy(newNode, inVal, sizeof(Zuoru_DLList_Node));
+    ZUORU_DLListNode *newNode = (ZUORU_DLListNode*)calloc(1, sizeof(ZUORU_DLListNode));
+    memcpy(newNode, inVal, sizeof(ZUORU_DLListNode));
     newNode->next = NULL;
     newNode->prev = NULL;
 
@@ -183,15 +183,15 @@ Zuoru_DLList_Node* ZuoruInsertAfterNodeDLList(Zuoru_DLList *dlListPtr, Zuoru_DLL
     return newNode;
 }
 
-bool ZuoruFindDLList(Zuoru_DLList *dlListPtr, Zuoru_Data *inVal, Zuoru_DLList_Node *findNode)
+bool ZUORU_FindDLList(ZUORU_DLList *dlListPtr, ZUORU_DataItem *inVal, ZUORU_DLListNode *findNode)
 {
-    Zuoru_DLList_Node *curNode = dlListPtr->head;
+    ZUORU_DLListNode *curNode = dlListPtr->head;
 
     if (dlListPtr->curSize == 0) {
         return false;
     }
 
-    while (memcmp(&curNode->data, inVal, sizeof(Zuoru_Data)) != 0) {
+    while (memcmp(&curNode->data, inVal, sizeof(ZUORU_DataItem)) != 0) {
         if (curNode->next == NULL) {
             return false;
         } else {
@@ -199,11 +199,11 @@ bool ZuoruFindDLList(Zuoru_DLList *dlListPtr, Zuoru_Data *inVal, Zuoru_DLList_No
         }
     }
 
-    memcpy(findNode, curNode, sizeof(Zuoru_Data));
+    memcpy(findNode, curNode, sizeof(ZUORU_DataItem));
     return true;
 }
 
-bool ZuoruDelDLListWithPtr(Zuoru_DLList *dlListPtr, Zuoru_DLList_Node *targetNode)
+bool ZUORU_DelDLListWithPtr(ZUORU_DLList *dlListPtr, ZUORU_DLListNode *targetNode)
 {
     if (dlListPtr->curSize == 0) {
         return false;
@@ -231,7 +231,7 @@ LRUCache* lRUCacheCreate(int capacity)
     LRUCache *newLRUCache = calloc(1, sizeof(LRUCache));
     newLRUCache->capacity = capacity;
     newLRUCache->hashTblPtr = (void*)ZuoruInitIntHashTbl();
-    newLRUCache->dLListPtr = (void*)ZuoruInitDLList();
+    newLRUCache->dLListPtr = (void*)ZUORU_InitDLList();
     newLRUCache->curSize = 0;
     return newLRUCache;
 }
@@ -240,16 +240,16 @@ int lRUCacheGet(LRUCache *obj, int key)
 {
     Zuoru_HashTbl_Item **hashTblPtr =
         (Zuoru_HashTbl_Item**)obj->hashTblPtr;
-    Zuoru_DLList *dLListPtr =
-        (Zuoru_DLList*)obj->dLListPtr;
+    ZUORU_DLList *dLListPtr =
+        (ZUORU_DLList*)obj->dLListPtr;
     Zuoru_HashTbl_Item *retItem = NULL;
 
     if (ZuoruFindIntHashTbl(hashTblPtr, key,
         &retItem)) {
-        ZuoruDelDLListWithPtr(dLListPtr,
+        ZUORU_DelDLListWithPtr(dLListPtr,
             retItem->hashVal.lListNodePtr);
         retItem->hashVal.lListNodePtr =
-            ZuoruInsertTailDLList(dLListPtr, &retItem);
+            ZUORU_InsertTailDLList(dLListPtr, &retItem);
 
         return retItem->hashVal.val;
     }
@@ -261,8 +261,8 @@ void lRUCachePut(LRUCache *obj, int key, int value)
 {
     Zuoru_HashTbl_Item **hashTblPtr =
         (Zuoru_HashTbl_Item**)obj->hashTblPtr;
-    Zuoru_DLList *dLListPtr =
-        (Zuoru_DLList*)obj->dLListPtr;
+    ZUORU_DLList *dLListPtr =
+        (ZUORU_DLList*)obj->dLListPtr;
     Zuoru_HashTbl_Item *retItem = NULL;
     Zuoru_Hash_Data tmpVal;
     tmpVal.val = value;
@@ -271,27 +271,27 @@ void lRUCachePut(LRUCache *obj, int key, int value)
         if (!ZuoruFindIntHashTbl(hashTblPtr, key, &retItem)) {
             retItem = ZuoruInsertIntHashTbl(hashTblPtr, key, &tmpVal);
             retItem->hashVal.lListNodePtr =
-                ZuoruInsertTailDLList(dLListPtr, &retItem);
+                ZUORU_InsertTailDLList(dLListPtr, &retItem);
             obj->curSize++;
         } else {
-            ZuoruDelDLListWithPtr(dLListPtr, retItem->hashVal.lListNodePtr);
+            ZUORU_DelDLListWithPtr(dLListPtr, retItem->hashVal.lListNodePtr);
             memcpy(&retItem->hashVal, &tmpVal, sizeof(Zuoru_Hash_Data));
             retItem->hashVal.lListNodePtr =
-                ZuoruInsertTailDLList(dLListPtr, &retItem);
+                ZUORU_InsertTailDLList(dLListPtr, &retItem);
         }
     } else {
         if (!ZuoruFindIntHashTbl(hashTblPtr, key, &retItem)) {
             ZuoruDelIntHashTbl(hashTblPtr, dLListPtr->head->data);
-            ZuoruDelDLListWithPtr(dLListPtr, dLListPtr->head);
+            ZUORU_DelDLListWithPtr(dLListPtr, dLListPtr->head);
 
             retItem = ZuoruInsertIntHashTbl(hashTblPtr, key, &tmpVal);
             retItem->hashVal.lListNodePtr =
-                ZuoruInsertTailDLList(dLListPtr, &retItem);
+                ZUORU_InsertTailDLList(dLListPtr, &retItem);
         } else {
-            ZuoruDelDLListWithPtr(dLListPtr, retItem->hashVal.lListNodePtr);
+            ZUORU_DelDLListWithPtr(dLListPtr, retItem->hashVal.lListNodePtr);
             memcpy(&retItem->hashVal, &tmpVal, sizeof(Zuoru_Hash_Data));
             retItem->hashVal.lListNodePtr =
-                ZuoruInsertTailDLList(dLListPtr, &retItem);
+                ZUORU_InsertTailDLList(dLListPtr, &retItem);
         }
     }
 
@@ -302,10 +302,10 @@ void lRUCacheFree(LRUCache *obj)
 {
     Zuoru_HashTbl_Item **hashTblPtr =
         (Zuoru_HashTbl_Item**)obj->hashTblPtr;
-    Zuoru_DLList *dLListPtr =
-        (Zuoru_DLList*)obj->dLListPtr;
+    ZUORU_DLList *dLListPtr =
+        (ZUORU_DLList*)obj->dLListPtr;
     ZuoruFreeIntHashTbl(hashTblPtr);
-    ZuoruFreeDLList(dLListPtr);
+    ZUORU_FreeDLList(dLListPtr);
     free(obj);
     return;
 }

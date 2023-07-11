@@ -13,20 +13,20 @@
 
 #define MY_DATA_STRUCT_EMPTY_POS (-1)
 
-typedef struct TreeNode Zuoru_Data;
+typedef struct TreeNode ZUORU_DataItem;
 
 typedef struct {
-    Zuoru_Data *data;
+    ZUORU_DataItem *data;
     int head;
     int rear;
     int capacity;
     int curSize;
-} Zuoru_Queue;
+} ZUORU_Queue;
 
-Zuoru_Queue* ZuoruInitQueue(int capacity)
+ZUORU_Queue* ZUORU_InitQueue(int capacity)
 {
-    Zuoru_Queue *queuePtr = (Zuoru_Queue*)calloc(1, sizeof(Zuoru_Queue));
-    queuePtr->data = (Zuoru_Data*)calloc(capacity, sizeof(Zuoru_Data));
+    ZUORU_Queue *queuePtr = (ZUORU_Queue*)calloc(1, sizeof(ZUORU_Queue));
+    queuePtr->data = (ZUORU_DataItem*)calloc(capacity, sizeof(ZUORU_DataItem));
     queuePtr->head = MY_DATA_STRUCT_EMPTY_POS;
     queuePtr->rear = MY_DATA_STRUCT_EMPTY_POS;
     queuePtr->capacity = capacity;
@@ -35,7 +35,7 @@ Zuoru_Queue* ZuoruInitQueue(int capacity)
     return queuePtr;
 }
 
-bool ZuoruEnQueue(Zuoru_Queue *queuePtr, Zuoru_Data *inVal)
+bool ZUORU_EnQueue(ZUORU_Queue *queuePtr, ZUORU_DataItem *inVal)
 {
     if (queuePtr->curSize + 1 > queuePtr->capacity) {
         fprintf(stderr, "queue is full\n");
@@ -46,20 +46,20 @@ bool ZuoruEnQueue(Zuoru_Queue *queuePtr, Zuoru_Data *inVal)
         queuePtr->head = 0;
     }
     queuePtr->rear = (queuePtr->rear + 1) % queuePtr->capacity;
-    memcpy(&queuePtr->data[queuePtr->rear], inVal, sizeof(Zuoru_Data));
+    memcpy(&queuePtr->data[queuePtr->rear], inVal, sizeof(ZUORU_DataItem));
 
     queuePtr->curSize++;
     return true;
 }
 
-bool ZuoruDeQueue(Zuoru_Queue *queuePtr, Zuoru_Data *outVal)
+bool ZUORU_DeQueue(ZUORU_Queue *queuePtr, ZUORU_DataItem *outVal)
 {
     if (queuePtr->curSize == 0) {
         fprintf(stderr, "queue is empty\n");
         return false;
     }
 
-    memcpy(outVal, &queuePtr->data[queuePtr->head], sizeof(Zuoru_Data));
+    memcpy(outVal, &queuePtr->data[queuePtr->head], sizeof(ZUORU_DataItem));
     if (queuePtr->head == queuePtr->rear) {
         queuePtr->rear = MY_DATA_STRUCT_EMPTY_POS;
         queuePtr->head = MY_DATA_STRUCT_EMPTY_POS;
@@ -70,7 +70,7 @@ bool ZuoruDeQueue(Zuoru_Queue *queuePtr, Zuoru_Data *outVal)
     return true;
 }
 
-bool ZuoruIsFullQueue(Zuoru_Queue *queuePtr)
+bool ZUORU_IsFullQueue(ZUORU_Queue *queuePtr)
 {
     if (queuePtr->curSize == queuePtr->capacity) {
         return true;
@@ -78,7 +78,7 @@ bool ZuoruIsFullQueue(Zuoru_Queue *queuePtr)
     return false;
 }
 
-bool ZuoruIsEmptyQueue(Zuoru_Queue *queuePtr)
+bool ZUORU_IsEmptyQueue(ZUORU_Queue *queuePtr)
 {
     if (queuePtr->curSize == 0) {
         return true;
@@ -86,7 +86,7 @@ bool ZuoruIsEmptyQueue(Zuoru_Queue *queuePtr)
     return false;
 }
 
-void ZuoruFreeQueue(Zuoru_Queue *queuePtr)
+void ZUORU_FreeQueue(ZUORU_Queue *queuePtr)
 {
     free(queuePtr->data);
     free(queuePtr);
@@ -99,30 +99,30 @@ int minDepth(struct TreeNode* root)
         return 0;
     }
 
-    Zuoru_Queue *myQueuePtr = ZuoruInitQueue(100000);
-    ZuoruEnQueue(myQueuePtr, root);
+    ZUORU_Queue *myQueuePtr = ZUORU_InitQueue(100000);
+    ZUORU_EnQueue(myQueuePtr, root);
     int depth = 1;
 
     struct TreeNode tmpTreeNode;
-    while (!ZuoruIsEmptyQueue(myQueuePtr)) {
+    while (!ZUORU_IsEmptyQueue(myQueuePtr)) {
         int curQueueSize = myQueuePtr->curSize;
 
         for (int idx = 0; idx < curQueueSize; idx++) {
-            ZuoruDeQueue(myQueuePtr, &tmpTreeNode);
+            ZUORU_DeQueue(myQueuePtr, &tmpTreeNode);
             if (tmpTreeNode.left == NULL && tmpTreeNode.right == NULL) {
-                ZuoruFreeQueue(myQueuePtr);
+                ZUORU_FreeQueue(myQueuePtr);
                 return depth;
             }
             if (tmpTreeNode.left != NULL) {
-                ZuoruEnQueue(myQueuePtr, tmpTreeNode.left);
+                ZUORU_EnQueue(myQueuePtr, tmpTreeNode.left);
             }
             if (tmpTreeNode.right != NULL) {
-                ZuoruEnQueue(myQueuePtr, tmpTreeNode.right);
+                ZUORU_EnQueue(myQueuePtr, tmpTreeNode.right);
             }
         }
         depth++;
     }
 
-    ZuoruFreeQueue(myQueuePtr);
+    ZUORU_FreeQueue(myQueuePtr);
     return depth;
 }

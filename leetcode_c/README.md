@@ -59,11 +59,12 @@ Question List (in C)
 876. 链表的中间结点 [ans](./include/two_pointer/)[easy]
 
 ## 数学
-1. 两数之和 [ans](./include/math/two_sum.h)[easy]
+1. 两数之和 [ans](./src/math_q/two_sum.c)[easy]
 2. 两数相加 [ans](./include/math/add_two_numbers.h)[medium]
 4. 寻找两个正序数组的中位数 [ans](./include/math/median_two_sorted_array.h)[hard]
 7. 整数反转 [ans](./include/math/reverse_integer.h)[medium]
-9. 回文数 [ans](./src/math/palindrome_num.c)[easy]
+9. 回文数 [ans](./src/math_q/palindrome_num.c)[easy]
+66. 加一 [ans](./src/math_q/plus_one.c)[easy]
 13. 罗马数字转整数 [ans](./src/math/roman_2_int.c)[easy]
 1089. 复写零 [ans](./include/math/duplicate_zeros.h)[easy]
 
@@ -77,3 +78,6 @@ Question List (in C)
 
 ## 系统应用
 146. LRU 缓存 [ans](./src/app_sys_q/lru_cache.c)[medium]
+215. 数组中的第K个最大元素 [ans](./src/app_sys_q/kth_largest.c)[medium]
+347. 前K个高频元素 [ans](./src/app_sys_q/top_k_freq.c)[medium]
+295. 数据流的中位数 [ans](./src/app_sys_q//find_median_from_stream.c)[hard]

@@ -10,6 +10,7 @@
  */
 
 #include "../../../common_include/my_log.h"
+#include "./../../common_include/define_const.h"
 #include "../../include/app_sys_q.h"
 #include "../../include/bfs_q.h"
 #include "../../include/math_q.h"
@@ -18,35 +19,14 @@
 
 int main(int argc, char* argv[]) {
 
-    struct TreeNode root = { 0 };
-    root.val = 3;
-    struct TreeNode l1_9 = { 0 };
-    l1_9.val = 9;
-    struct TreeNode l1_20 = { 0 };
-    l1_20.val = 20;
-    struct TreeNode l2_15 = { 0 };
-    l2_15.val = 15;
-    struct TreeNode l2_7 = { 0 };
-    l2_7.val = 7;
+    int inputArr[] = {2, 7, 11, 15};
+    int target = 9;
+    int retSize;
+    int inputSize = ARRAY_SIZE(inputArr);
+    int *ret = NULL;
 
-    root.left = &l1_9;
-    root.right = &l1_20;
-    l1_20.left = &l2_15;
-    l1_20.right = &l2_7;
+    ret = twoSum(inputArr, inputSize, target, &retSize);
 
-    int returnSize;
-    int* returnVolume;
-    levelOrder(&root, &returnSize, &returnVolume);
-
-    // int input_1 = 1;
-    // int *ptr = &input_1;
-    // printf("ptr: %p\n", ptr);
-    // printf("input_1: %d\n", input_1);
-
-    // *ptr++;
-
-    // printf("ptr: %p\n", ptr);
-    // printf("input_1: %d\n", input_1);
-
+    free(ret);
     return 0;
 }

@@ -16,11 +16,23 @@
 
 /**
  * @brief 9. Palindrome Number
+ * @cite https://leetcode.cn/problems/palindrome-number/
  *
- * @param x input number
- * @return true
- * @return false
  */
 bool isPalindrome(int x);
+
+/**
+ * @brief 1. Two Sum
+ * @cite https://leetcode.cn/problems/two-sum/
+ *
+ */
+int* twoSum(int* nums, int numsSize, int target, int* returnSize);
+
+/**
+ * @brief 66. Plus One
+ * @cite https://leetcode.cn/problems/plus-one/
+ *
+ */
+int* plusOne(int* digits, int digitsSize, int* returnSize);
 
 #endif

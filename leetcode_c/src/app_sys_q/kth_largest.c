@@ -8,3 +8,10 @@
  * @copyright Copyright (c) 2023
  *
  */
+
+#include "../../include/app_sys_q.h"
+
+int findKthLargest(int* nums, int numsSize, int k)
+{
+
+}

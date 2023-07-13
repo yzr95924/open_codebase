@@ -20,7 +20,6 @@
  * @cite https://leetcode.cn/problems/lru-cache/
  *
  */
-
 typedef struct {
     void *hashTblPtr;
     void *dLListPtr;
@@ -31,5 +30,12 @@ LRUCache* lRUCacheCreate(int capacity);
 int lRUCacheGet(LRUCache *obj, int key);
 void lRUCachePut(LRUCache *obj, int key, int value);
 void lRUCacheFree(LRUCache *obj);
+
+/**
+ * @brief 215. Kth Largest Element in an Array
+ * @cite https://leetcode.cn/problems/kth-largest-element-in-an-array/
+ *
+ */
+int findKthLargest(int* nums, int numsSize, int k);
 
 #endif

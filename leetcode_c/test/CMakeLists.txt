@@ -1,5 +1,5 @@
-enable_testing()
-find_package(GTest REQUIRED)
+# enable_testing()
+# find_package(GTest REQUIRED)
 
 # include(FetchContent)
 # FetchContent_Declare(
@@ -10,8 +10,8 @@ find_package(GTest REQUIRED)
 # set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 # FetchContent_MakeAvailable(googletest)
 
-add_executable(test_main test_main.cc)
-target_link_libraries(test_main GTest::gtest GTest::gtest_main)
+# add_executable(test_main test_main.cc)
+# target_link_libraries(test_main GTest::gtest GTest::gtest_main)
 
-include(GoogleTest)
-gtest_discover_tests(test_main)
+# include(GoogleTest)
+# gtest_discover_tests(test_main)

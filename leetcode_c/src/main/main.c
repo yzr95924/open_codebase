@@ -20,22 +20,20 @@
 #define MODULE_ID "LeetCodeMain"
 
 int main(int argc, char* argv[]) {
-
+    int arr[] = {1,3,4,5,2,6,9,8,7};
     ZUORU_Heap *heapPtr = ZUORU_InitHeap(100, true);
-    int arr[] = {2,1,10,21,19,6,5,12,9};
+    ZUORU_HeapDataItem tmpItem;
 
     for (int idx = 0; idx < ARRAY_SIZE(arr); idx++) {
         ZUORU_InsertHeap(heapPtr, &arr[idx]);
     }
 
-    int totalSize = heapPtr->curSize;
-    for (int idx = 0; idx < totalSize; idx++) {
+    for (int idx = 0; idx < ARRAY_SIZE(arr); idx++) {
         printf("%d ", heapPtr->heapItems[idx]);
     }
     printf("\n");
 
-    ZUORU_HeapDataItem tmpItem;
-    for (int idx = 0; idx < totalSize; idx++) {
+    for (int idx = 0; idx < ARRAY_SIZE(arr); idx++) {
         ZUORU_RemoveHeapTop(heapPtr, &tmpItem);
         printf("%d ", tmpItem);
     }

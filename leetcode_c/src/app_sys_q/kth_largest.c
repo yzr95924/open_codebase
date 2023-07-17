@@ -12,13 +12,27 @@
 #include "../../include/app_sys_q.h"
 
 typedef int ZUORU_HeapDataItem;
-
 typedef struct {
     ZUORU_HeapDataItem *heapItems;
     int capacity;
     int curSize;
     bool isMaxHeap;
 } ZUORU_Heap;
+
+int ZUORU_HeapGetParent(int curIdx)
+{
+    return (curIdx - 1) / 2;
+}
+
+int ZUORU_HeapGetLeftChild(int curIdx)
+{
+    return (curIdx * 2 + 1);
+}
+
+int ZUORU_HeapGetRightChild(int curIdx)
+{
+    return (curIdx * 2 + 2);
+}
 
 void ZUORU_SwapHeapItem(ZUORU_HeapDataItem *heapItems, int idx1, int idx2)
 {
@@ -29,32 +43,10 @@ void ZUORU_SwapHeapItem(ZUORU_HeapDataItem *heapItems, int idx1, int idx2)
     return;
 }
 
-bool ZUORU_IsParentLarge(ZUORU_HeapDataItem *heapItems,
-    int parentIdx, int childIdx, bool isMaxHeap)
-{
-    ZUORU_HeapDataItem *parentItem = &heapItems[parentIdx];
-    ZUORU_HeapDataItem *childItem = &heapItems[childIdx];
-    if (isMaxHeap) {
-        if (*parentItem - *childItem < 0) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        if (*parentItem - *childItem < 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 ZUORU_Heap* ZUORU_InitHeap(int capacity, bool isMaxHeap)
 {
     ZUORU_Heap *heapPtr = (ZUORU_Heap*)calloc(1, sizeof(ZUORU_Heap));
-    heapPtr->heapItems = (ZUORU_HeapDataItem*)calloc(capacity + 1, sizeof(ZUORU_HeapDataItem));
+    heapPtr->heapItems = (ZUORU_HeapDataItem*)calloc(capacity, sizeof(ZUORU_HeapDataItem));
     heapPtr->capacity = capacity;
     heapPtr->isMaxHeap = isMaxHeap;
     heapPtr->curSize = 0;
@@ -84,24 +76,73 @@ bool ZUORU_IsEmptyHeap(ZUORU_Heap *heapPtr)
     return false;
 }
 
+bool ZUORU_ChkHeapParent(ZUORU_Heap *heapPtr, int parentIdx, int childIdx)
+{
+    if (heapPtr->isMaxHeap) {
+        if (heapPtr->heapItems[parentIdx] > heapPtr->heapItems[childIdx]) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        if (heapPtr->heapItems[parentIdx] < heapPtr->heapItems[childIdx]) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
+void ZUORU_InsertHeapImpl(ZUORU_Heap *heapPtr, int curIdx)
+{
+    int parentIdx = ZUORU_HeapGetParent(curIdx);
+    if (!ZUORU_ChkHeapParent(heapPtr, parentIdx, curIdx) && (parentIdx != curIdx)) {
+        ZUORU_SwapHeapItem(heapPtr->heapItems, parentIdx, curIdx);
+        ZUORU_InsertHeapImpl(heapPtr, parentIdx);
+    }
+
+    return;
+}
+
 bool ZUORU_InsertHeap(ZUORU_Heap *heapPtr, ZUORU_HeapDataItem *inVal)
 {
     if (ZUORU_IsFullHeap(heapPtr)) {
         fprintf(stderr, "heap is full\n");
         return false;
     }
-
+    memcpy(&heapPtr->heapItems[heapPtr->curSize], inVal,
+        sizeof(ZUORU_HeapDataItem));
+    ZUORU_InsertHeapImpl(heapPtr, heapPtr->curSize);
     heapPtr->curSize++;
-    int newIdx = heapPtr->curSize;
-    memcpy(&heapPtr->heapItems[newIdx], inVal, sizeof(ZUORU_HeapDataItem));
-
-    while (((newIdx / 2) > 0) &&
-        ZUORU_IsParentLarge(heapPtr->heapItems, newIdx / 2, newIdx, heapPtr->isMaxHeap)) {
-            ZUORU_SwapHeapItem(heapPtr->heapItems, newIdx, newIdx / 2);
-            newIdx = newIdx / 2;
-    }
 
     return true;
+}
+
+void ZUORU_MakeHeap(ZUORU_Heap *heapPtr, int curIdx)
+{
+    int leftIdx = ZUORU_HeapGetLeftChild(curIdx);
+    int rightIdx = ZUORU_HeapGetRightChild(curIdx);
+    int targetIdx = curIdx;
+    if (leftIdx >= heapPtr->curSize) {
+        leftIdx = INT32_MIN;
+    }
+    if (rightIdx >= heapPtr->curSize) {
+        rightIdx = INT32_MIN;
+    }
+
+    if (leftIdx != INT32_MIN && !ZUORU_ChkHeapParent(heapPtr, targetIdx, leftIdx)) {
+        targetIdx = leftIdx;
+    }
+    if (rightIdx != INT32_MIN && !ZUORU_ChkHeapParent(heapPtr, targetIdx, rightIdx)) {
+        targetIdx = rightIdx;
+    }
+    if (targetIdx != curIdx) {
+        ZUORU_SwapHeapItem(heapPtr->heapItems, curIdx, targetIdx);
+        ZUORU_MakeHeap(heapPtr, targetIdx);
+    }
+
+    return;
 }
 
 bool ZUORU_RemoveHeapTop(ZUORU_Heap *heapPtr, ZUORU_HeapDataItem *outVal)
@@ -109,30 +150,11 @@ bool ZUORU_RemoveHeapTop(ZUORU_Heap *heapPtr, ZUORU_HeapDataItem *outVal)
     if (heapPtr->curSize == 0) {
         return false;
     }
-
-    memcpy(outVal, &heapPtr->heapItems[1], sizeof(ZUORU_HeapDataItem));
-    memcpy(&heapPtr->heapItems[1], &heapPtr->heapItems[heapPtr->curSize],
+    memcpy(outVal, &heapPtr->heapItems[0], sizeof(ZUORU_HeapDataItem));
+    memcpy(&heapPtr->heapItems[0], &heapPtr->heapItems[heapPtr->curSize - 1],
         sizeof(ZUORU_HeapDataItem));
     heapPtr->curSize--;
-
-    int curIdx = 1;
-    int nextPos;
-    while (true) {
-        nextPos = curIdx;
-        if (2 * curIdx <= heapPtr->curSize &&
-            ZUORU_IsParentLarge(heapPtr->heapItems, curIdx, 2 * curIdx, heapPtr->isMaxHeap)) {
-            nextPos = curIdx * 2;
-        }
-        if (2 * curIdx + 1 <= heapPtr->curSize &&
-            ZUORU_IsParentLarge(heapPtr->heapItems, curIdx, 2 * curIdx + 1, heapPtr->isMaxHeap)) {
-            nextPos = curIdx * 2 + 1;
-        }
-        if (nextPos == curIdx) {
-            break;
-        }
-        ZUORU_SwapHeapItem(heapPtr->heapItems, curIdx, nextPos);
-        curIdx = nextPos;
-    }
+    ZUORU_MakeHeap(heapPtr, 0);
 
     return true;
 }
@@ -147,5 +169,21 @@ bool ZUORU_RemoveHeapTop(ZUORU_Heap *heapPtr, ZUORU_HeapDataItem *outVal)
  */
 int findKthLargest(int* nums, int numsSize, int k)
 {
-    ZUORU_Heap *heapPtr = ZUORU_InitHeap(100000, true);
+    int tmpItem;
+    ZUORU_Heap *heapPtr = ZUORU_InitHeap(k, false);
+    for (int idx = 0; idx < numsSize; idx++) {
+        if (!ZUORU_IsFullHeap(heapPtr)) {
+            ZUORU_InsertHeap(heapPtr, &nums[idx]);
+        } else {
+            tmpItem = heapPtr->heapItems[0];
+            if (nums[idx] > tmpItem) {
+                ZUORU_RemoveHeapTop(heapPtr, &tmpItem);
+                ZUORU_InsertHeap(heapPtr, &nums[idx]);
+            }
+        }
+    }
+
+    tmpItem = heapPtr->heapItems[0];
+    ZUORU_FreeHeap(heapPtr);
+    return tmpItem;
 }

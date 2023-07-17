@@ -50,7 +50,7 @@ void ZUORU_SwapHeapItem(ZUORU_HeapDataItem *heapItems, int idx1, int idx2)
 ZUORU_Heap* ZUORU_InitHeap(int capacity, bool isMaxHeap)
 {
     ZUORU_Heap *heapPtr = (ZUORU_Heap*)calloc(1, sizeof(ZUORU_Heap));
-    heapPtr->heapItems = (ZUORU_HeapDataItem*)calloc(capacity + 1, sizeof(ZUORU_HeapDataItem));
+    heapPtr->heapItems = (ZUORU_HeapDataItem*)calloc(capacity, sizeof(ZUORU_HeapDataItem));
     heapPtr->capacity = capacity;
     heapPtr->isMaxHeap = isMaxHeap;
     heapPtr->curSize = 0;

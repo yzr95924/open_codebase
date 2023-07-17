@@ -49,7 +49,7 @@ void EnMyQueue(MyQueue_T* queuePtr, int* inVal) {
     memcpy(&queuePtr->data[queuePtr->rear], inVal, sizeof(*(queuePtr->data)));
 
     queuePtr->curSize++;
-    return ;
+    return;
 }
 
 void DeMyQueue(MyQueue_T* queuePtr, int* outVal) {
@@ -62,7 +62,7 @@ void DeMyQueue(MyQueue_T* queuePtr, int* outVal) {
     queuePtr->head = (queuePtr->head + 1) % queuePtr->capacity;
 
     queuePtr->curSize--;
-    return ;
+    return;
 }
 
 bool IsFullMyQueue(MyQueue_T* queuePtr) {
@@ -82,7 +82,7 @@ bool IsEmptyMyQueue(MyQueue_T* queuePtr) {
 void FreeMyQueue(MyQueue_T* queuePtr) {
     free(queuePtr->data);
     free(queuePtr);
-    return ;
+    return;
 }
 
 
@@ -125,17 +125,17 @@ bool IsEmptyMyList(MyList_T* listPtr) {
 void FreeMyList(MyList_T* listPtr) {
     free(listPtr->data);
     free(listPtr);
-    return ;
+    return;
 }
 
 void AppendMyList(MyList_T* listPtr, int* inVal) {
     if (IsFullMyList(listPtr)) {
         printf("list is full.\n");
-        return ;
+        return;
     }
     memcpy(&listPtr->data[listPtr->curSize], inVal, sizeof(*(listPtr->data)));
     listPtr->curSize++;
-    return ;
+    return;
 }
 
 void InsertMyList(MyList_T* listPtr, int posIdx, int* inVal) {
@@ -155,7 +155,7 @@ void InsertMyList(MyList_T* listPtr, int posIdx, int* inVal) {
     memcpy(&listPtr->data[listPtr->curSize], inVal, sizeof(*(listPtr->data)));
     listPtr->curSize++;
 
-    return ;
+    return;
 }
 
 int FindMyList(MyList_T* listPtr, int inVal) {
@@ -196,7 +196,7 @@ void SortMyList(MyList_T* listPtr) {
             }
         }
     }
-    return ;
+    return;
 }
 
 #endif

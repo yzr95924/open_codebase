@@ -204,7 +204,7 @@ void YzrDLListFree(YzrDLList* inputList)
     }
 
     free(inputList);
-    return ;
+    return;
 }
 
 #endif

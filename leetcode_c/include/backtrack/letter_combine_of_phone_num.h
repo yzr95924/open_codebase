@@ -47,7 +47,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState, int t
         char* targetPtr = ansWrapper->retAns[ansWrapper->cnt];
         memcpy(targetPtr, btState->curAns, btState->curSize + 1);
         ansWrapper->cnt++;
-        return ;
+        return;
     }
 
     int curDigit = btState->inputStr[btState->curCharIdx] - '0';
@@ -62,7 +62,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState, int t
         btState->curCharIdx--;
     }
 
-    return ;
+    return;
 }
 
 

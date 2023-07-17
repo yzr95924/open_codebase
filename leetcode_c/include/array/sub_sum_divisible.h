@@ -4,9 +4,9 @@
  * @brief https://leetcode.cn/problems/subarray-sums-divisible-by-k/
  * @version 0.1
  * @date 2023-02-05
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef LEETCODE_SUB_SUM_DIVISIBLE_H
@@ -34,7 +34,7 @@ void AddItem(int remainder) {
     } else {
         curItem->cnt++;
     }
-    return ;
+    return;
 }
 
 int CheckRemainder(int remainder) {

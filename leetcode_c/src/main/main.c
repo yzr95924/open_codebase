@@ -14,7 +14,8 @@
 #include "../../include/app_sys_q.h"
 #include "../../include/bfs_q.h"
 #include "../../include/math_q.h"
-#include "../../../common_include/c_my_heap.h"
+// #include "../../../common_include/c_my_heap.h"
+#include "../../../common_include/c_my_new_heap.h"
 
 #define MODULE_ID "LeetCodeMain"
 
@@ -27,14 +28,20 @@ int main(int argc, char* argv[]) {
         ZUORU_InsertHeap(heapPtr, &arr[idx]);
     }
 
-    ZUORU_HeapDataItem outVal = 0;
-    ZUORU_RemoveTop(heapPtr, &outVal);
     int totalSize = heapPtr->curSize;
-    for (int idx = 1; idx <= totalSize; idx++) {
-        fprintf(stderr, "%d ", heapPtr->heapItems[idx]);
+    for (int idx = 0; idx < totalSize; idx++) {
+        printf("%d ", heapPtr->heapItems[idx]);
     }
-    fprintf(stderr, "\n");
+    printf("\n");
+
+    ZUORU_HeapDataItem tmpItem;
+    for (int idx = 0; idx < totalSize; idx++) {
+        ZUORU_RemoveHeapTop(heapPtr, &tmpItem);
+        printf("%d ", tmpItem);
+    }
+    printf("\n");
 
     ZUORU_FreeHeap(heapPtr);
+
     return 0;
 }

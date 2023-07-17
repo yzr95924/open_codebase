@@ -104,7 +104,7 @@ void CryptoUtil::GenerateHash(EVP_MD_CTX *ctx, uint8_t *data, uint32_t size, uin
     }
 
     EVP_MD_CTX_reset(ctx);
-    return ;
+    return;
 }
 
 /**
@@ -448,5 +448,5 @@ void CryptoUtil::GenerateHMAC(EVP_MD_CTX *ctx, uint8_t *data, const int size,
 
     EVP_MD_CTX_reset(ctx);
 
-    return ;
+    return;
 }

@@ -4,9 +4,9 @@
  * @brief https://leetcode.cn/problems/largest-rectangle-in-histogram/
  * @version 0.1
  * @date 2023-02-12
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef LEETCODE_LARGEST_RECTANGLE_HIS_H
@@ -36,7 +36,7 @@ MyStack_T* InitMyStack(int capacity) {
 bool IsFullMyStack(MyStack_T* stackPtr) {
     if (stackPtr->stackTopIdx == (stackPtr->capacity - 1)) {
         return true;
-    } 
+    }
     return false;
 }
 
@@ -50,24 +50,24 @@ bool IsEmptyMyStack(MyStack_T* stackPtr) {
 void PushMyStack(MyStack_T* stackPtr, int inVal) {
     if (IsFullMyStack(stackPtr)) {
         printf("stack is full.\n");
-        return ;
+        return;
     }
     stackPtr->stackTopIdx++;
     stackPtr->data[stackPtr->stackTopIdx] = inVal;
     stackPtr->curSize++;
-    return ;
+    return;
 }
 
 void PopMyStack(MyStack_T* stackPtr, int* outVal) {
     if (IsEmptyMyStack(stackPtr)) {
         printf("stack is empty.\n");
-        return ;
+        return;
     }
-    
+
     *outVal = stackPtr->data[stackPtr->stackTopIdx];
     stackPtr->stackTopIdx--;
     stackPtr->curSize--;
-    return ;
+    return;
 }
 
 int TopMyStack(MyStack_T* stackPtr) {
@@ -81,7 +81,7 @@ int TopMyStack(MyStack_T* stackPtr) {
 void FreeMyStack(MyStack_T* stackPtr) {
     free(stackPtr->data);
     free(stackPtr);
-    return ;
+    return;
 }
 
 int largestRectangleArea(int* heights, int heightsSize){

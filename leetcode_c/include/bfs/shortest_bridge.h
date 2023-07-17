@@ -43,7 +43,7 @@ void EnMyQueue(MyQueue_T* queuePtr, int* inVal) {
     memcpy(&queuePtr->data[queuePtr->rear], inVal, sizeof(*(queuePtr->data)));
 
     queuePtr->curSize++;
-    return ;
+    return;
 }
 
 void DeMyQueue(MyQueue_T* queuePtr, int* outVal) {
@@ -56,7 +56,7 @@ void DeMyQueue(MyQueue_T* queuePtr, int* outVal) {
     queuePtr->head = (queuePtr->head + 1) % queuePtr->capacity;
 
     queuePtr->curSize--;
-    return ;
+    return;
 }
 
 bool IsFullMyQueue(MyQueue_T* queuePtr) {
@@ -76,7 +76,7 @@ bool IsEmptyMyQueue(MyQueue_T* queuePtr) {
 void FreeMyQueue(MyQueue_T* queuePtr) {
     free(queuePtr->data);
     free(queuePtr);
-    return ;
+    return;
 }
 
 int shortestBridge(int** grid, int gridSize, int* gridColSize){

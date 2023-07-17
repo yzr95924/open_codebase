@@ -65,7 +65,7 @@ void YZRFreeFixedTwoArray(uint8_t** inputArray, size_t rowCnt)
         free(inputArray[i]);
     }
     free(inputArray);
-    return ;
+    return;
 }
 
 void YZRFreeTwoDemArray(int** inputArray, int size)
@@ -74,7 +74,7 @@ void YZRFreeTwoDemArray(int** inputArray, int size)
         free(inputArray[i]);
     }
     free(inputArray);
-    return ;
+    return;
 }
 
 uint64_t YZRGetFactorial(int inputVal)

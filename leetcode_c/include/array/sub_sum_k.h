@@ -4,9 +4,9 @@
  * @brief https://leetcode.cn/problems/subarray-sum-equals-k/
  * @version 0.1
  * @date 2023-02-02
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef LEETCODE_SUB_SUM_H
@@ -18,7 +18,7 @@
 typedef struct {
     int prefixSum; // idx
     int cnt; // sum
-    UT_hash_handle hh; 
+    UT_hash_handle hh;
 } HASH_MAP_T;
 
 HASH_MAP_T* gSumMap = NULL;
@@ -34,7 +34,7 @@ void AddItem(int prefixSum, int cnt) {
     } else {
         curItem->cnt++;
     }
-    return ;
+    return;
 }
 
 static void ClearAll() {
@@ -44,7 +44,7 @@ static void ClearAll() {
         HASH_DEL(gSumMap, curItem);
         free(curItem);
     }
-    return ;
+    return;
 }
 
 int subarraySum(int* nums, int numsSize, int k){

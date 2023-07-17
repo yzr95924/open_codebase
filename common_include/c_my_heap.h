@@ -16,7 +16,6 @@
 #include "c_include.h"
 
 typedef int ZUORU_HeapDataItem;
-
 typedef struct {
     ZUORU_HeapDataItem *heapItems;
     int capacity;
@@ -24,7 +23,7 @@ typedef struct {
     bool isMaxHeap;
 } ZUORU_Heap;
 
-void ZUORU_SwapHeapFunc(ZUORU_HeapDataItem *heapItems, int idx1, int idx2)
+void ZUORU_SwapHeapItem(ZUORU_HeapDataItem *heapItems, int idx1, int idx2)
 {
     ZUORU_HeapDataItem tmpItem;
     memcpy(&tmpItem, &heapItems[idx1], sizeof(ZUORU_HeapDataItem));
@@ -33,7 +32,7 @@ void ZUORU_SwapHeapFunc(ZUORU_HeapDataItem *heapItems, int idx1, int idx2)
     return;
 }
 
-bool ZUORU_CmpHeapItem(ZUORU_HeapDataItem *heapItems,
+bool ZUORU_IsParentLarge(ZUORU_HeapDataItem *heapItems,
     int parentIdx, int childIdx, bool isMaxHeap)
 {
     ZUORU_HeapDataItem *parentItem = &heapItems[parentIdx];
@@ -88,6 +87,11 @@ bool ZUORU_IsEmptyHeap(ZUORU_Heap *heapPtr)
     return false;
 }
 
+void ZUORU_InsertHeapImpl(ZUORU_Heap *heapPtr, int curIdx)
+{
+    ZUORU_
+}
+
 bool ZUORU_InsertHeap(ZUORU_Heap *heapPtr, ZUORU_HeapDataItem *inVal)
 {
     if (ZUORU_IsFullHeap(heapPtr)) {
@@ -95,49 +99,13 @@ bool ZUORU_InsertHeap(ZUORU_Heap *heapPtr, ZUORU_HeapDataItem *inVal)
         return false;
     }
 
-    heapPtr->curSize++;
-    int newIdx = heapPtr->curSize;
-    memcpy(&heapPtr->heapItems[newIdx], inVal, sizeof(ZUORU_HeapDataItem));
 
-    while (((newIdx / 2) > 0) &&
-        ZUORU_CmpHeapItem(heapPtr->heapItems, newIdx / 2, newIdx, heapPtr->isMaxHeap)) {
-            ZUORU_SwapHeapFunc(heapPtr->heapItems, newIdx, newIdx / 2);
-            newIdx = newIdx / 2;
-    }
 
     return true;
 }
 
-bool ZUORU_RemoveTop(ZUORU_Heap *heapPtr, ZUORU_HeapDataItem *outVal)
+bool ZUORU_RemoveHeapTop(ZUORU_Heap *heapPtr, ZUORU_HeapDataItem *outVal)
 {
-    if (heapPtr->curSize == 0) {
-        return false;
-    }
-
-    memcpy(outVal, &heapPtr->heapItems[1], sizeof(ZUORU_HeapDataItem));
-    memcpy(&heapPtr->heapItems[1], &heapPtr->heapItems[heapPtr->curSize],
-        sizeof(ZUORU_HeapDataItem));
-    heapPtr->curSize--;
-
-    int curIdx = 1;
-    int nextPos;
-    while (true) {
-        nextPos = curIdx;
-        if (2 * curIdx <= heapPtr->curSize &&
-            ZUORU_CmpHeapItem(heapPtr->heapItems, curIdx, 2 * curIdx, heapPtr->isMaxHeap)) {
-            nextPos = curIdx * 2;
-        }
-        if (2 * curIdx + 1 <= heapPtr->curSize &&
-            ZUORU_CmpHeapItem(heapPtr->heapItems, curIdx, 2 * curIdx + 1, heapPtr->isMaxHeap)) {
-            nextPos = curIdx * 2 + 1;
-        }
-        if (nextPos == curIdx) {
-            break;
-        }
-        ZUORU_SwapHeapFunc(heapPtr->heapItems, curIdx, nextPos);
-        curIdx = nextPos;
-    }
-
     return true;
 }
 

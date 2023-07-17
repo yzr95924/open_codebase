@@ -32,7 +32,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
         memcpy(ansWrapper->retAns[ansWrapper->cnt],
             btState->curAns, sizeof(int) * numsSize);
         ansWrapper->cnt++;
-        return ;
+        return;
     }
 
     for (int i = 0; i < numsSize; i++) {
@@ -50,7 +50,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
         }
     }
 
-    return ;
+    return;
 }
 
 int** permute(int* nums, int numsSize, int* returnSize, int** returnColumnSizes){

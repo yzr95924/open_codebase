@@ -4,9 +4,9 @@
  * @brief https://leetcode.cn/problems/car-pooling/
  * @version 0.1
  * @date 2023-02-05
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef LEETCODE_CAR_POOLING_H
@@ -17,7 +17,7 @@
 void UpdateTripMap(int* tripMap, int numPassenger, int startPos, int endPos) {
     tripMap[startPos] += numPassenger;
     tripMap[endPos] -= numPassenger;
-    return ;
+    return;
 }
 
 bool carPooling(int** trips, int tripsSize, int* tripsColSize, int capacity){

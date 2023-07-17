@@ -78,7 +78,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
         }
     }
 
-    return ;
+    return;
 }
 
 int CmpFunc(const void* a, const void* b) {

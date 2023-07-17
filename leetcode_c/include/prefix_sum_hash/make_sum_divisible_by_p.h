@@ -33,7 +33,7 @@ void InsertHashTable(HashTableItem_t** hashTable, int key, int val) {
     } else {
         tmpItem->latestIdx = val;
     }
-    return ;
+    return;
 }
 
 bool FindHashTable(HashTableItem_t* hashTable, int key) {
@@ -53,12 +53,12 @@ void GetHashTable(HashTableItem_t* hashTable, int key, int* val) {
     if (tmpItem == NULL) {
         // not exist
         printf("the query item not exists.\n");
-        return ;
+        return;
     } else {
         memcpy(val, &tmpItem->latestIdx, sizeof(*val));
     }
 
-    return ;
+    return;
 }
 
 void FreeHashHashTable(HashTableItem_t* hashTable) {
@@ -68,7 +68,7 @@ void FreeHashHashTable(HashTableItem_t* hashTable) {
         HASH_DEL(hashTable, tmpItem);
         free(tmpItem);
     }
-    return ;
+    return;
 }
 
 int minSubarray(int* nums, int numsSize, int p){

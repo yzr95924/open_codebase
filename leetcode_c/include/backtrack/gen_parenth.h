@@ -60,7 +60,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
             ansWrapper->retAns[ansWrapper->cnt][btState->curSize] = '\0';
             ansWrapper->cnt++;
         }
-        return ;
+        return;
     }
 
     for (int i = 0; i < 2; i++) {
@@ -72,7 +72,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
         btState->curSize--;
     }
 
-    return ;
+    return;
 }
 
 /**

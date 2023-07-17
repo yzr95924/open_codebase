@@ -112,7 +112,7 @@ void CryptoTestOneThead(INPUT_PARAM_T *in_param, OUTPUT_PARAM_T *out_param)
     EVP_MD_CTX_free(md_ctx);
 
     ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "finish thread_id: %d\n", thread_id);
-    return ;
+    return;
 }
 
 int main(int argc, char *argv[])

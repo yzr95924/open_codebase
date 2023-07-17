@@ -4,9 +4,9 @@
  * @brief https://leetcode.cn/problems/queue-reconstruction-by-height/description/
  * @version 0.1
  * @date 2023-02-09
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef QUEUE_REBUILD_BY_HEIGHT_H
@@ -46,17 +46,17 @@ bool IsEmptyMyList(MyList_T* listPtr) {
 void FreeMyList(MyList_T* listPtr) {
     free(listPtr->data);
     free(listPtr);
-    return ;
+    return;
 }
 
 void AppendMyList(MyList_T* listPtr, int inVal) {
     if (IsFullMyList(listPtr)) {
         printf("list is full.\n");
-        return ;
+        return;
     }
     listPtr->data[listPtr->curSize] = inVal;
     listPtr->curSize++;
-    return ;
+    return;
 }
 
 void InsertMyList(MyList_T* listPtr, int posIdx, int inVal) {
@@ -76,7 +76,7 @@ void InsertMyList(MyList_T* listPtr, int posIdx, int inVal) {
     listPtr->data[posIdx] = inVal;
     listPtr->curSize++;
 
-    return ;
+    return;
 }
 
 int FindMyList(MyList_T* listPtr, int inVal) {
@@ -117,7 +117,7 @@ void SortMyList(MyList_T* listPtr) {
             }
         }
     }
-    return ;
+    return;
 }
 
 int CmpFunc(const void* input1, const void* input2) {

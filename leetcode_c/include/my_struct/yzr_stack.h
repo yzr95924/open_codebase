@@ -50,24 +50,24 @@ bool YzrStackIsEmpty(YzrStack* stackPtr) {
 void YzrStackPush(YzrStack* stackPtr, int* inVal) {
     if (YzrStackIsFull(stackPtr)) {
         printf("stack is full.\n");
-        return ;
+        return;
     }
     stackPtr->stackTopIdx++;
     memcpy(&stackPtr->data[stackPtr->stackTopIdx], inVal, sizeof(*(stackPtr->data)));
     stackPtr->curSize++;
-    return ;
+    return;
 }
 
 void YzrStackPop(YzrStack* stackPtr, int* outVal) {
     if (YzrStackIsEmpty(stackPtr)) {
         printf("stack is empty.\n");
-        return ;
+        return;
     }
 
     memcpy(outVal, &stackPtr->data[stackPtr->stackTopIdx], sizeof(*(stackPtr->data)));
     stackPtr->stackTopIdx--;
     stackPtr->curSize--;
-    return ;
+    return;
 }
 
 int YzrStackTop(YzrStack* stackPtr) {
@@ -81,7 +81,7 @@ int YzrStackTop(YzrStack* stackPtr) {
 void YzrStackFree(YzrStack* stackPtr) {
     free(stackPtr->data);
     free(stackPtr);
-    return ;
+    return;
 }
 
 #endif

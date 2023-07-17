@@ -4,9 +4,9 @@
  * @brief check: https://troydhanson.github.io/uthash/userguide.html
  * @version 0.1
  * @date 2023-01-29
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #include <stdio.h>
@@ -32,7 +32,7 @@ void AddUser(int user_id, const char *name) {
         HASH_ADD_INT(users, id, s); // id is the key field
     }
     strcpy(s->name, name);
-    return ;
+    return;
 }
 
 my_struct_t *FindUser(int user_id) {
@@ -44,7 +44,7 @@ my_struct_t *FindUser(int user_id) {
 void DeleteUser(my_struct_t *user) {
     HASH_DEL(users, user); // user is the pointer to delete
     free(user);
-    return ;
+    return;
 }
 
 void DeleteAll() {
@@ -54,7 +54,7 @@ void DeleteAll() {
         HASH_DEL(users, cur_user);
         free(cur_user);
     }
-    return ;
+    return;
 }
 
 void PrintUsers() {
@@ -62,7 +62,7 @@ void PrintUsers() {
     for (s = users; s != NULL; s = (my_struct_t*)(s->hh.next)) {
         printf("user id %d: name %s\n", s->id, s->name);
     }
-    return ;
+    return;
 }
 
 int ByName(const my_struct_t *a, const my_struct_t *b) {

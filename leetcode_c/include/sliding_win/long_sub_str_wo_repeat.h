@@ -4,9 +4,9 @@
  * @brief https://leetcode.cn/problems/longest-substring-without-repeating-characters/
  * @version 0.1
  * @date 2023-02-08
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef LEETCODE_LONG_SUB_STR_WO_REPEAT_H
@@ -14,7 +14,7 @@
 
 #include "../const.h"
 
-static const int g_alphabetNum = 128; 
+static const int g_alphabetNum = 128;
 
 static void AddMap(uint8_t* subMap, char input_c) {
     subMap[input_c]++;
@@ -31,7 +31,7 @@ static bool CheckUnique(uint8_t* subMap) {
 
 static void RemoveMap(uint8_t* subMap, char input_c) {
     subMap[input_c]--;
-    return ;
+    return;
 }
 
 int lengthOfLongestSubstring(char * s){
@@ -53,7 +53,7 @@ int lengthOfLongestSubstring(char * s){
             frontIdx++;
             if (frontIdx == sSize) {
                 break;
-            } 
+            }
             AddMap(subMap, s[frontIdx]);
         } else {
             // remove

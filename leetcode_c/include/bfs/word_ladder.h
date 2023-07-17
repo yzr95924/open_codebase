@@ -52,7 +52,7 @@ void EnMyQueue(MyQueue_T* queuePtr, WordWrapper_T* inVal) {
     memcpy(&queuePtr->data[queuePtr->rear], inVal, sizeof(WordWrapper_T));
 
     queuePtr->curSize++;
-    return ;
+    return;
 }
 
 void DeMyQueue(MyQueue_T* queuePtr, WordWrapper_T* outVal) {
@@ -64,7 +64,7 @@ void DeMyQueue(MyQueue_T* queuePtr, WordWrapper_T* outVal) {
     queuePtr->head = (queuePtr->head + 1) % queuePtr->capacity;
 
     queuePtr->curSize--;
-    return ;
+    return;
 }
 
 bool IsFullMyQueue(MyQueue_T* queuePtr) {
@@ -84,7 +84,7 @@ bool IsEmptyMyQueue(MyQueue_T* queuePtr) {
 void FreeMyQueue(MyQueue_T* queuePtr) {
     free(queuePtr->data);
     free(queuePtr);
-    return ;
+    return;
 }
 
 int CheckDiffWord(char* input1, char* input2) {

@@ -4,9 +4,9 @@
  * @brief https://leetcode.cn/problems/subsets/
  * @version 0.1
  * @date 2023-02-16
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef LEETCODE_SUBSETS_H
@@ -33,9 +33,9 @@ void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
         btState->curAns, sizeof(int) * btState->curSize);
     ansWrapper->returnColumnSizes[ansWrapper->cnt] = btState->curSize;
     ansWrapper->cnt++;
-    
+
     if (startIdx >= numsSize) {
-        return ;
+        return;
     }
 
     for (int i = startIdx; i < numsSize; i++) {
@@ -49,14 +49,14 @@ void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
         btState->curSize--;
     }
 
-    return ;
+    return;
 }
 
 int** subsets(int* nums, int numsSize, int* returnSize, int** returnColumnSizes){
     int totalAns = (int)pow(2.0, (double)numsSize);
 
     *returnColumnSizes = (int*)calloc(totalAns, sizeof(int));
-    int** retAns = (int**)calloc(totalAns, sizeof(int*)); 
+    int** retAns = (int**)calloc(totalAns, sizeof(int*));
     for (int i = 0; i < totalAns; i++) {
         retAns[i] = (int*)calloc(numsSize, sizeof(int));
     }

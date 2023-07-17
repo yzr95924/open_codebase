@@ -4,9 +4,9 @@
  * @brief https://leetcode.cn/problems/continuous-subarray-sum/
  * @version 0.1
  * @date 2023-02-05
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef LEETCODE_CONT_SUBARRAY_SUM_H
@@ -32,13 +32,13 @@ static void AddItem(int remainder, int curPos) {
         curItem->firstPos = curPos;
         HASH_ADD_INT(g_sumMap, remainder, curItem);
     }
-    return ;
+    return;
 }
 
 static bool CheckK(int k, int remainder, int curPos) {
     HashMap_t* findItem = NULL;
     HASH_FIND_INT(g_sumMap, &remainder, findItem);
-    
+
     bool ret = false;
     if (findItem != NULL) {
         if (curPos - findItem->firstPos > 1) {
@@ -56,7 +56,7 @@ static void ClearAll() {
         HASH_DEL(g_sumMap, curItem);
         free(curItem);
     }
-    return ;
+    return;
 }
 
 bool checkSubarraySum(int* nums, int numsSize, int k){

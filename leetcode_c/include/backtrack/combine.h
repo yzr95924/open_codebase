@@ -30,7 +30,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
         memcpy(ansWrapper->retAns[ansWrapper->cnt],
             btState->curAns, sizeof(int) * k);
         ansWrapper->cnt++;
-        return ;
+        return;
     }
 
     for (int i = startIdx; i <= n; i++) {
@@ -44,7 +44,7 @@ static void BackTrack(AnsWrapper_T* ansWrapper, BackTrackState_T* btState,
         btState->curSize--;
     }
 
-    return ;
+    return;
 }
 
 int** combine(int n, int k, int* returnSize, int** returnColumnSizes){

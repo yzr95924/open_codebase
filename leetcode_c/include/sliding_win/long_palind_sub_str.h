@@ -4,9 +4,9 @@
  * @brief https://leetcode.cn/problems/longest-palindromic-substring/description/
  * @version 0.1
  * @date 2023-02-06
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef LEETCODE_LONG_PALIND_SUB_STR_H
@@ -52,7 +52,7 @@ static void CheckSpec(char* s, int strSize, char** retStr) {
 
     (*retStr)[retSize] = '\0';
 
-    return ;
+    return;
 }
 
 char* longestPalindrome(char* s){
@@ -87,7 +87,7 @@ char* longestPalindrome(char* s){
             strncpy(retStr, &s[0], 1);
         } else {
             strncpy(retStr, &s[maxPalindStartIdx], curMaxPalindSize);
-        } 
+        }
         retStr[curMaxPalindSize] = '\0';
 
     }

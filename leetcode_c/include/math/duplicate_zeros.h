@@ -4,9 +4,9 @@
  * @brief https://leetcode.cn/problems/duplicate-zeros/
  * @version 0.1
  * @date 2023-01-31
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef LEETCODE_DUPLICATE_ZEROS_H
@@ -24,7 +24,7 @@ static void adjustArray(int* const tailPos, int remainSize) {
         prePtr--;
     }
 
-    return ;
+    return;
 }
 
 void duplicateZeros(int* arr, int arrSize){
@@ -45,7 +45,7 @@ void duplicateZeros(int* arr, int arrSize){
             i++;
         }
     }
-    return ;
+    return;
 }
 
 #endif

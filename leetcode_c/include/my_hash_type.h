@@ -35,7 +35,7 @@ void InsertHashTable(HashTblItem_T** hashTable, int key, int val)
     } else {
         curItem->hashVal = val;
     }
-    return ;
+    return;
 }
 
 bool GetHashTable(const HashTblItem_T* hashTable, int key, int* val)
@@ -60,7 +60,7 @@ void FreeHashTable(HashTblItem_T* hashTable)
         free(curItem);
     }
 
-    return ;
+    return;
 }
 
 #endif

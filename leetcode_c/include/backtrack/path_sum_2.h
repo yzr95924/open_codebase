@@ -44,9 +44,9 @@ static void BackTrack(TreeNode* root, AnsWrapper_T* ansWrapper, BackTrackState_T
                 curState->curSize * sizeof(int));
             ansWrapper->returnColSizes[ansWrapper->cnt] = curState->curSize;
             ansWrapper->cnt++;
-            return ;
+            return;
         }
-        return ;
+        return;
     }
 
     //
@@ -68,7 +68,7 @@ static void BackTrack(TreeNode* root, AnsWrapper_T* ansWrapper, BackTrackState_T
         curState->remainTarget += root->right->val;
     }
 
-    return ;
+    return;
 }
 
 int** pathSum(struct TreeNode* root, int targetSum, int* returnSize, int** returnColumnSizes){

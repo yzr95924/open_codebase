@@ -15,7 +15,7 @@
 #include "../../include/bfs_q.h"
 #include "../../include/math_q.h"
 // #include "../../../common_include/c_my_heap.h"
-#include "../../../common_include/c_my_new_heap.h"
+#include "../../../common_include/c_my_heap.h"
 
 #define MODULE_ID "LeetCodeMain"
 

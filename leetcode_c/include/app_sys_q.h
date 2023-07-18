@@ -38,4 +38,11 @@ void lRUCacheFree(LRUCache *obj);
  */
 int findKthLargest(int* nums, int numsSize, int k);
 
+/**
+ * @brief 347. Top K Frequent Elements
+ * @cite https://leetcode.cn/problems/top-k-frequent-elements/
+ *
+ */
+int* topKFrequent(int* nums, int numsSize, int k, int* returnSize);
+
 #endif

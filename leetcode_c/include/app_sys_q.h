@@ -45,4 +45,19 @@ int findKthLargest(int* nums, int numsSize, int k);
  */
 int* topKFrequent(int* nums, int numsSize, int k, int* returnSize);
 
+/**
+ * @brief 295. Find Median from Data Stream
+ * @cite https://leetcode.cn/problems/find-median-from-data-stream/
+ *
+ */
+typedef struct {
+    void *maxHeapPtr;
+    void *minHeapPtr;
+    int curItemCnt;
+} MedianFinder;
+MedianFinder* medianFinderCreate();
+void medianFinderAddNum(MedianFinder* obj, int num);
+double medianFinderFindMedian(MedianFinder* obj);
+void medianFinderFree(MedianFinder* obj);
+
 #endif

@@ -10,6 +10,8 @@ Question List (in C)
 1590. 使数组和能被P整除 [ans](./include/prefix_sum/make_sum_divisible_by_p.h)[medium]
 
 ## 贪心 && DP
+55. 跳跃游戏 [ans](./src/greedy_dp_q/jump_game.c)[medium]
+70. 爬楼梯 [ans](./src/greedy_dp_q/)[easy]
 121. 买卖股票的最佳时机 [ans](./src/greedy_dp_q/max_pro.c)[easy]
 122. 买卖股票的最佳时机 II [ans](./include/array/best_time_sell_stock_2.h)[medium]
 413. 等差数列划分 [ans](./include/array/arith_slices.h)[medium]

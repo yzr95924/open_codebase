@@ -21,4 +21,18 @@
  */
 int maxProfit(int* prices, int pricesSize);
 
+/**
+ * @brief 55. 跳跃游戏
+ * @cite https://leetcode.cn/problems/jump-game/
+ *
+ */
+bool canJump(int* nums, int numsSize);
+
+/**
+ * @brief 70. 爬楼梯
+ * @cite https://leetcode.cn/problems/climbing-stairs
+ *
+ */
+int climbStairs(int n);
+
 #endif

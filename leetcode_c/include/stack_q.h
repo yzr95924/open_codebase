@@ -15,7 +15,14 @@
 #include "../../common_include/c_include.h"
 
 /**
- * @brief 678. Valid Parenthesis String
+ * @brief 20. 有效的括号
+ * @cite https://leetcode.cn/problems/valid-parentheses/
+ *
+ */
+bool isValid(char * s);
+
+/**
+ * @brief 678. 有效的括号字符串
  * @cite https://leetcode.cn/problems/valid-parenthesis-string/
  *
  */

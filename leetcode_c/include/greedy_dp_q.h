@@ -22,6 +22,13 @@
 int maxProfit(int* prices, int pricesSize);
 
 /**
+ * @brief 45. 跳跃游戏 II
+ * @cite https://leetcode.cn/problems/jump-game-ii/
+ *
+ */
+int jump(int* nums, int numsSize);
+
+/**
  * @brief 55. 跳跃游戏
  * @cite https://leetcode.cn/problems/jump-game/
  *

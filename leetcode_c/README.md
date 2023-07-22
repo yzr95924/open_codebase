@@ -10,6 +10,7 @@ Question List (in C)
 1590. 使数组和能被P整除 [ans](./include/prefix_sum/make_sum_divisible_by_p.h)[medium]
 
 ## 贪心 && DP
+45. 跳跃游戏 II [ans](./src/greedy_dp_q/jump_game_2.c)[medium]
 55. 跳跃游戏 [ans](./src/greedy_dp_q/jump_game.c)[medium]
 70. 爬楼梯 [ans](./src/greedy_dp_q/climb_stair.c)[easy]
 121. 买卖股票的最佳时机 [ans](./src/greedy_dp_q/max_pro.c)[easy]
@@ -49,6 +50,7 @@ Question List (in C)
 113. 路径总和 II [ans](./include/backtrack/path_sum_2.h)[medium]
 
 ## 栈
+20. 有效的括号 [ans](./src/stack_q/valid_paren.c)[easy]
 678. 有效的括号字符串 [ans](./src/stack_q/valid_paren_str.c)[medium]
 
 ## 单调栈

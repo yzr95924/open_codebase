@@ -22,6 +22,22 @@
 bool isValid(char * s);
 
 /**
+ * @brief 155. 最小栈
+ * @cite https://leetcode.cn/problems/min-stack/
+ *
+ */
+typedef struct {
+    void *realStack;
+    void *minStack;
+} MinStack;
+MinStack* minStackCreate();
+void minStackPush(MinStack* obj, int val);
+void minStackPop(MinStack* obj);
+int minStackTop(MinStack* obj);
+int minStackGetMin(MinStack* obj);
+void minStackFree(MinStack* obj);
+
+/**
  * @brief 678. 有效的括号字符串
  * @cite https://leetcode.cn/problems/valid-parenthesis-string/
  *

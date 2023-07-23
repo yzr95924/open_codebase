@@ -175,7 +175,7 @@ void medianFinderAddNum(MedianFinder* obj, int num)
     obj->curItemCnt++;
     if (ZUORU_IsEmptyHeap(maxHeapPtr)) {
         ZUORU_InsertHeap(maxHeapPtr, &num);
-        return ;
+        return;
     }
 
     ZUORU_HeapDataItem tmpDataItem;

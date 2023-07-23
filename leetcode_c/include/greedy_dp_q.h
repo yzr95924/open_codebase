@@ -42,4 +42,11 @@ bool canJump(int* nums, int numsSize);
  */
 int climbStairs(int n);
 
+/**
+ * @brief 763. 划分字母区间
+ * @cite https://leetcode.cn/problems/partition-labels/
+ *
+ */
+int* partitionLabels(char * s, int* returnSize);
+
 #endif

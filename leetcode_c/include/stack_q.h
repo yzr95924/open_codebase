@@ -38,6 +38,13 @@ int minStackGetMin(MinStack* obj);
 void minStackFree(MinStack* obj);
 
 /**
+ * @brief 394. 字符串解码
+ * @cite https://leetcode.cn/problems/decode-string/
+ *
+ */
+char * decodeString(char * s);
+
+/**
  * @brief 678. 有效的括号字符串
  * @cite https://leetcode.cn/problems/valid-parenthesis-string/
  *

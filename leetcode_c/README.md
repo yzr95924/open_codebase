@@ -58,6 +58,9 @@ Question List (in C)
     - 基本栈操作
 - 155: 最小栈 [ans](./src/stack_q/min_stack.c)[medium]
     - 维护两个栈：realStack + minStack
+- 394: 字符串解码 [ans](./src/stack_q/decode_str.c)[medium]
+    - 基本栈操作 + 倒序遍历字符串
+    - 数字栈 + 字符栈：逆波兰表达式
 - 678: 有效的括号字符串 [ans](./src/stack_q/valid_paren_str.c)[medium]
     - 维护两个栈：* + ()
 

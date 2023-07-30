@@ -56,6 +56,8 @@ Question List (in C)
 ## 栈
 - 20: 有效的括号 [ans](./src/stack_q/valid_paren.c)[easy]
     - 基本栈操作
+- 84: 柱状图中最大的矩形 [ans](./src/stack_q/largest_rect_hist.c)[medium]
+    - 单调栈：单调递增，统计左边，右边的最近小于的高度，注意边界值处理
 - 155: 最小栈 [ans](./src/stack_q/min_stack.c)[medium]
     - 维护两个栈：realStack + minStack
 - 394: 字符串解码 [ans](./src/stack_q/decode_str.c)[medium]
@@ -63,10 +65,11 @@ Question List (in C)
     - 数字栈 + 字符栈：逆波兰表达式
 - 678: 有效的括号字符串 [ans](./src/stack_q/valid_paren_str.c)[medium]
     - 维护两个栈：* + ()
+- 739: 每日温度 [ans](./src/stack_q/daily_temp.c)[medium]
+    - 单调栈：单调递减
 
 ## 单调栈
 - 84: 柱状图中最大的矩形 [ans](./include/array/largest_rectangle_his.h)[medium]
-- 739: 每日温度 [ans](./include/array/daily_temperature.h)[medium]
 - 962: 最大宽度坡 [ans](./include/array/max_width_ramp.h)[medium]
 
 ## 双指针

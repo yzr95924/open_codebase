@@ -19,9 +19,12 @@
 #define MODULE_ID "LeetCodeMain"
 
 int main(int argc, char* argv[]) {
-    char inputStr[] = "2[20[bc]31[xy]]xd4[rt]";
-    char *retArr = decodeString(inputStr);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "ret: %s\n", retArr);
-    free(retArr);
+    int heights[] = {2, 0, 2};
+    int ret = largestRectangleArea(heights, ARRAY_SIZE(heights));
+    printf("%d\n", ret);
+
+    int heights1[] = {1, 1};
+    ret = largestRectangleArea(heights1, ARRAY_SIZE(heights1));
+    printf("%d\n", ret);
     return 0;
 }

@@ -22,6 +22,13 @@
 bool isValid(char * s);
 
 /**
+ * @brief 84. 柱状图中最大的矩形
+ * @cite https://leetcode.cn/problems/largest-rectangle-in-histogram
+ *
+ */
+int largestRectangleArea(int* heights, int heightsSize);
+
+/**
  * @brief 155. 最小栈
  * @cite https://leetcode.cn/problems/min-stack/
  *
@@ -50,5 +57,12 @@ char * decodeString(char * s);
  *
  */
 bool checkValidString(char * s);
+
+/**
+ * @brief 739. 每日温度
+ * @cite https://leetcode.cn/problems/daily-temperatures
+ *
+ */
+int* dailyTemperatures(int* temperatures, int temperaturesSize, int* returnSize);
 
 #endif

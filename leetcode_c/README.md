@@ -31,7 +31,11 @@ Question List (in C)
 - 1004: 最大连续1的个数 III [ans](./include/sliding_win/max_con_ones_3.h)[medium]
 - 1208: 尽可能使字符串相等 [ans](./include/sliding_win/get_equal_sub_str.h)[medium]
 
-## 排序
+## 查找 & 排序
+- 35: 搜索插入位置 [ans](./src/find_sort_q/search_insert_pos.c)[easy]
+    - 二分查找
+- 74: 搜索二维矩阵 [ans](./src/find_sort_q/search_2d_mat.c)[medium]
+    - 两次二分查找
 - 56: 合并区间 [ans](./include/sorting/merge_intervals.h)[medium]
 - 406: 根据身高重建队列 [ans](./include/sorting/queue_rebuild_by_height.h)[medium]
 - 853: 车队 [ans](./include/sorting/car_fleet.h)[medium]
@@ -67,8 +71,6 @@ Question List (in C)
     - 维护两个栈：* + ()
 - 739: 每日温度 [ans](./src/stack_q/daily_temp.c)[medium]
     - 单调栈：单调递减
-
-## 单调栈
 - 84: 柱状图中最大的矩形 [ans](./include/array/largest_rectangle_his.h)[medium]
 - 962: 最大宽度坡 [ans](./include/array/max_width_ramp.h)[medium]
 

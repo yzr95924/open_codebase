@@ -19,7 +19,7 @@ set(CMAKE_RANLIB "/usr/bin/llvm-ranlib")
 
 # add the lib
 set(INNER_LIB BFS_Q_SRC_LIB APP_SYS_Q_SRC_LIB MATH_Q_SRC_LIB STACK_Q_SRC_LIB
-    GREEDY_DP_Q_SRC_LIB)
+    GREEDY_DP_Q_SRC_LIB FIND_SORT_Q_SRC_LIB)
 list(APPEND FINAL_LIB ${INNER_LIB})
 
 add_subdirectory(main)
@@ -28,3 +28,4 @@ add_subdirectory(bfs_q)
 add_subdirectory(math_q)
 add_subdirectory(stack_q)
 add_subdirectory(greedy_dp_q)
+add_subdirectory(find_sort_q)

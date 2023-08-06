@@ -31,6 +31,9 @@ static const uint64_t SEC_2_US = (1ULL << 20);
 #define MAX(a,b) (((a) >= (b)) ? (a) : (b))
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof(x[0]))
 
+#define BIT_SET(byte, pos) ((byte) |= (1 << (pos)))
+#define BIT_CLEAR(byte, pos) ((byte) &= ~(1 << (pos)))
+
 static const char ALPHABET[] = {'a', 'b', 'c', 'd', 'e', 'f',
                                 'g', 'h', 'i', 'j', 'k', 'l',
                                 'm', 'n', 'o', 'p', 'q', 'r',

@@ -15,16 +15,22 @@
 #include "../../include/bfs_q.h"
 #include "../../include/math_q.h"
 #include "../../include/stack_q.h"
+#include "../../include/hash_q.h"
 
 #define MODULE_ID "LeetCodeMain"
 
-int main(int argc, char* argv[]) {
-    int heights[] = {2, 0, 2};
-    int ret = largestRectangleArea(heights, ARRAY_SIZE(heights));
-    printf("%d\n", ret);
+int ZUORU_CompFunc(const void *rawInput1, const void *rawInput2)
+{
+    char *input1 = (char*)rawInput1;
+    char *input2 = (char*)rawInput2;
+    int ret = *input1 - *input2; // ascend
 
-    int heights1[] = {1, 1};
-    ret = largestRectangleArea(heights1, ARRAY_SIZE(heights1));
-    printf("%d\n", ret);
+    return ret;
+}
+
+int main(int argc, char* argv[]) {
+    char testStr[] = "abba";
+    qsort(testStr, strlen(testStr), sizeof(char), ZUORU_CompFunc);
+    printf("%s\n", testStr);
     return 0;
 }

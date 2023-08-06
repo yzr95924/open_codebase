@@ -2,6 +2,8 @@ Question List (in C)
 ----------------------------
 
 ## 前缀和 && Hash
+- 49: 字母异位词分组 [ans](./src/hash_q/group_anagrams.c)
+    - 字符串内部排序 + hashMap统计
 - 128: 最长连续序列 [ans](./include/prefix_sum_hash/longest_consecutive_seq.h)[medium]
 - 146: LRU 缓存 [ans](./include/prefix_sum_hash/lru_cache.h)[medium]
 - 523: 连续的子数组和 [ans](./include/array/cont_subarray_sum.h)[medium]

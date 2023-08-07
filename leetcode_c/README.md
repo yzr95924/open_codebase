@@ -2,10 +2,10 @@ Question List (in C)
 ----------------------------
 
 ## 前缀和 && Hash
-- 49: 字母异位词分组 [ans](./src/hash_q/group_anagrams.c)
-    - 字符串内部排序 + hashMap统计
-- 128: 最长连续序列 [ans](./include/prefix_sum_hash/longest_consecutive_seq.h)[medium]
-- 146: LRU 缓存 [ans](./include/prefix_sum_hash/lru_cache.h)[medium]
+- 49: 字母异位词分组 [ans](./src/hash_q/group_anagrams.c)[medium]
+    - 字符串内部排序作为key + hashMap统计
+- 128: 最长连续序列 [ans](./src/hash_q/long_con_seq.c)[medium]
+    - hashMap数组去重 + 遍历x, x+1, x+2, ... + 检查 x-1是否存在，避免重复扫描
 - 523: 连续的子数组和 [ans](./include/array/cont_subarray_sum.h)[medium]
 - 560: 和为 K 的子数组 [ans](./include/array/sub_sum_k.h)[medium]
 - 974: 和可被 K 整除的子数组 [ans](./include/array/sub_sum_divisible.h)[medium]

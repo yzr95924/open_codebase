@@ -25,10 +25,12 @@ Question List (in C)
 - 1094: 拼车 [ans](./include/array/car_pooling.h)[medium]
 - 1109: 航班预订统计 [ans](./include/array/flight_bookings.h)[medium]
 
-## 滑动窗口
+## 滑动窗口 && 双指针
 - 3: 无重复字符的最长子串 [ans](./include/sliding_win/long_sub_str_wo_repeat.h)[medium]
 - 5: 最长回文子串 [ans](./include/sliding_win/long_palind_sub_str.h)[medium]
 - 209: 长度最小的子数组 [ans](./include/sliding_win/min_size_sub_array.h)[medium]
+- 283: 移动零 [ans](./src/slide_two_q/move_zero.c)[easy]
+    - 双指针：先移动非零，再填0
 - 438: 找到字符串中所有字母异位词 [ans](./include/sliding_win/find_anagrams.h)[medium]
 - 1004: 最大连续1的个数 III [ans](./include/sliding_win/max_con_ones_3.h)[medium]
 - 1208: 尽可能使字符串相等 [ans](./include/sliding_win/get_equal_sub_str.h)[medium]

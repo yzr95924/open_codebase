@@ -20,9 +20,9 @@
 #define MAX_HASH_SIZE 32
 
 // unit conversion
-static const uint64_t MiB_2_B = (1ULL << 20);
-static const uint64_t KiB_2_B = (1ULL << 10);
-static const uint64_t SEC_2_US = (1ULL << 20);
+#define MiB_2_B (1ULL << 20)
+#define KiB_2_B (1ULL << 10)
+#define SEC_2_US (1ULL << 20)
 
 #define likely(x) __builtin_expect(!!(x), 1)
 #define unlikely(x) __builtin_expect(!!(x), 0)
@@ -33,13 +33,6 @@ static const uint64_t SEC_2_US = (1ULL << 20);
 
 #define BIT_SET(byte, pos) ((byte) |= (1 << (pos)))
 #define BIT_CLEAR(byte, pos) ((byte) &= ~(1 << (pos)))
-
-static const char ALPHABET[] = {'a', 'b', 'c', 'd', 'e', 'f',
-                                'g', 'h', 'i', 'j', 'k', 'l',
-                                'm', 'n', 'o', 'p', 'q', 'r',
-                                's', 't', 'u', 'v', 'w', 'x',
-                                'y', 'z', '0', '1', '2', '3',
-                                '4', '5', '6', '7', '8', '9'};
 
 // error code
 #ifndef RETURN_OK

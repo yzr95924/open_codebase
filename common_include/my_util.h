@@ -15,14 +15,14 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <unistd.h>
-#include <bits/stdc++.h>
+#include <stdlib.h>
 
 #include "define_const.h"
 
 inline double ZUORU_GetTimeDiff(struct timeval start_time, struct timeval end_time)
 {
     double total_sec = 0;
-    total_sec = static_cast<double>(end_time.tv_sec - start_time.tv_sec) * SEC_2_US +
+    total_sec = (double)(end_time.tv_sec - start_time.tv_sec) * SEC_2_US +
         (end_time.tv_usec - start_time.tv_usec);
     total_sec /= SEC_2_US;
     return total_sec;
@@ -81,12 +81,43 @@ inline uint64_t ZUORU_GetMemUsage()
 
 inline void ZUORU_GenRandomStr(uint8_t *buf, size_t buf_size)
 {
+    const char ALPHABET[] = {'a', 'b', 'c', 'd', 'e', 'f',
+                                'g', 'h', 'i', 'j', 'k', 'l',
+                                'm', 'n', 'o', 'p', 'q', 'r',
+                                's', 't', 'u', 'v', 'w', 'x',
+                                'y', 'z', '0', '1', '2', '3',
+                                '4', '5', '6', '7', '8', '9'};
     uint8_t *pos;
     for (size_t idx = 0; idx < buf_size; idx++) {
         pos = buf + idx;
         *pos = (uint8_t)ALPHABET[rand() % sizeof(ALPHABET)];
     }
     return;
+}
+
+inline uint64_t ZUORU_FactorialRevert(uint64_t startIdx, uint64_t endIdx)
+{
+    uint64_t ret = 1;
+    for (int idx = startIdx; idx >= endIdx; idx--) {
+        ret *= idx;
+    }
+    return ret;
+}
+
+inline uint64_t ZUORU_Combination(uint64_t n, uint64_t r)
+{
+    if (n <= r) {
+        return 1;
+    }
+    return ZUORU_FactorialRevert(n, n - r + 1) / ZUORU_FactorialRevert(r, 1);
+}
+
+inline uint64_t ZUORU_Permutation(uint64_t n, uint64_t r)
+{
+    if (n <= r) {
+        return 1;
+    }
+    return ZUORU_FactorialRevert(n, n - r + 1);
 }
 
 #endif

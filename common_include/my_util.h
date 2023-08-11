@@ -16,10 +16,11 @@
 #include <sys/resource.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "define_const.h"
 
-inline double ZUORU_GetTimeDiff(struct timeval start_time, struct timeval end_time)
+static inline double ZUORU_GetTimeDiff(struct timeval start_time, struct timeval end_time)
 {
     double total_sec = 0;
     total_sec = (double)(end_time.tv_sec - start_time.tv_sec) * SEC_2_US +
@@ -28,7 +29,7 @@ inline double ZUORU_GetTimeDiff(struct timeval start_time, struct timeval end_ti
     return total_sec;
 }
 
-inline void ZUORU_PrintBinaryBuf(const uint8_t *buf, size_t buf_size)
+static inline void ZUORU_PrintBinaryBuf(const uint8_t *buf, size_t buf_size)
 {
     for (size_t i = 0; i < buf_size; i++) {
         fprintf(stdout, "%02x", buf[i]);
@@ -37,7 +38,7 @@ inline void ZUORU_PrintBinaryBuf(const uint8_t *buf, size_t buf_size)
     return;
 }
 
-inline uint64_t ZUORU_GetStrongSeed()
+static inline uint64_t ZUORU_GetStrongSeed()
 {
     uint64_t a = clock();
     struct timeval currentTime;
@@ -59,7 +60,7 @@ inline uint64_t ZUORU_GetStrongSeed()
     return c;
 }
 
-inline uint64_t ZUORU_GetMemUsage()
+static inline uint64_t ZUORU_GetMemUsage()
 {
     const char *stat_file_path = "/proc/self/statm";
     FILE *stat_file_hdl = NULL;
@@ -79,7 +80,7 @@ inline uint64_t ZUORU_GetMemUsage()
     return (total_vmrss_size * page_size_KB);
 }
 
-inline void ZUORU_GenRandomStr(uint8_t *buf, size_t buf_size)
+static inline void ZUORU_GenRandomStr(uint8_t *buf, size_t buf_size)
 {
     const char ALPHABET[] = {'a', 'b', 'c', 'd', 'e', 'f',
                                 'g', 'h', 'i', 'j', 'k', 'l',
@@ -95,7 +96,7 @@ inline void ZUORU_GenRandomStr(uint8_t *buf, size_t buf_size)
     return;
 }
 
-inline uint64_t ZUORU_FactorialRevert(uint64_t startIdx, uint64_t endIdx)
+static inline uint64_t ZUORU_FactorialRevert(uint64_t startIdx, uint64_t endIdx)
 {
     uint64_t ret = 1;
     for (int idx = startIdx; idx >= endIdx; idx--) {
@@ -104,7 +105,7 @@ inline uint64_t ZUORU_FactorialRevert(uint64_t startIdx, uint64_t endIdx)
     return ret;
 }
 
-inline uint64_t ZUORU_Combination(uint64_t n, uint64_t r)
+static inline uint64_t ZUORU_Combination(uint64_t n, uint64_t r)
 {
     if (n <= r) {
         return 1;
@@ -112,7 +113,7 @@ inline uint64_t ZUORU_Combination(uint64_t n, uint64_t r)
     return ZUORU_FactorialRevert(n, n - r + 1) / ZUORU_FactorialRevert(r, 1);
 }
 
-inline uint64_t ZUORU_Permutation(uint64_t n, uint64_t r)
+static inline uint64_t ZUORU_Permutation(uint64_t n, uint64_t r)
 {
     if (n <= r) {
         return 1;

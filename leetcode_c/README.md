@@ -30,7 +30,8 @@ Question List (in C)
 - 5: 最长回文子串 [ans](./include/sliding_win/long_palind_sub_str.h)[medium]
 - 11: 盛最多水的容器 [ans](./src/slide_two_q/container_with_water.c)[medium]
     - 双指针：从两端开始扫，哪端高度小，调整哪端
-- 15: 三数之和 [ans](./src/slide_two_q/)
+- 15: 三数之和 [ans](./src/slide_two_q/three_sum.c)[medium]
+    - 双指针 + 排序 + 去重：相同元素要去重
 - 209: 长度最小的子数组 [ans](./include/sliding_win/min_size_sub_array.h)[medium]
 - 283: 移动零 [ans](./src/slide_two_q/move_zero.c)[easy]
     - 双指针：先移动非零，再填0

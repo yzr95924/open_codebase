@@ -15,6 +15,13 @@
 #include "../../common_include/c_include.h"
 
 /**
+ * @brief 3. 无重复字符的最长子串
+ * @cite https://leetcode.cn/problems/longest-substring-without-repeating-characters
+ *
+ */
+int lengthOfLongestSubstring(char * s);
+
+/**
  * @brief 11. 盛最多水的容器
  * @cite https://leetcode.cn/problems/container-with-most-water
  *
@@ -29,10 +36,24 @@ int maxArea(int* height, int heightSize);
 int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes);
 
 /**
+ * @brief 42. 接雨水
+ * @cite https://leetcode.cn/problems/trapping-rain-water/
+ *
+ */
+int trap(int* height, int heightSize);
+
+/**
  * @brief 283. 移动零
  * @cite https://leetcode.cn/problems/move-zeroes
  *
  */
 void moveZeroes(int* nums, int numsSize);
+
+/**
+ * @brief 438. 找到字符串中所有字母异位词
+ * @cite https://leetcode.cn/problems/find-all-anagrams-in-a-string
+ *
+ */
+int* findAnagrams(char * s, char * p, int* returnSize);
 
 #endif

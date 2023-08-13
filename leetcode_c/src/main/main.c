@@ -17,12 +17,18 @@
 #include "../../include/math_q.h"
 #include "../../include/stack_q.h"
 #include "../../include/hash_q.h"
+#include "../../include/slide_two_q.h"
 
 #define MODULE_ID "LeetCodeMain"
 
-
 int main(int argc, char* argv[]) {
-    uint64_t retAns = ZUORU_Combination(3, 2);
-    printf("%lu\n", retAns);
+    char s[] = "cbaebabacd";
+    char p[] = "abc";
+    int retSize = 0;
+    int *ret = findAnagrams(s, p, &retSize);
+    for (int idx = 0; idx < retSize; idx++) {
+        printf("%d\n", ret[idx]);
+    }
+    free(ret);
     return 0;
 }

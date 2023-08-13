@@ -26,16 +26,20 @@ Question List (in C)
 - 1109: 航班预订统计 [ans](./include/array/flight_bookings.h)[medium]
 
 ## 滑动窗口 && 双指针
-- 3: 无重复字符的最长子串 [ans](./include/sliding_win/long_sub_str_wo_repeat.h)[medium]
+- 3: 无重复字符的最长子串 [ans](./src/slide_two_q//long_substr_wo_repeat.c)[medium]
+    - 滑动窗口 + 字符串判断重复
 - 5: 最长回文子串 [ans](./include/sliding_win/long_palind_sub_str.h)[medium]
 - 11: 盛最多水的容器 [ans](./src/slide_two_q/container_with_water.c)[medium]
     - 双指针：从两端开始扫，哪端高度小，调整哪端
 - 15: 三数之和 [ans](./src/slide_two_q/three_sum.c)[medium]
     - 双指针 + 排序 + 去重：相同元素要去重
+- 42: 接雨水 [ans](./src/slide_two_q/trapping_rain.c)[hard]
+    - 双指针：遍历每一列，计算其左边max、右边max，再计算面积，可以优化提前计算每一列左边和右边的max
 - 209: 长度最小的子数组 [ans](./include/sliding_win/min_size_sub_array.h)[medium]
 - 283: 移动零 [ans](./src/slide_two_q/move_zero.c)[easy]
     - 双指针：先移动非零，再填0
-- 438: 找到字符串中所有字母异位词 [ans](./include/sliding_win/find_anagrams.h)[medium]
+- 438: 找到字符串中所有字母异位词 [ans](./src/slide_two_q/find_anagrams.c)[medium]
+    - 滑动窗口 + 判断是不是异位词
 - 1004: 最大连续1的个数 III [ans](./include/sliding_win/max_con_ones_3.h)[medium]
 - 1208: 尽可能使字符串相等 [ans](./include/sliding_win/get_equal_sub_str.h)[medium]
 

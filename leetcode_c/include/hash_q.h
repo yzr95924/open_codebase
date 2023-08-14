@@ -28,4 +28,11 @@ char ***groupAnagrams(char ** strs, int strsSize, int* returnSize, int** returnC
  */
 int longestConsecutive(int* nums, int numsSize);
 
+/**
+ * @brief 560. 和为 K 的子数组
+ * @cite https://leetcode.cn/problems/subarray-sum-equals-k
+ *
+ */
+int subarraySum(int* nums, int numsSize, int k);
+
 #endif

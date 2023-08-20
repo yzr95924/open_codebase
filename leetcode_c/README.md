@@ -14,7 +14,9 @@ Question List (in C)
 
 ## 贪心 && DP
 - 45: 跳跃游戏 II [ans](./src/greedy_dp_q/jump_game_2.c)[medium]
-    - 统计当前最远可达距离，注意加步数的条件
+    - 贪心：统计当前最远可达距离，注意加步数的条件
+- 53: 最大子数组和 [ans](./src/greedy_dp_q//max_subarr.c)[medium]
+    - 贪心：当前和如果为负数的话，应该重新清零开始计算
 - 55: 跳跃游戏 [ans](./src/greedy_dp_q/jump_game.c)[medium]
     - 同45，判断当前可达最远距离是否满足边界
 - 70: 爬楼梯 [ans](./src/greedy_dp_q/climb_stair.c)[easy]
@@ -37,6 +39,7 @@ Question List (in C)
 - 42: 接雨水 [ans](./src/slide_two_q/trapping_rain.c)[hard]
     - 双指针：遍历每一列，计算其左边max、右边max，再计算面积，可以优化提前计算每一列左边和右边的max
 - 209: 长度最小的子数组 [ans](./include/sliding_win/min_size_sub_array.h)[medium]
+- 239: 滑动窗口最大值 [ans]
 - 283: 移动零 [ans](./src/slide_two_q/move_zero.c)[easy]
     - 双指针：先移动非零，再填0
 - 438: 找到字符串中所有字母异位词 [ans](./src/slide_two_q/find_anagrams.c)[medium]
@@ -53,7 +56,7 @@ Question List (in C)
 - 406: 根据身高重建队列 [ans](./include/sorting/queue_rebuild_by_height.h)[medium]
 - 853: 车队 [ans](./include/sorting/car_fleet.h)[medium]
 
-## 字符串
+## 字符串 && 数组
 - 6: N字形变换 [ans](./include/str/zigzag_conversion.h)[medium]
 - 8: 字符串转换整数 (atoi) [ans](./include/str/my_atoi.h)[medium]
 - 43: 字符串相乘 [ans](./include/str/multiply_str.h)[medium]

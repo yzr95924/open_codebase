@@ -18,6 +18,8 @@
 #include "../../include/stack_q.h"
 #include "../../include/hash_q.h"
 #include "../../include/slide_two_q.h"
+#include "../../include/str_arr_q.h"
+#include "../../include/greedy_dp_q.h"
 
 #define MODULE_ID "LeetCodeMain"
 

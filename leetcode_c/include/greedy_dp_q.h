@@ -29,6 +29,13 @@ int maxProfit(int* prices, int pricesSize);
 int jump(int* nums, int numsSize);
 
 /**
+ * @brief 53. 最大子数组和
+ * @cite https://leetcode.cn/problems/maximum-subarray/
+ *
+ */
+int maxSubArray(int* nums, int numsSize);
+
+/**
  * @brief 55. 跳跃游戏
  * @cite https://leetcode.cn/problems/jump-game/
  *

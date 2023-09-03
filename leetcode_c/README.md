@@ -1,11 +1,13 @@
 Question List (in C)
 ----------------------------
 
-## 前缀和 && Hash
+## 前缀和 && Hash && Heap
 - 49: 字母异位词分组 [ans](./src/hash_q/group_anagrams.c)[medium]
     - 字符串内部排序作为key + hashMap统计
 - 128: 最长连续序列 [ans](./src/hash_q/long_con_seq.c)[medium]
     - hashMap数组去重 + 遍历x, x+1, x+2, ... + 检查 x-1是否存在，避免重复扫描
+- 239: 滑动窗口最大值 [ans](./src/hash_q/max_slide_win.c)[hard]
+    - MaxHeap: 插入右边的item + item (val, idx) + idx判断是否在win里面
 - 523: 连续的子数组和 [ans](./include/array/cont_subarray_sum.h)[medium]
 - 560: 和为 K 的子数组 [ans](./src/hash_q//subarr_sum_k.c)[medium]
     - 前缀和：O(n)遍历数组，计算前缀和，找到目标值，更新hash table
@@ -39,7 +41,6 @@ Question List (in C)
 - 42: 接雨水 [ans](./src/slide_two_q/trapping_rain.c)[hard]
     - 双指针：遍历每一列，计算其左边max、右边max，再计算面积，可以优化提前计算每一列左边和右边的max
 - 209: 长度最小的子数组 [ans](./include/sliding_win/min_size_sub_array.h)[medium]
-- 239: 滑动窗口最大值 [ans]
 - 283: 移动零 [ans](./src/slide_two_q/move_zero.c)[easy]
     - 双指针：先移动非零，再填0
 - 438: 找到字符串中所有字母异位词 [ans](./src/slide_two_q/find_anagrams.c)[medium]

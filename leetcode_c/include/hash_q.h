@@ -29,6 +29,13 @@ char ***groupAnagrams(char ** strs, int strsSize, int* returnSize, int** returnC
 int longestConsecutive(int* nums, int numsSize);
 
 /**
+ * @brief 239. 滑动窗口最大值
+ * @cite https://leetcode.cn/problems/sliding-window-maximum
+ *
+ */
+int* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize);
+
+/**
  * @brief 560. 和为 K 的子数组
  * @cite https://leetcode.cn/problems/subarray-sum-equals-k
  *

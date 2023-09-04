@@ -40,6 +40,8 @@ Question List (in C)
     - 双指针 + 排序 + 去重：相同元素要去重
 - 42: 接雨水 [ans](./src/slide_two_q/trapping_rain.c)[hard]
     - 双指针：遍历每一列，计算其左边max、右边max，再计算面积，可以优化提前计算每一列左边和右边的max
+- 76: 最小覆盖子串 [ans](./src/slide_two_q/min_win_substr.c)[hard]
+    - 滑动窗口：用hashmap判断是否为子串
 - 209: 长度最小的子数组 [ans](./include/sliding_win/min_size_sub_array.h)[medium]
 - 283: 移动零 [ans](./src/slide_two_q/move_zero.c)[easy]
     - 双指针：先移动非零，再填0

@@ -43,6 +43,13 @@ int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes
 int trap(int* height, int heightSize);
 
 /**
+ * @brief 76. 最小覆盖子串
+ * @cite https://leetcode.cn/problems/minimum-window-substring
+ *
+ */
+char * minWindow(char * s, char * t);
+
+/**
  * @brief 283. 移动零
  * @cite https://leetcode.cn/problems/move-zeroes
  *

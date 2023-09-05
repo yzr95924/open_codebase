@@ -22,6 +22,14 @@
 int searchInsert(int* nums, int numsSize, int target);
 
 /**
+ * @brief 56. 合并区间
+ * @cite https://leetcode.cn/problems/merge-intervals
+ *
+ */
+int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize,
+    int** returnColumnSizes);
+
+/**
  * @brief 74. 搜索二维矩阵
  * @cite https://leetcode.cn/problems/search-a-2d-matrix/
  *

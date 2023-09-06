@@ -50,6 +50,13 @@ int trap(int* height, int heightSize);
 char * minWindow(char * s, char * t);
 
 /**
+ * @brief 189. 轮转数组
+ * @cite https://leetcode.cn/problems/rotate-array
+ *
+ */
+void rotate(int* nums, int numsSize, int k);
+
+/**
  * @brief 283. 移动零
  * @cite https://leetcode.cn/problems/move-zeroes
  *

@@ -108,8 +108,8 @@ Question List (in C)
 - 9: 回文数 [ans](./src/math_q/palindrome_num.c)[easy]
 - 66: 加一 [ans](./src/math_q/plus_one.c)[easy]
 - 13: 罗马数字转整数 [ans](./src/math/roman_2_int.c)[easy]
-- 238: 除自身以外数组的乘积 [ans](./src/math_q/)[medium]
-    -
+- 238: 除自身以外数组的乘积 [ans](./src/math_q/prod_except_self.c)[medium]
+    - 构建左边的乘法表 * 右边的乘法表，转成O(n)
 - 1089: 复写零 [ans](./include/math/duplicate_zeros.h)[easy]
 
 ## BFS

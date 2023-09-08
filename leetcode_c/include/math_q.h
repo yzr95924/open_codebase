@@ -15,13 +15,6 @@
 #include "../../common_include/c_include.h"
 
 /**
- * @brief 9. Palindrome Number
- * @cite https://leetcode.cn/problems/palindrome-number/
- *
- */
-bool isPalindrome(int x);
-
-/**
  * @brief 1. Two Sum
  * @cite https://leetcode.cn/problems/two-sum/
  *
@@ -29,10 +22,31 @@ bool isPalindrome(int x);
 int* twoSum(int* nums, int numsSize, int target, int* returnSize);
 
 /**
+ * @brief 9. Palindrome Number
+ * @cite https://leetcode.cn/problems/palindrome-number/
+ *
+ */
+bool isPalindrome(int x);
+
+/**
+ * @brief 41. 缺失的第一个正数
+ * @cite https://leetcode.cn/problems/first-missing-positive
+ *
+ */
+int firstMissingPositive(int* nums, int numsSize);
+
+/**
  * @brief 66. Plus One
  * @cite https://leetcode.cn/problems/plus-one/
  *
  */
 int* plusOne(int* digits, int digitsSize, int* returnSize);
+
+/**
+ * @brief 73. 矩阵置零
+ * @cite https://leetcode.cn/problems/set-matrix-zeroes/
+ *
+ */
+void setZeroes(int** matrix, int matrixSize, int* matrixColSize);
 
 #endif

@@ -106,7 +106,11 @@ Question List (in C)
 - 4: 寻找两个正序数组的中位数 [ans](./include/math/median_two_sorted_array.h)[hard]
 - 7: 整数反转 [ans](./include/math/reverse_integer.h)[medium]
 - 9: 回文数 [ans](./src/math_q/palindrome_num.c)[easy]
+- 41: 缺失的第一个正数 [ans](./src/math_q/first_miss_positive.c)[hard]
+    - 原地hash: f(nums[i]) = nums[i] - 1
 - 66: 加一 [ans](./src/math_q/plus_one.c)[easy]
+- 73: 矩阵置零 [ans](./src/math_q/set_matrix_zero.c)[medium]
+    - 标记数组: 行标记 + 列标记 + 遍历判断
 - 13: 罗马数字转整数 [ans](./src/math/roman_2_int.c)[easy]
 - 238: 除自身以外数组的乘积 [ans](./src/math_q/prod_except_self.c)[medium]
     - 构建左边的乘法表 * 右边的乘法表，转成O(n)

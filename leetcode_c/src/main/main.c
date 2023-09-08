@@ -24,13 +24,8 @@
 #define MODULE_ID "LeetCodeMain"
 
 int main(int argc, char* argv[]) {
-    char s[] = "cbaebabacd";
-    char p[] = "abc";
-    int retSize = 0;
-    int *ret = findAnagrams(s, p, &retSize);
-    for (int idx = 0; idx < retSize; idx++) {
-        printf("%d\n", ret[idx]);
-    }
-    free(ret);
+    int nums[] = {3, 4, -1, 1};
+    int ret = firstMissingPositive(nums, ARRAY_SIZE(nums));
+    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "ret: %d\n", ret);
     return 0;
 }

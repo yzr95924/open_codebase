@@ -11,7 +11,7 @@
 
 #include "../../include/slide_two_q.h"
 
-void ReverseArr(int *nums, int startIdx, int endIdx)
+ReverseArr(int *nums, int startIdx, int endIdx)
 {
     int tmpVal;
     while (startIdx < endIdx) {

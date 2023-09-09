@@ -108,6 +108,10 @@ Question List (in C)
 - 9: 回文数 [ans](./src/math_q/palindrome_num.c)[easy]
 - 41: 缺失的第一个正数 [ans](./src/math_q/first_miss_positive.c)[hard]
     - 原地hash: f(nums[i]) = nums[i] - 1
+- 48: 旋转图像 [ans](./src/math_q//rotate_image.c)[medium]
+    - 推公式：计算旋转之后的坐标
+- 54: 螺旋矩阵 [ans](./src/math_q/spiral_matrix.c)[medium]
+    - 模拟旋转状态：状态数组，记录每个方向时候如何更新row和col
 - 66: 加一 [ans](./src/math_q/plus_one.c)[easy]
 - 73: 矩阵置零 [ans](./src/math_q/set_matrix_zero.c)[medium]
     - 标记数组: 行标记 + 列标记 + 遍历判断

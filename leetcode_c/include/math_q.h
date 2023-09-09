@@ -36,6 +36,21 @@ bool isPalindrome(int x);
 int firstMissingPositive(int* nums, int numsSize);
 
 /**
+ * @brief 48. 旋转图像
+ * @cite https://leetcode.cn/problems/rotate-image
+ *
+ */
+void rotate(int** matrix, int matrixSize, int* matrixColSize);
+
+/**
+ * @brief 54. 螺旋矩阵
+ * @cite https://leetcode.cn/problems/spiral-matrix
+ *
+ */
+int* spiralOrder(int** matrix, int matrixSize,
+    int* matrixColSize, int* returnSize);
+
+/**
  * @brief 66. Plus One
  * @cite https://leetcode.cn/problems/plus-one/
  *

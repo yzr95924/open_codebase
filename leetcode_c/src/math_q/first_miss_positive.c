@@ -15,7 +15,6 @@ int firstMissingPositive(int* nums, int numsSize)
 {
     printf("numsSize: %d\n", numsSize);
     int tmpVal = 0;
-    bool finalFlag = false;
     for (int idx = 0; idx < numsSize; idx++) {
         while (nums[idx] > 0 &&
             nums[idx] <= numsSize &&

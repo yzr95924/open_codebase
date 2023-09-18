@@ -11,7 +11,7 @@
 
 #include "../../include/slide_two_q.h"
 
-ReverseArr(int *nums, int startIdx, int endIdx)
+void ReverseArr(int *nums, int startIdx, int endIdx)
 {
     int tmpVal;
     while (startIdx < endIdx) {
@@ -24,7 +24,7 @@ ReverseArr(int *nums, int startIdx, int endIdx)
     return;
 }
 
-void rotate(int* nums, int numsSize, int k){
+void rotateArr(int* nums, int numsSize, int k){
     k %= numsSize; // if k > numsSize
     int startIdx = 0;
     int endIdx = numsSize - 1;

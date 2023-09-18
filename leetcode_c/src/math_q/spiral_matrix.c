@@ -21,7 +21,7 @@ int* spiralOrder(int** matrix, int matrixSize,
     }
     int *retArr = (int*)calloc(totalCnt, sizeof(int));
 
-    bool **visitMap = (int**)calloc(matrixSize, sizeof(bool*));
+    bool **visitMap = (bool**)calloc(matrixSize, sizeof(bool*));
     for (int idx = 0; idx < matrixSize; idx++) {
         visitMap[idx] = (bool*)calloc(matrixColSize[idx], sizeof(bool));
     }

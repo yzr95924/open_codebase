@@ -54,7 +54,7 @@ char * minWindow(char * s, char * t);
  * @cite https://leetcode.cn/problems/rotate-array
  *
  */
-void rotate(int* nums, int numsSize, int k);
+void rotateArr(int* nums, int numsSize, int k);
 
 /**
  * @brief 283. 移动零

@@ -19,14 +19,14 @@
  * @cite https://leetcode.cn/problems/search-insert-position
  *
  */
-int searchInsert(int* nums, int numsSize, int target);
+int searchInsert_35(int* nums, int numsSize, int target);
 
 /**
  * @brief 56. 合并区间
  * @cite https://leetcode.cn/problems/merge-intervals
  *
  */
-int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize,
+int** merge_56(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize,
     int** returnColumnSizes);
 
 /**
@@ -34,6 +34,13 @@ int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* retu
  * @cite https://leetcode.cn/problems/search-a-2d-matrix/
  *
  */
-bool searchMatrix(int** matrix, int matrixSize, int* matrixColSize, int target);
+bool searchMatrix_74(int** matrix, int matrixSize, int* matrixColSize, int target);
+
+/**
+ * @brief 240. 搜索二维矩阵 II
+ * @cite https://leetcode.cn/problems/search-a-2d-matrix-ii/
+ *
+ */
+bool searchMatrix_240(int** matrix, int matrixSize, int* matrixColSize, int target);
 
 #endif

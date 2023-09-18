@@ -237,7 +237,7 @@ bool ZUORU_RemoveHeapTop(ZUORU_Heap *heapPtr, ZUORU_HeapDataItem *outVal)
  * @param returnSize
  * @return int*
  */
-int* topKFrequent(int* nums, int numsSize, int k, int* returnSize)
+int* topKFrequent_347(int* nums, int numsSize, int k, int* returnSize)
 {
     ZUORU_HashTblIntItem **hashTbl = ZUORU_InitIntHashTbl();
     ZUORU_Heap *heapPtr = ZUORU_InitHeap(k, false);

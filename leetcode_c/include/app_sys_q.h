@@ -36,14 +36,14 @@ void lRUCacheFree(LRUCache *obj);
  * @cite https://leetcode.cn/problems/kth-largest-element-in-an-array/
  *
  */
-int findKthLargest(int* nums, int numsSize, int k);
+int findKthLargest_215(int* nums, int numsSize, int k);
 
 /**
  * @brief 347. Top K Frequent Elements
  * @cite https://leetcode.cn/problems/top-k-frequent-elements/
  *
  */
-int* topKFrequent(int* nums, int numsSize, int k, int* returnSize);
+int* topKFrequent_347(int* nums, int numsSize, int k, int* returnSize);
 
 /**
  * @brief 295. Find Median from Data Stream

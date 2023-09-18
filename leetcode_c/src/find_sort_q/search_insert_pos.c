@@ -11,7 +11,7 @@
 
 #include "../../include/find_sort_q.h"
 
-int searchInsert(int* nums, int numsSize, int target)
+int searchInsert_35(int* nums, int numsSize, int target)
 {
     int leftIdx = 0;
     int rightIdx = numsSize - 1;

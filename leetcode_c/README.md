@@ -59,6 +59,8 @@ Question List (in C)
     - 两次二分查找
 - 56: 合并区间 [ans](./src/find_sort_q/merge_intervals.c)[medium]
     - 先sort区间的leftBound，然后再遍历，看是否需要合并
+- 240: 搜索二维矩阵 II [ans](./src/find_sort_q/search_2d_mat_2.c)[medium]
+    - 每行分别进行二分查找
 - 406: 根据身高重建队列 [ans](./include/sorting/queue_rebuild_by_height.h)[medium]
 - 853: 车队 [ans](./include/sorting/car_fleet.h)[medium]
 

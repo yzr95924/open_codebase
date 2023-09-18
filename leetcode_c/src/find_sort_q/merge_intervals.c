@@ -16,7 +16,7 @@ typedef struct {
     int rightBound;
 } IntervalItem;
 
-int CompFunc(const void *rawInput1, const void *rawInput2)
+static int CompFunc(const void *rawInput1, const void *rawInput2)
 {
     IntervalItem *input1 = (IntervalItem*)rawInput1;
     IntervalItem *input2 = (IntervalItem*)rawInput2;
@@ -24,7 +24,7 @@ int CompFunc(const void *rawInput1, const void *rawInput2)
     return ret;
 }
 
-int** merge(int** intervals, int intervalsSize, int* intervalsColSize,
+int** merge_56(int** intervals, int intervalsSize, int* intervalsColSize,
     int* returnSize, int** returnColumnSizes)
 {
     if (intervalsSize == 1) {

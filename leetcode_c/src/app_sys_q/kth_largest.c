@@ -167,7 +167,7 @@ bool ZUORU_RemoveHeapTop(ZUORU_Heap *heapPtr, ZUORU_HeapDataItem *outVal)
  * @param k top k
  * @return int return value
  */
-int findKthLargest(int* nums, int numsSize, int k)
+int findKthLargest_215(int* nums, int numsSize, int k)
 {
     int tmpItem;
     ZUORU_Heap *heapPtr = ZUORU_InitHeap(k, false);

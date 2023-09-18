@@ -11,7 +11,7 @@
 
 #include "../../include/find_sort_q.h"
 
-bool searchMatrix(int** matrix, int matrixSize, int* matrixColSize, int target)
+bool searchMatrix_74(int** matrix, int matrixSize, int* matrixColSize, int target)
 {
     int topIdx = 0;
     int downIdx = matrixSize - 1;

@@ -15,6 +15,13 @@
 #include "../../common_include/c_include.h"
 
 /**
+ * @brief 34. 在排序数组中查找元素的第一个和最后一个位置
+ * @cite https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/
+ *
+ */
+int* searchRange_34(int* nums, int numsSize, int target, int* returnSize);
+
+/**
  * @brief 35. 搜索插入位置
  * @cite https://leetcode.cn/problems/search-insert-position
  *

@@ -15,6 +15,13 @@
 #include "../../common_include/c_include.h"
 
 /**
+ * @brief 33. 搜索旋转排序数组
+ * @cite https://leetcode.cn/problems/search-in-rotated-sorted-array
+ *
+ */
+int search_33(int* nums, int numsSize, int target);
+
+/**
  * @brief 34. 在排序数组中查找元素的第一个和最后一个位置
  * @cite https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/
  *

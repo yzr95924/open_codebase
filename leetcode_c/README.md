@@ -53,6 +53,8 @@ Question List (in C)
 - 1208: 尽可能使字符串相等 [ans](./include/sliding_win/get_equal_sub_str.h)[medium]
 
 ## 查找 & 排序
+- 33: 搜索旋转排序数组 [ans](./src/find_sort_q/search_in_rotated.c)[medium]
+    - 分段思想：看成两段有序的数组，分别进行二分查找
 - 34: 在排序数组中查找元素的第一个和最后一个位置 [ans](./src/find_sort_q/find_first_last_pos.c)[medium]
     - 二分查找找到target的idx，在向两边搜索到边界
 - 35: 搜索插入位置 [ans](./src/find_sort_q/search_insert_pos.c)[easy]

@@ -38,3 +38,4 @@ dependent-package/
 .vscode/
 report
 log
+*Kbuild*

@@ -79,7 +79,8 @@ Question List (in C)
 - 17: 电话号码的字母组合 [ans](./include/backtrack/letter_combine_of_phone_num.h)[medium]
 - 22: 括号生成 [ans](./include/backtrack/gen_parenth.h)[medium]
 - 37: 解数独 [ans](./include/backtrack/solve_sudoku.h)[hard]
-- 46: 全排列 [ans](./include/backtrack/permutations.h)[medium]
+- 46: 全排列 [ans](./src/back_track_q/permutation.c)[medium]
+    - 标准回溯问题：回溯三部曲：回溯函数模板返回值以及参数，回溯函数终止条件，回溯搜索的遍历过程
 - 60: 排列序列 [ans](./include/backtrack/permutation_seq.h)[hard]
 - 77: 组合 [ans](./include/backtrack/combine.h)[medium]
 - 78: 子集 [ans](./include/backtrack/subsets.h)[medium]

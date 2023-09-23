@@ -16,7 +16,7 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* partitionLabels(char * s, int* returnSize)
+int* partitionLabels_763(char * s, int* returnSize)
 {
     int lastIdxMap[26] = { 0 };
     int totalSize = strlen(s);

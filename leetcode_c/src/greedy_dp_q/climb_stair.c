@@ -11,7 +11,7 @@
 
 #include "../../include/greedy_dp_q.h"
 
-int climbStairs(int n)
+int climbStairs_70(int n)
 {
     int ret = 0;
     if (n == 1) {

@@ -22,6 +22,8 @@ Question List (in C)
 - 55: 跳跃游戏 [ans](./src/greedy_dp_q/jump_game.c)[medium]
     - 同45，判断当前可达最远距离是否满足边界
 - 70: 爬楼梯 [ans](./src/greedy_dp_q/climb_stair.c)[easy]
+- 118: 杨辉三角 [ans](./src/greedy_dp_q/pascals_triangle.c)[easy]
+    - dp[i][j] = dp[i - 1][j] + d[i - 1][j - 1]
 - 121: 买卖股票的最佳时机 [ans](./src/greedy_dp_q/max_pro.c)[easy]
 - 122: 买卖股票的最佳时机 II [ans](./include/array/best_time_sell_stock_2.h)[medium]
 - 413: 等差数列划分 [ans](./include/array/arith_slices.h)[medium]
@@ -83,7 +85,8 @@ Question List (in C)
     - 标准回溯问题：回溯三部曲：回溯函数模板返回值以及参数，回溯函数终止条件，回溯搜索的遍历过程
 - 60: 排列序列 [ans](./include/backtrack/permutation_seq.h)[hard]
 - 77: 组合 [ans](./include/backtrack/combine.h)[medium]
-- 78: 子集 [ans](./include/backtrack/subsets.h)[medium]
+- 78: 子集 [ans](./src/back_track_q/subset.c)[medium]
+    - 标准回溯问题：注意停止回溯的条件
 - 113: 路径总和 II [ans](./include/backtrack/path_sum_2.h)[medium]
 
 ## 栈

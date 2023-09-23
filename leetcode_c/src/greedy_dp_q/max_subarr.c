@@ -13,7 +13,7 @@
 
 #define MAX(a,b) (((a) >= (b)) ? (a) : (b))
 
-int maxSubArray(int* nums, int numsSize)
+int maxSubArray_53(int* nums, int numsSize)
 {
     int ret = INT32_MIN;
     int curSum = 0;

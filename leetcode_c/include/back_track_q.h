@@ -17,3 +17,10 @@
  *
  */
 int** permute_46(int* nums, int numsSize, int* returnSize, int** returnColumnSizes);
+
+/**
+ * @brief 78. 子集
+ * @cite https://leetcode.cn/problems/subsets
+ *
+ */
+int** subsets_78(int* nums, int numsSize, int* returnSize, int** returnColumnSizes);

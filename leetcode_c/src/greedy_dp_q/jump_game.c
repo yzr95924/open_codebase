@@ -14,7 +14,7 @@
 #define MIN(a,b) (((a) <= (b)) ? (a) : (b))
 #define MAX(a,b) (((a) >= (b)) ? (a) : (b))
 
-bool canJump(int* nums, int numsSize)
+bool canJump_55(int* nums, int numsSize)
 {
     int finalMaxPos = 0;
     int curMaxPos = 0;

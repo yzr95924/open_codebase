@@ -19,41 +19,48 @@
  * @cite https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/
  *
  */
-int maxProfit(int* prices, int pricesSize);
+int maxProfit_121(int* prices, int pricesSize);
 
 /**
  * @brief 45. 跳跃游戏 II
  * @cite https://leetcode.cn/problems/jump-game-ii/
  *
  */
-int jump(int* nums, int numsSize);
+int jump_45(int* nums, int numsSize);
 
 /**
  * @brief 53. 最大子数组和
  * @cite https://leetcode.cn/problems/maximum-subarray/
  *
  */
-int maxSubArray(int* nums, int numsSize);
+int maxSubArray_53(int* nums, int numsSize);
 
 /**
  * @brief 55. 跳跃游戏
  * @cite https://leetcode.cn/problems/jump-game/
  *
  */
-bool canJump(int* nums, int numsSize);
+bool canJump_55(int* nums, int numsSize);
 
 /**
  * @brief 70. 爬楼梯
  * @cite https://leetcode.cn/problems/climbing-stairs
  *
  */
-int climbStairs(int n);
+int climbStairs_70(int n);
+
+/**
+ * @brief 118. 杨辉三角
+ * @cite https://leetcode.cn/problems/pascals-triangle
+ *
+ */
+int** generate_118(int numRows, int* returnSize, int** returnColumnSizes);
 
 /**
  * @brief 763. 划分字母区间
  * @cite https://leetcode.cn/problems/partition-labels/
  *
  */
-int* partitionLabels(char * s, int* returnSize);
+int* partitionLabels_763(char * s, int* returnSize);
 
 #endif

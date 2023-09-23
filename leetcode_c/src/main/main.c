@@ -20,12 +20,14 @@
 #include "../../include/slide_two_q.h"
 #include "../../include/str_arr_q.h"
 #include "../../include/greedy_dp_q.h"
+#include "../../include/back_track_q.h"
 
 #define MODULE_ID "LeetCodeMain"
 
 int main(int argc, char* argv[]) {
-    int nums[] = {3, 4, -1, 1};
-    int ret = firstMissingPositive(nums, ARRAY_SIZE(nums));
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "ret: %d\n", ret);
+    int nums[] = {1, 2, 3};
+    int returnSize = 0;
+    int* retCol = NULL;
+    subsets_78(nums, ARRAY_SIZE(nums), &returnSize, &retCol);
     return 0;
 }

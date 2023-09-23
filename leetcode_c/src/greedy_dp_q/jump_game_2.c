@@ -13,7 +13,7 @@
 
 #define MAX(a,b) (((a) >= (b)) ? (a) : (b))
 
-int jump(int* nums, int numsSize)
+int jump_45(int* nums, int numsSize)
 {
     int curMaxIdx = 0;
     int finalMaxIdx = 0;

@@ -14,7 +14,7 @@
 #define MIN(a,b) (((a) <= (b)) ? (a) : (b))
 #define MAX(a,b) (((a) >= (b)) ? (a) : (b))
 
-int maxProfit(int* prices, int pricesSize)
+int maxProfit_121(int* prices, int pricesSize)
 {
     int minCost = prices[0];
     int maxPro = 0;

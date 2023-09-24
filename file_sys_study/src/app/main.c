@@ -9,17 +9,7 @@
  *
  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "../../include/chap_2_basic_api.h"
-
-#ifdef __cplusplus
-}
-#endif
-
-#include <bits/stdc++.h>
 
 #define MODULE_NAME "MAIN"
 

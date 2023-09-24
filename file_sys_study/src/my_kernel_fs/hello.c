@@ -1,12 +1,13 @@
 #include <linux/module.h>     /* Needed by all modules */
 #include <linux/kernel.h>     /* Needed for KERN_INFO */
 #include <linux/init.h>       /* Needed for the macros */
+#include "my_fs/my_fs.h"
 
 ///< The license type -- this affects runtime behavior
 MODULE_LICENSE("GPL");
 
 ///< The author -- visible when you use modinfo
-MODULE_AUTHOR("Bob");
+MODULE_AUTHOR(MY_NAME);
 
 ///< The description -- see modinfo
 MODULE_DESCRIPTION("A simple Hello world LKM!");

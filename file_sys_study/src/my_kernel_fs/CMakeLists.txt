@@ -1,10 +1,13 @@
 # ./src/kernel
 find_package(KernelHeader REQUIRED)
+aux_source_directory(. MY_KERNEL_SRC)
+set(MY_KERNEL_OBJ_STR "${MY_KERNEL_SRC}")
+string(REPLACE ".c" ".o" MY_KERNEL_OBJ_STR ${MY_KERNEL_OBJ_STR})
 set(KERNEL_MODULE_NAME "my_module")
-add_definitions(-D__KERNEL__ -DMODULE -D__GNUC__)
 set(KERNEL_MODULE_FILE_NAME "${KERNEL_MODULE_NAME}.ko")
 
 # add header to include path
+add_definitions(-D__KERNEL__ -DMODULE -D__GNUC__)
 include_directories(${KERNEL_HEADER_INCLUDE})
 
 # configure the compile command
@@ -13,7 +16,6 @@ set(KBUILD_CMD $(MAKE) modules -C ${KERNEL_SOURCE_DIR}
     src=${CMAKE_CURRENT_SOURCE_DIR}
 )
 set(KBUILD_FILE ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild)
-set(MODULE_DEPEND_OBJECT "hello.o")
 
 # Remove the old KBUILD file before start
 FILE(REMOVE ${KBUILD_FILE})
@@ -22,7 +24,8 @@ FILE(REMOVE ${KBUILD_FILE})
 add_custom_command(
     OUTPUT ${KBUILD_FILE}
     COMMAND echo "obj-m := ${KERNEL_MODULE_NAME}.o" > ${KBUILD_FILE}
-    COMMAND echo "${KERNEL_MODULE_NAME}-objs := ${MODULE_DEPEND_OBJECT}" >> ${KBUILD_FILE}
+    COMMAND echo "${KERNEL_MODULE_NAME}-objs := ${MY_KERNEL_OBJ_STR}" >> ${KBUILD_FILE}
+    COMMAND echo "EXTRA_CFLAGS=-I${PROJECT_SOURCE_DIR}/include" >> ${KBUILD_FILE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     VERBATIM
 )
@@ -32,7 +35,7 @@ add_custom_command(
     OUTPUT ${KERNEL_MODULE_FILE_NAME}
     COMMAND ${KBUILD_CMD}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    DEPENDS ${KBUILD_FILE} hello.c
+    DEPENDS ${KBUILD_FILE} ${MY_KERNEL_SRC}
     VERBATIM
 )
 

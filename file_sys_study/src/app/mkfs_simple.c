@@ -19,6 +19,16 @@
 
 #define MODULE_NAME "MKFS_SIMPLE"
 
+typedef struct {
+    simplefs_sb_info info;
+    uint8_t pad[MY_SIMPLE_BLOCK_SIZE - sizeof(simplefs_sb_info)];
+} __attribute__((packed)) simplefs_sb;
+
+static simplefs_sb* write_superblock(int fd, struct stat *stat_buf)
+{
+    return NULL;
+}
+
 int main(int argc, char *argv[])
 {
     int ret = RETURN_OK;
@@ -68,6 +78,9 @@ int main(int argc, char *argv[])
         ret = EXIT_FAILURE;
         goto tag_close_file;
     }
+
+    // write superblock (block 0)
+    simplefs_sb *sb = write_superblock(fd, &stat_buf);
 
 tag_close_file:
     close(fd);

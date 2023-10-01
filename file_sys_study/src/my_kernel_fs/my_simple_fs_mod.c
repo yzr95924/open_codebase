@@ -18,13 +18,13 @@
 
 static int __init my_simple_fs_init(void)
 {
-    printk(KERN_INFO "simplefs is loaded\n");
+    pr_info("my simplefs is loaded\n");
     return 0;
 }
 
 static void __exit my_simple_fs_exit(void)
 {
-    printk(KERN_INFO "simplefs is unloaded\n");
+    pr_info("my simplefs is unloaded\n");
 }
 
 module_init(my_simple_fs_init);

@@ -2,7 +2,7 @@
 find_package(KernelHeader REQUIRED)
 aux_source_directory(. MY_KERNEL_SRC)
 set(MY_KERNEL_OBJ_STR "${MY_KERNEL_SRC}")
-string(REPLACE ".c" ".o" MY_KERNEL_OBJ_STR ${MY_KERNEL_OBJ_STR})
+string(REPLACE ".c" ".o " MY_KERNEL_OBJ_STR ${MY_KERNEL_OBJ_STR})
 set(KERNEL_MODULE_NAME "my_module")
 set(KERNEL_MODULE_FILE_NAME "${KERNEL_MODULE_NAME}.ko")
 

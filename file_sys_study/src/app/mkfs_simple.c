@@ -9,14 +9,13 @@
  *
  */
 
-#include <linux/fs.h>
-
 #include "../../../common_include/c_include.h"
 #include "../../../common_include/define_const.h"
 #include "../../../common_include/my_log.h"
 #include "../../../common_include/my_util.h"
-
 #include "../../include/my_fs/my_simple_fs.h"
+
+#include <linux/fs.h>
 
 #define MODULE_NAME "MKFS_SIMPLE"
 
@@ -98,18 +97,19 @@ static int write_inode_store_block(int fd, simplefs_sb *sb)
         return RETURN_ERROR;
     }
 
+    // root inode
     simplefs_inode *inode = (simplefs_inode*)block;
     // skip the inode 0
     // glibc: readdir will skip inode 0, vfs also avoids using inode 0;
     inode += 1;
 
     uint32_t first_data_block = 1 +
-        le32toh(sb->info.block_free_bitmap_block_num) +
+        le32toh(sb->info.inode_store_block_num) +
         le32toh(sb->info.inode_free_bitmap_block_num) +
-        le32toh(sb->info.inode_store_block_num);
+        le32toh(sb->info.block_free_bitmap_block_num);
 
     inode->i_mode = htole32(S_IFDIR | S_IRUSR | S_IRGRP | S_IROTH | S_IWUSR |
-        S_IWGRP | S_IXUSR | S_IXGRP | S_IXOTH);
+        S_IWGRP | S_IWOTH | S_IXUSR | S_IXGRP | S_IXOTH); // 777
     inode->i_uid = 0;
     inode->i_gid = 0;
     inode->i_size = htole32(SIMPLE_FS_BLOCK_SIZE);
@@ -156,7 +156,8 @@ static int write_inode_free_bitmap_block(int fd, simplefs_sb *sb)
     uint64_t *inode_free_bitmap = (uint64_t*)block;
     memset(inode_free_bitmap, 0xff, SIMPLE_FS_BLOCK_SIZE);
 
-    inode_free_bitmap[0] = htole64(0xfffffffffffffffc); // have used two inodes: 0xc: 1100
+    inode_free_bitmap[0] = htole64(0xfffffffffffffffc);
+    // have used two inodes: 0xc: 1100: skip inode 0, inode 1 for root inode
     ret = write(fd, inode_free_bitmap, SIMPLE_FS_BLOCK_SIZE);
     if (ret != SIMPLE_FS_BLOCK_SIZE) {
         ret = RETURN_ERROR;
@@ -182,10 +183,11 @@ out:
 static int write_block_free_bitmap_block(int fd, simplefs_sb *sb)
 {
     int ret = RETURN_OK;
-    // first block: sb + inode_store_block + inode_free_bitmap_block + block_free_bitmap_block
-    uint32_t used_block_num = le32toh(sb->info.inode_store_block_num) +
+    // first block: sb + inode_store_block + inode_free_bitmap_block +
+    // block_free_bitmap_block + first_block for root inode
+    uint32_t used_block_num = 1+ le32toh(sb->info.inode_store_block_num) +
         le32toh(sb->info.inode_free_bitmap_block_num) +
-        le32toh(sb->info.block_free_bitmap_block_num) + 2;
+        le32toh(sb->info.block_free_bitmap_block_num) + 1;
 
     uint8_t *block = calloc(1, SIMPLE_FS_BLOCK_SIZE);
     if (!block) {

@@ -13,9 +13,9 @@
 #define FILE_SYS_STUDY_MY_SIMPLE_FS_H
 
 #include <linux/types.h>
+#include <linux/fs.h>
 
-#define SIMPLE_FS_BLOCK_SIZE (1 << 12) // 4KiB
-#define SIMPLE_FS_MAGIC 0xDEADCELL // source: https://en.wikipedia.org/wiki/Hexspeak
+#define SIMPLE_FS_MODULE_NAME "simple_fs"
 
 /*
  * simplefs partition layout
@@ -33,10 +33,23 @@
  * +---------------+
  */
 
+#define SIMPLE_FS_SUPER_BLOCK_POS 0
+
+#define SIMPLE_FS_BLOCK_SIZE (1 << 12) // 4KiB
+#define SIMPLE_FS_MAGIC 0xDEADCELL // source: https://en.wikipedia.org/wiki/Hexspeak
+
+#define SIMPLE_FS_MAX_EXTENTS \
+    ((SIMPLE_FS_BLOCK_SIZE - sizeof(uint32_t)) / sizeof(simplefs_extent))
+#define SIMPLE_FS_MAX_BLOCK_PER_EXTENT 8
+#define SIMPLE_FS_MAX_FILE_SIZE \
+    ((uint64_t) SIMPLE_FS_MAX_BLOCK_PER_EXTENT * SIMPLE_FS_BLOCK_SIZE * SIMPLE_FS_MAX_EXTENTS)
+
+#define SIMPLE_FS_FILE_NAME_LEN 255
+
 typedef struct {
     uint32_t magic; // fs magic
-    uint32_t total_block_num;
-    uint32_t total_inode_num;
+    uint32_t total_block_num; // total number of blocks (include sb & inodes)
+    uint32_t total_inode_num; // total number of inodes
 
     uint32_t inode_store_block_num; // blocks stored inode
     uint32_t inode_free_bitmap_block_num; // blocks stored inode free-bitmap
@@ -48,6 +61,12 @@ typedef struct {
     uint8_t *free_inode_bitmap;
     uint8_t *free_block_bitmap;
 } simplefs_sb_info;
+
+typedef struct {
+    uint32_t e_l_block; // first logical block covered by extent
+    uint32_t e_p_block; // first physical block covered by extent
+    uint32_t e_len; // number of blocks covered by extent
+} simplefs_extent;
 
 typedef struct {
     uint32_t i_mode; // file mode

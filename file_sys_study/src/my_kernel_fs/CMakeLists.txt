@@ -25,7 +25,8 @@ add_custom_command(
     OUTPUT ${KBUILD_FILE}
     COMMAND echo "obj-m := ${KERNEL_MODULE_NAME}.o" > ${KBUILD_FILE}
     COMMAND echo "${KERNEL_MODULE_NAME}-objs := ${MY_KERNEL_OBJ_STR}" >> ${KBUILD_FILE}
-    COMMAND echo "EXTRA_CFLAGS=-I${PROJECT_SOURCE_DIR}/include" >> ${KBUILD_FILE}
+    # COMMAND echo "EXTRA_CFLAGS=-I${PROJECT_SOURCE_DIR}/include " >> ${KBUILD_FILE}
+    COMMAND echo "ccflags-y := -std=gnu11 -I${PROJECT_SOURCE_DIR}/include " >> ${KBUILD_FILE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     VERBATIM
 )

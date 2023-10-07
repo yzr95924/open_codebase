@@ -58,8 +58,8 @@ typedef struct {
     uint32_t free_inode_num;
     uint32_t free_block_num;
 
-    uint8_t *free_inode_bitmap;
-    uint8_t *free_block_bitmap;
+    uint8_t *inode_free_bitmap;
+    uint8_t *block_free_bitmap;
 } simplefs_sb_info;
 
 typedef struct {

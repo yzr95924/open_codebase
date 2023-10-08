@@ -14,8 +14,11 @@
 
 #include <linux/types.h>
 #include <linux/fs.h>
+#include <linux/version.h>
 
 #define SIMPLE_FS_MODULE_NAME "simple_fs"
+#define USER_NS_REQUIRED() LINUX_VERSION_CODE >= KERNEL_VERSION(5,12,0)
+#define MNT_IDMAP_REQUIRED() LINUX_VERSION_CODE >= KERNEL_VERSION(6,3,0)
 
 /*
  * simplefs partition layout

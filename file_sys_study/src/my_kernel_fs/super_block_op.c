@@ -30,7 +30,19 @@ static int simplefs_sb_op_statfs(struct dentry *dentry, struct kstatfs *stat)
     return 0;
 }
 
+static void simplefs_put_super(struct super_block *sb)
+{
+    simplefs_sb_info *sb_info = sb->s_fs_info;
+    if (sb_info) {
+        kfree(sb_info->inode_free_bitmap);
+        kfree(sb_info->block_free_bitmap);
+        kfree(sb_info);
+    }
+    return;
+}
+
 static struct super_operations simplefs_super_ops = {
+    .put_super = simplefs_put_super,
     .statfs = simplefs_sb_op_statfs
 };
 
@@ -38,8 +50,8 @@ static struct super_operations simplefs_super_ops = {
 int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
 {
     struct buffer_head *bh = NULL;
-    simplefs_sb_info *on_disk_sb = NULL;
-    simplefs_sb_info *in_mem_sb = NULL;
+    simplefs_sb_info *on_disk_sb_info = NULL;
+    simplefs_sb_info *in_mem_sb_info = NULL;
     struct inode *root_inode = NULL;
     int ret = 0;
 
@@ -55,66 +67,111 @@ int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
         pr_err("read super block failed\n");
         return -EIO;
     }
-    on_disk_sb = (simplefs_sb_info*)bh->b_data;
+    on_disk_sb_info = (simplefs_sb_info*)bh->b_data;
 
     // check magic
-    if (on_disk_sb->magic != sb->s_magic) {
+    if (on_disk_sb_info->magic != sb->s_magic) {
         pr_err("wrong magic number\n");
         ret = -EINVAL;
         goto out_free_bh;
     }
 
     // alloc superblock info
-    in_mem_sb = kzalloc(sizeof(simplefs_sb_info), GFP_KERNEL);
-    if (!in_mem_sb) {
-        pr_err("alloc in_mem_sb failed\n");
+    in_mem_sb_info = kzalloc(sizeof(simplefs_sb_info), GFP_KERNEL);
+    if (!in_mem_sb_info) {
+        pr_err("alloc in_mem_sb_info failed\n");
         ret = -ENOMEM;
         goto out_free_bh;
     }
-    in_mem_sb->total_block_num = on_disk_sb->total_block_num;
-    in_mem_sb->total_inode_num = on_disk_sb->total_inode_num;
-    in_mem_sb->inode_store_block_num = on_disk_sb->inode_store_block_num;
-    in_mem_sb->inode_free_bitmap_block_num = on_disk_sb->inode_free_bitmap_block_num;
-    in_mem_sb->block_free_bitmap_block_num = on_disk_sb->block_free_bitmap_block_num;
-    in_mem_sb->free_inode_num = on_disk_sb->free_inode_num;
-    in_mem_sb->free_block_num = on_disk_sb->free_block_num;
+    in_mem_sb_info->total_block_num = on_disk_sb_info->total_block_num;
+    in_mem_sb_info->total_inode_num = on_disk_sb_info->total_inode_num;
+    in_mem_sb_info->inode_store_block_num = on_disk_sb_info->inode_store_block_num;
+    in_mem_sb_info->inode_free_bitmap_block_num = on_disk_sb_info->inode_free_bitmap_block_num;
+    in_mem_sb_info->block_free_bitmap_block_num = on_disk_sb_info->block_free_bitmap_block_num;
+    in_mem_sb_info->free_inode_num = on_disk_sb_info->free_inode_num;
+    in_mem_sb_info->free_block_num = on_disk_sb_info->free_block_num;
 
-    sb->s_fs_info = in_mem_sb;
+    sb->s_fs_info = in_mem_sb_info;
     brelse(bh);
 
     // alloc and copy free inode bitmap
-    in_mem_sb->inode_free_bitmap = kzalloc(
-        in_mem_sb->inode_free_bitmap_block_num * SIMPLE_FS_BLOCK_SIZE,
+    in_mem_sb_info->inode_free_bitmap = kzalloc(
+        in_mem_sb_info->inode_free_bitmap_block_num * SIMPLE_FS_BLOCK_SIZE,
         GFP_KERNEL);
-    if (!in_mem_sb->inode_free_bitmap) {
-        pr_err("alloc in_mem_sb inode_free_bitmap fail\n");
+    if (!in_mem_sb_info->inode_free_bitmap) {
+        pr_err("alloc in_mem_sb_info inode_free_bitmap failed\n");
         ret = -ENOMEM;
         goto out_free_in_mem_sb_info;
     }
 
-    for (int idx = 0; idx < in_mem_sb->inode_free_bitmap_block_num; idx++) {
-        bh = sb_bread(sb, 1 + in_mem_sb->inode_store_block_num + idx);
+    for (int idx = 0; idx < in_mem_sb_info->inode_free_bitmap_block_num; idx++) {
+        bh = sb_bread(sb, 1 + in_mem_sb_info->inode_store_block_num + idx);
         if (!bh) {
             ret = -EIO;
-            pr_err("sb_bread inode_free_bitmap fail, idx: %d\n", idx);
+            pr_err("sb_bread inode_free_bitmap failed, idx: %d\n", idx);
             goto out_free_inode_free_bitmap;
         }
 
-        memcpy(in_mem_sb->inode_free_bitmap + idx * SIMPLE_FS_BLOCK_SIZE, bh->b_data,
+        memcpy(in_mem_sb_info->inode_free_bitmap + idx * SIMPLE_FS_BLOCK_SIZE, bh->b_data,
             SIMPLE_FS_BLOCK_SIZE);
         brelse(bh);
     }
 
-    // TODO: alloc the copy free block bitmap
+    // alloc the copy free block bitmap
+    in_mem_sb_info->block_free_bitmap = kzalloc(
+        in_mem_sb_info->block_free_bitmap_block_num * SIMPLE_FS_BLOCK_SIZE,
+        GFP_KERNEL);
+    if (!in_mem_sb_info->block_free_bitmap) {
+        ret = -ENOMEM;
+        goto out_free_inode_free_bitmap;
+    }
+
+    for (int idx = 0; idx < in_mem_sb_info->block_free_bitmap_block_num; idx++) {
+        bh = sb_bread(sb, 1 + in_mem_sb_info->inode_store_block_num +
+            in_mem_sb_info->inode_free_bitmap_block_num + idx);
+        if (!bh) {
+            ret = -EIO;
+            pr_err("sb_bread block_free_bitmap failed, idx: %d\n", idx);
+            goto out_free_block_free_bitmap;
+        }
+
+        memcpy(in_mem_sb_info->block_free_bitmap + idx * SIMPLE_FS_BLOCK_SIZE, bh->b_data,
+            SIMPLE_FS_BLOCK_SIZE);
+        brelse(bh);
+    }
+
+    // create root inode
+    root_inode = simplefs_iget(sb, 1); // ignore inode 0, start from inode 1
+    if (IS_ERR(root_inode)) {
+        ret = PTR_ERR(root_inode);
+        goto out_free_block_free_bitmap;
+    }
+
+#if MNT_IDMAP_REQUIRED()
+    inode_init_owner(&nop_mnt_idmap, root_inode, NULL, root_inode->i_mode);
+#elif USER_NS_REQUIRED()
+    inode_init_owner(&init_user_ns, root_inode, NULL, root_inode->i_mode);
+#else
+    inode_init_owner(root_inode, NULL, root_inode->i_mode);
+#endif
+
+    sb->s_root = d_make_root(root_inode);
+    if (!sb->s_root) {
+        ret = -ENOMEM;
+        pr_err("convert root inode to root dentry failed\n");
+        goto out_put_root_inode;
+    }
 
     return 0;
 
+out_put_root_inode:
+    iput(root_inode);
 out_free_block_free_bitmap:
-    kfree(in_mem_sb->block_free_bitmap);
+    kfree(in_mem_sb_info->block_free_bitmap);
 out_free_inode_free_bitmap:
-    kfree(in_mem_sb->inode_free_bitmap);
+    kfree(in_mem_sb_info->inode_free_bitmap);
 out_free_in_mem_sb_info:
-    kfree(in_mem_sb);
+    kfree(in_mem_sb_info);
 out_free_bh:
     brelse(bh);
 

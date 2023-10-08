@@ -12,14 +12,15 @@
 #ifndef FILE_SYS_STUDY_SIMPLE_FS_SB_OP_H
 #define FILE_SYS_STUDY_SIMPLE_FS_SB_OP_H
 
-#include "my_simple_fs.h"
-
 #include <linux/buffer_head.h>
 #include <linux/fs.h>
 #include <linux/kernel.h>
 #include <linux/statfs.h>
 #include <linux/slab.h>
 #include <linux/module.h>
+
+#include "my_simple_fs.h"
+#include "my_simple_fs_inode_op.h"
 
 /**
  * @brief fill vfs superblock from simplefs superblock

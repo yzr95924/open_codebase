@@ -6,3 +6,4 @@ some useful codebases created by myself
     - hash (MD5, SHA-1, SHA-256)
     - encryption (AES-128, AES-256 in different modes)
     - decryption
+- test

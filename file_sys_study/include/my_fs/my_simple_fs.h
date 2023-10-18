@@ -20,6 +20,12 @@
 #define USER_NS_REQUIRED() LINUX_VERSION_CODE >= KERNEL_VERSION(5,12,0)
 #define MNT_IDMAP_REQUIRED() LINUX_VERSION_CODE >= KERNEL_VERSION(6,3,0)
 
+#define _FILE strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__
+#define KO_LOG_FMT(fmt) "%s:%d:%s: " fmt, _FILE, __LINE__, __func__
+
+#define ZUORU_KO_LOG_INFO(message, args...) printk(KERN_INFO KO_LOG_FMT(message), ##args);
+#define ZUORU_KO_LOG_ERR(message, args...) printk(KERN_ERR KO_LOG_FMT(message), ##args);
+
 /*
  * simplefs partition layout
  * +---------------+
@@ -48,6 +54,9 @@
     ((uint64_t) SIMPLE_FS_MAX_BLOCK_PER_EXTENT * SIMPLE_FS_BLOCK_SIZE * SIMPLE_FS_MAX_EXTENTS)
 
 #define SIMPLE_FS_FILE_NAME_LEN 255
+
+#define SIMPLE_FS_INODE_PER_BLOCK \
+    (SIMPLE_FS_BLOCK_SIZE / sizeof(simplefs_inode))
 
 typedef struct {
     uint32_t magic; // fs magic
@@ -85,7 +94,10 @@ typedef struct {
     uint8_t  i_sym_data[32]; // store symlink content
 } __attribute__((packed)) simplefs_inode;
 
-#define SIMPLE_FS_INODE_PER_BLOCK \
-    (SIMPLE_FS_BLOCK_SIZE / sizeof(simplefs_inode))
+typedef struct {
+    uint32_t ei_block; // block with list of extents for this file
+    char i_data[32];
+    struct inode vfs_inode;
+} simplefs_inode_info;
 
 #endif

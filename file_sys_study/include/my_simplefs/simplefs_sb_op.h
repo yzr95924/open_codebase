@@ -19,8 +19,8 @@
 #include <linux/slab.h>
 #include <linux/module.h>
 
-#include "my_simple_fs.h"
-#include "my_simple_fs_inode_op.h"
+#include "simplefs.h"
+#include "simplefs_inode_op.h"
 
 /**
  * @brief fill vfs superblock from simplefs superblock

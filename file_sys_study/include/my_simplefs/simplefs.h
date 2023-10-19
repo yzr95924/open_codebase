@@ -15,6 +15,8 @@
 #include <linux/types.h>
 #include <linux/fs.h>
 #include <linux/version.h>
+#include <linux/module.h>
+#include <linux/kernel.h>
 
 #define SIMPLE_FS_MODULE_NAME "simple_fs"
 #define USER_NS_REQUIRED() LINUX_VERSION_CODE >= KERNEL_VERSION(5,12,0)
@@ -25,6 +27,9 @@
 
 #define ZUORU_KO_LOG_INFO(message, args...) printk(KERN_INFO KO_LOG_FMT(message), ##args);
 #define ZUORU_KO_LOG_ERR(message, args...) printk(KERN_ERR KO_LOG_FMT(message), ##args);
+
+#define ZUORU_ENTRY ZUORU_KO_LOG_INFO("entry");
+#define ZUORU_EXIT ZUORU_KO_LOG_INFO("exit");
 
 /*
  * simplefs partition layout
@@ -94,10 +99,14 @@ typedef struct {
     uint8_t  i_sym_data[32]; // store symlink content
 } __attribute__((packed)) simplefs_inode;
 
+#ifdef __KERNEL__
+
 typedef struct {
-    uint32_t ei_block; // block with list of extents for this file
+    uint32_t i_extent_block; // block with list of extents for this file
     char i_data[32];
     struct inode vfs_inode;
 } simplefs_inode_info;
+
+#endif // __KERNEL__
 
 #endif

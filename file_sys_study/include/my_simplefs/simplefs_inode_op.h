@@ -17,7 +17,7 @@
 #include <linux/kernel.h>
 #include <linux/module.h>
 
-#include "my_simple_fs.h"
+#include "simplefs.h"
 
 /**
  * @brief get inode from disk

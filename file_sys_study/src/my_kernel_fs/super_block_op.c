@@ -9,9 +9,7 @@
  *
  */
 
-#define pr_fmt(fmt) "simple_fs: " fmt
-
-#include "../../include/my_fs/my_simple_fs_sb_op.h"
+#include "../../include/my_simplefs/simplefs_sb_op.h"
 
 static int simplefs_sb_op_statfs(struct dentry *dentry, struct kstatfs *stat)
 {
@@ -64,14 +62,14 @@ int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
     // read sb from disk
     bh = sb_bread(sb, SIMPLE_FS_SUPER_BLOCK_POS);
     if (!bh) {
-        pr_err("read super block failed\n");
+        ZUORU_KO_LOG_ERR("read super block failed\n");
         return -EIO;
     }
     on_disk_sb_info = (simplefs_sb_info*)bh->b_data;
 
     // check magic
     if (on_disk_sb_info->magic != sb->s_magic) {
-        pr_err("wrong magic number\n");
+        ZUORU_KO_LOG_ERR("wrong magic number\n");
         ret = -EINVAL;
         goto out_free_bh;
     }
@@ -79,7 +77,7 @@ int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
     // alloc superblock info
     in_mem_sb_info = kzalloc(sizeof(simplefs_sb_info), GFP_KERNEL);
     if (!in_mem_sb_info) {
-        pr_err("alloc in_mem_sb_info failed\n");
+        ZUORU_KO_LOG_ERR("alloc in_mem_sb_info failed\n");
         ret = -ENOMEM;
         goto out_free_bh;
     }
@@ -99,7 +97,7 @@ int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
         in_mem_sb_info->inode_free_bitmap_block_num * SIMPLE_FS_BLOCK_SIZE,
         GFP_KERNEL);
     if (!in_mem_sb_info->inode_free_bitmap) {
-        pr_err("alloc in_mem_sb_info inode_free_bitmap failed\n");
+        ZUORU_KO_LOG_ERR("alloc in_mem_sb_info inode_free_bitmap failed\n");
         ret = -ENOMEM;
         goto out_free_in_mem_sb_info;
     }
@@ -108,7 +106,7 @@ int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
         bh = sb_bread(sb, 1 + in_mem_sb_info->inode_store_block_num + idx);
         if (!bh) {
             ret = -EIO;
-            pr_err("sb_bread inode_free_bitmap failed, idx: %d\n", idx);
+            ZUORU_KO_LOG_ERR("sb_bread inode_free_bitmap failed, idx: %d\n", idx);
             goto out_free_inode_free_bitmap;
         }
 
@@ -131,7 +129,7 @@ int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
             in_mem_sb_info->inode_free_bitmap_block_num + idx);
         if (!bh) {
             ret = -EIO;
-            pr_err("sb_bread block_free_bitmap failed, idx: %d\n", idx);
+            ZUORU_KO_LOG_ERR("sb_bread block_free_bitmap failed, idx: %d\n", idx);
             goto out_free_block_free_bitmap;
         }
 
@@ -158,7 +156,7 @@ int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
     sb->s_root = d_make_root(root_inode);
     if (!sb->s_root) {
         ret = -ENOMEM;
-        pr_err("convert root inode to root dentry failed\n");
+        ZUORU_KO_LOG_ERR("convert root inode to root dentry failed\n");
         goto out_put_root_inode;
     }
 

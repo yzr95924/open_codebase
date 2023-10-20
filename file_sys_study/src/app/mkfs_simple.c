@@ -21,7 +21,7 @@
 
 typedef struct {
     simplefs_sb_info info;
-    uint8_t pad[SIMPLE_FS_BLOCK_SIZE - sizeof(simplefs_sb_info)];
+    uint8_t pad[SIMPLEFS_BLOCK_SIZE - sizeof(simplefs_sb_info)];
 } __attribute__((packed)) simplefs_sb;
 
 /**
@@ -39,23 +39,23 @@ static simplefs_sb* write_superblock(int fd, struct stat *stat_buf)
         return NULL;
     }
 
-    uint32_t total_block_num = stat_buf->st_size / SIMPLE_FS_BLOCK_SIZE;
+    uint32_t total_block_num = stat_buf->st_size / SIMPLEFS_BLOCK_SIZE;
     uint32_t total_inode_num = total_block_num;
-    uint32_t mod = total_inode_num % SIMPLE_FS_INODE_PER_BLOCK;
+    uint32_t mod = total_inode_num % SIMPLEFS_INODE_PER_BLOCK;
     if (mod) {
-        total_inode_num += SIMPLE_FS_INODE_PER_BLOCK - mod;
+        total_inode_num += SIMPLEFS_INODE_PER_BLOCK - mod;
     }
     uint32_t inode_store_block_num = ZUORU_DivCeil(total_inode_num,
-        SIMPLE_FS_INODE_PER_BLOCK);
+        SIMPLEFS_INODE_PER_BLOCK);
     uint32_t inode_free_bitmap_block_num = ZUORU_DivCeil(total_inode_num,
-        SIMPLE_FS_BLOCK_SIZE * 8);
+        SIMPLEFS_BLOCK_SIZE * 8);
     uint32_t block_free_bitmap_block_num = ZUORU_DivCeil(total_block_num,
-        SIMPLE_FS_BLOCK_SIZE * 8);
+        SIMPLEFS_BLOCK_SIZE * 8);
     uint32_t free_block_num =
         total_block_num - inode_store_block_num - inode_free_bitmap_block_num -
             block_free_bitmap_block_num;
 
-    sb->info.magic = htole32(SIMPLE_FS_MAGIC);
+    sb->info.magic = htole32(SIMPLEFS_MAGIC);
     sb->info.total_block_num = htole32(total_block_num);
     sb->info.total_inode_num = htole32(total_inode_num);
     sb->info.inode_store_block_num = htole32(inode_store_block_num);
@@ -92,7 +92,7 @@ static simplefs_sb* write_superblock(int fd, struct stat *stat_buf)
 static int write_inode_store_block(int fd, simplefs_sb *sb)
 {
     int ret = RETURN_OK;
-    uint8_t *block = (uint8_t*)calloc(1, SIMPLE_FS_BLOCK_SIZE);
+    uint8_t *block = (uint8_t*)calloc(1, SIMPLEFS_BLOCK_SIZE);
     if (!block) {
         return RETURN_ERROR;
     }
@@ -112,24 +112,24 @@ static int write_inode_store_block(int fd, simplefs_sb *sb)
         S_IWGRP | S_IWOTH | S_IXUSR | S_IXGRP | S_IXOTH); // 777
     inode->i_uid = 0;
     inode->i_gid = 0;
-    inode->i_size = htole32(SIMPLE_FS_BLOCK_SIZE);
+    inode->i_size = htole32(SIMPLEFS_BLOCK_SIZE);
     inode->i_ctime = inode->i_atime = inode->i_mtime = 0;
     inode->i_block = htole32(1);
     inode->i_nlink = htole32(2);
     inode->i_extent_block = htole32(first_data_block);
 
     // write inode to file
-    ret = write(fd, block, SIMPLE_FS_BLOCK_SIZE);
-    if (ret != SIMPLE_FS_BLOCK_SIZE) {
+    ret = write(fd, block, SIMPLEFS_BLOCK_SIZE);
+    if (ret != SIMPLEFS_BLOCK_SIZE) {
         ret = RETURN_ERROR;
         goto out;
     }
 
     // reset the block to all 0
-    memset(block, 0, SIMPLE_FS_BLOCK_SIZE);
+    memset(block, 0, SIMPLEFS_BLOCK_SIZE);
     for (int idx = 1; idx < le32toh(sb->info.inode_store_block_num); idx++) {
-        ret = write(fd, block, SIMPLE_FS_BLOCK_SIZE);
-        if (ret != SIMPLE_FS_BLOCK_SIZE) {
+        ret = write(fd, block, SIMPLEFS_BLOCK_SIZE);
+        if (ret != SIMPLEFS_BLOCK_SIZE) {
             ret = RETURN_ERROR;
             goto out;
         }
@@ -148,26 +148,26 @@ out:
 static int write_inode_free_bitmap_block(int fd, simplefs_sb *sb)
 {
     int ret = RETURN_OK;
-    uint8_t *block = calloc(1, SIMPLE_FS_BLOCK_SIZE);
+    uint8_t *block = calloc(1, SIMPLEFS_BLOCK_SIZE);
     if (!block) {
         return RETURN_ERROR;
     }
 
     uint64_t *inode_free_bitmap = (uint64_t*)block;
-    memset(inode_free_bitmap, 0xff, SIMPLE_FS_BLOCK_SIZE);
+    memset(inode_free_bitmap, 0xff, SIMPLEFS_BLOCK_SIZE);
 
     inode_free_bitmap[0] = htole64(0xfffffffffffffffc);
     // have used two inodes: 0xc: 1100: skip inode 0, inode 1 for root inode
-    ret = write(fd, inode_free_bitmap, SIMPLE_FS_BLOCK_SIZE);
-    if (ret != SIMPLE_FS_BLOCK_SIZE) {
+    ret = write(fd, inode_free_bitmap, SIMPLEFS_BLOCK_SIZE);
+    if (ret != SIMPLEFS_BLOCK_SIZE) {
         ret = RETURN_ERROR;
         goto out;
     }
 
     inode_free_bitmap[0] = 0xffffffffffffffff;
     for (int idx = 1; idx < le32toh(sb->info.inode_free_bitmap_block_num); idx++) {
-        ret = write(fd, inode_free_bitmap, SIMPLE_FS_BLOCK_SIZE);
-        if (ret != SIMPLE_FS_BLOCK_SIZE) {
+        ret = write(fd, inode_free_bitmap, SIMPLEFS_BLOCK_SIZE);
+        if (ret != SIMPLEFS_BLOCK_SIZE) {
             ret = RETURN_ERROR;
             goto out;
         }
@@ -189,13 +189,13 @@ static int write_block_free_bitmap_block(int fd, simplefs_sb *sb)
         le32toh(sb->info.inode_free_bitmap_block_num) +
         le32toh(sb->info.block_free_bitmap_block_num) + 1;
 
-    uint8_t *block = calloc(1, SIMPLE_FS_BLOCK_SIZE);
+    uint8_t *block = calloc(1, SIMPLEFS_BLOCK_SIZE);
     if (!block) {
         return RETURN_ERROR;
     }
 
     uint64_t *block_free_bitmap = (uint64_t*)block;
-    memset(block_free_bitmap, 0xff, SIMPLE_FS_BLOCK_SIZE);
+    memset(block_free_bitmap, 0xff, SIMPLEFS_BLOCK_SIZE);
     uint32_t used_bitmap_cnt = 0;
     uint32_t write_block_cnt = 0;
     while (used_block_num) {
@@ -209,31 +209,31 @@ static int write_block_free_bitmap_block(int fd, simplefs_sb *sb)
         }
         block_free_bitmap[used_bitmap_cnt] = htole64(cur_line);
         used_bitmap_cnt++;
-        if (used_bitmap_cnt * sizeof(uint64_t) == SIMPLE_FS_BLOCK_SIZE) {
-            ret = write(fd, block_free_bitmap, SIMPLE_FS_BLOCK_SIZE);
-            if (ret != SIMPLE_FS_BLOCK_SIZE) {
+        if (used_bitmap_cnt * sizeof(uint64_t) == SIMPLEFS_BLOCK_SIZE) {
+            ret = write(fd, block_free_bitmap, SIMPLEFS_BLOCK_SIZE);
+            if (ret != SIMPLEFS_BLOCK_SIZE) {
                 ret = RETURN_ERROR;
                 goto out;
             }
             write_block_cnt++;
-            memset(block_free_bitmap, 0xff, SIMPLE_FS_BLOCK_SIZE);
+            memset(block_free_bitmap, 0xff, SIMPLEFS_BLOCK_SIZE);
             used_bitmap_cnt = 0;
         }
     }
 
     if (used_bitmap_cnt != 0) {
-        ret = write(fd, block_free_bitmap, SIMPLE_FS_BLOCK_SIZE);
-        if (ret != SIMPLE_FS_BLOCK_SIZE) {
+        ret = write(fd, block_free_bitmap, SIMPLEFS_BLOCK_SIZE);
+        if (ret != SIMPLEFS_BLOCK_SIZE) {
             ret = RETURN_ERROR;
             goto out;
         }
         write_block_cnt++;
     }
 
-    memset(block_free_bitmap, 0xff, SIMPLE_FS_BLOCK_SIZE);
+    memset(block_free_bitmap, 0xff, SIMPLEFS_BLOCK_SIZE);
     for (int idx = write_block_cnt; idx < le32toh(sb->info.block_free_bitmap_block_num); idx++) {
-        ret = write(fd, block_free_bitmap, SIMPLE_FS_BLOCK_SIZE);
-        if (ret != SIMPLE_FS_BLOCK_SIZE) {
+        ret = write(fd, block_free_bitmap, SIMPLEFS_BLOCK_SIZE);
+        if (ret != SIMPLEFS_BLOCK_SIZE) {
             ret = RETURN_ERROR;
             goto out;
         }
@@ -297,7 +297,7 @@ int main(int argc, char *argv[])
         stat_buf.st_blksize);
 
     // check if image/dev is large enough
-    int64_t min_required_size = 100 * SIMPLE_FS_BLOCK_SIZE;
+    int64_t min_required_size = 100 * SIMPLEFS_BLOCK_SIZE;
     if (stat_buf.st_size < min_required_size) {
         ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_NAME,
             "img/dev is not large enough(%ld), min(%ld)\n",

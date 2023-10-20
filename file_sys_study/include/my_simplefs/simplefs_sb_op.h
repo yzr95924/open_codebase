@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef FILE_SYS_STUDY_SIMPLE_FS_SB_OP_H
-#define FILE_SYS_STUDY_SIMPLE_FS_SB_OP_H
+#ifndef FILE_SYS_STUDY_SIMPLEFS_SB_OP_H
+#define FILE_SYS_STUDY_SIMPLEFS_SB_OP_H
 
 #include <linux/buffer_head.h>
 #include <linux/fs.h>

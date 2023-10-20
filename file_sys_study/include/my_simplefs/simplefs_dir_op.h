@@ -9,9 +9,16 @@
  *
  */
 
-#ifndef FILE_SYS_STUDY_SIMPLE_FS_DIR_OP_H
-#define FILE_SYS_STUDY_SIMPLE_FS_DIR_OP_H
+#ifndef FILE_SYS_STUDY_SIMPLEFSDIR_OP_H
+#define FILE_SYS_STUDY_SIMPLEFSDIR_OP_H
 
 #include "simplefs.h"
+
+/**
+ * @brief get inode dir op table
+ *
+ * @return struct file_operations*
+ */
+const struct file_operations* simplefs_get_inode_dir_op(void);
 
 #endif

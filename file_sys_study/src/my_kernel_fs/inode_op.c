@@ -26,8 +26,8 @@ struct inode *simplefs_iget(struct super_block *sb, unsigned long inode_idx)
     struct buffer_head *bh = NULL;
 
     // compute the inode block
-    uint32_t inode_block_idx = (inode_idx / SIMPLE_FS_INODE_PER_BLOCK) + 1;
-    uint32_t inode_block_offset = inode_idx % SIMPLE_FS_INODE_PER_BLOCK;
+    uint32_t inode_block_idx = (inode_idx / SIMPLEFS_INODE_PER_BLOCK) + 1;
+    uint32_t inode_block_offset = inode_idx % SIMPLEFS_INODE_PER_BLOCK;
     int ret;
 
     ZUORU_ENTRY;

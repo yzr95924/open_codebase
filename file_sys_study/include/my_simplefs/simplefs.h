@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef FILE_SYS_STUDY_MY_SIMPLE_FS_H
-#define FILE_SYS_STUDY_MY_SIMPLE_FS_H
+#ifndef FILE_SYS_STUDY_MY_SIMPLEFS_H
+#define FILE_SYS_STUDY_MY_SIMPLEFS_H
 
 #include <linux/types.h>
 #include <linux/fs.h>
@@ -18,7 +18,7 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
 
-#define SIMPLE_FS_MODULE_NAME "simple_fs"
+#define SIMPLEFS_MODULE_NAME "simple_fs"
 #define USER_NS_REQUIRED() LINUX_VERSION_CODE >= KERNEL_VERSION(5,12,0)
 #define MNT_IDMAP_REQUIRED() LINUX_VERSION_CODE >= KERNEL_VERSION(6,3,0)
 
@@ -47,21 +47,28 @@
  * +---------------+
  */
 
-#define SIMPLE_FS_SUPER_BLOCK_POS 0
+#define SIMPLEFS_SUPER_BLOCK_POS 0
 
-#define SIMPLE_FS_BLOCK_SIZE (1 << 12) // 4KiB
-#define SIMPLE_FS_MAGIC 0xDEADCELL // source: https://en.wikipedia.org/wiki/Hexspeak
+#define SIMPLEFS_BLOCK_SIZE (1 << 12) // 4KiB
+#define SIMPLEFS_MAGIC 0xDEADCELL // source: https://en.wikipedia.org/wiki/Hexspeak
 
-#define SIMPLE_FS_MAX_EXTENTS \
-    ((SIMPLE_FS_BLOCK_SIZE - sizeof(uint32_t)) / sizeof(simplefs_extent))
-#define SIMPLE_FS_MAX_BLOCK_PER_EXTENT 8
-#define SIMPLE_FS_MAX_FILE_SIZE \
-    ((uint64_t) SIMPLE_FS_MAX_BLOCK_PER_EXTENT * SIMPLE_FS_BLOCK_SIZE * SIMPLE_FS_MAX_EXTENTS)
+#define SIMPLEFS_MAX_EXTENTS \
+    ((SIMPLEFS_BLOCK_SIZE - sizeof(uint32_t)) / sizeof(simplefs_extent))
+#define SIMPLEFS_MAX_BLOCK_PER_EXTENT 8
+#define SIMPLEFS_MAX_FILE_SIZE \
+    ((uint64_t) SIMPLEFS_MAX_BLOCK_PER_EXTENT * SIMPLEFS_BLOCK_SIZE * SIMPLEFS_MAX_EXTENTS)
 
-#define SIMPLE_FS_FILE_NAME_LEN 255
+#define SIMPLEFS_MAX_FILENAME_LEN 255
 
-#define SIMPLE_FS_INODE_PER_BLOCK \
-    (SIMPLE_FS_BLOCK_SIZE / sizeof(simplefs_inode))
+#define SIMPLEFS_FILES_PER_BLOCK \
+    (SIMPLEFS_BLOCK_SIZE / sizeof(simplefs_file))
+#define SIMPLEFS_FILES_PER_EXT \
+    (SIMPLEFS_FILES_PER_BLOCK * SIMPLEFS_MAX_BLOCK_PER_EXTENT)
+#define SIMPLEFS_MAX_SUB_FILES \
+    (SIMPLEFS_FILES_PER_EXT * SIMPLEFS_MAX_EXTENTS)
+
+#define SIMPLEFS_INODE_PER_BLOCK \
+    (SIMPLEFS_BLOCK_SIZE / sizeof(simplefs_inode))
 
 typedef struct {
     uint32_t magic; // fs magic
@@ -78,12 +85,6 @@ typedef struct {
     uint8_t *inode_free_bitmap;
     uint8_t *block_free_bitmap;
 } simplefs_sb_info;
-
-typedef struct {
-    uint32_t e_l_block; // first logical block covered by extent
-    uint32_t e_p_block; // first physical block covered by extent
-    uint32_t e_len; // number of blocks covered by extent
-} simplefs_extent;
 
 typedef struct {
     uint32_t i_mode; // file mode
@@ -106,6 +107,29 @@ typedef struct {
     char i_data[32];
     struct inode vfs_inode;
 } simplefs_inode_info;
+
+typedef struct {
+    uint32_t e_l_block; // first logical block covered by extent
+    uint32_t e_p_block; // first physical block covered by extent
+    uint32_t e_len; // number of blocks covered by extent
+} simplefs_extent;
+
+#define SIMPLEFS_GET_SB_INFO_FROM_INODE(inode) \
+    (container_of(inode, simplefs_inode_info, vfs_inode))
+
+typedef struct {
+    uint32_t total_file_cnt; // number of file in directory
+    simplefs_extent extents[SIMPLEFS_MAX_EXTENTS];
+} simplefs_file_ei_block;
+
+typedef struct {
+    uint32_t inode;
+    char filename[SIMPLEFS_MAX_FILENAME_LEN];
+} simplefs_file;
+
+typedef struct {
+    simplefs_file files[SIMPLEFS_FILES_PER_BLOCK];
+} simplefs_dir_block;
 
 #endif // __KERNEL__
 

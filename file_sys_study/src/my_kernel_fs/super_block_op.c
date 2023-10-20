@@ -16,14 +16,14 @@ static int simplefs_sb_op_statfs(struct dentry *dentry, struct kstatfs *stat)
     struct super_block *sb = dentry->d_sb;
     simplefs_sb_info *sb_info = sb->s_fs_info;
 
-    stat->f_type = SIMPLE_FS_MAGIC;
-    stat->f_bsize = SIMPLE_FS_BLOCK_SIZE;
+    stat->f_type = SIMPLEFS_MAGIC;
+    stat->f_bsize = SIMPLEFS_BLOCK_SIZE;
     stat->f_blocks = sb_info->total_block_num;
     stat->f_bfree = sb_info->free_block_num;
     stat->f_bavail = sb_info->free_block_num;
     stat->f_files = sb_info->total_inode_num - sb_info->free_inode_num;
     stat->f_ffree = sb_info->free_inode_num;
-    stat->f_namelen = SIMPLE_FS_FILE_NAME_LEN;
+    stat->f_namelen = SIMPLEFS_MAX_FILENAME_LEN;
 
     return 0;
 }
@@ -54,13 +54,13 @@ int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
     int ret = 0;
 
     // init sb
-    sb->s_magic = SIMPLE_FS_MAGIC;
-    sb_set_blocksize(sb, SIMPLE_FS_BLOCK_SIZE);
-    sb->s_maxbytes = SIMPLE_FS_MAX_FILE_SIZE;
+    sb->s_magic = SIMPLEFS_MAGIC;
+    sb_set_blocksize(sb, SIMPLEFS_BLOCK_SIZE);
+    sb->s_maxbytes = SIMPLEFS_MAX_FILE_SIZE;
     sb->s_op = &simplefs_super_ops;
 
     // read sb from disk
-    bh = sb_bread(sb, SIMPLE_FS_SUPER_BLOCK_POS);
+    bh = sb_bread(sb, SIMPLEFS_SUPER_BLOCK_POS);
     if (!bh) {
         ZUORU_KO_LOG_ERR("read super block failed\n");
         return -EIO;
@@ -94,7 +94,7 @@ int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
 
     // alloc and copy free inode bitmap
     in_mem_sb_info->inode_free_bitmap = kzalloc(
-        in_mem_sb_info->inode_free_bitmap_block_num * SIMPLE_FS_BLOCK_SIZE,
+        in_mem_sb_info->inode_free_bitmap_block_num * SIMPLEFS_BLOCK_SIZE,
         GFP_KERNEL);
     if (!in_mem_sb_info->inode_free_bitmap) {
         ZUORU_KO_LOG_ERR("alloc in_mem_sb_info inode_free_bitmap failed\n");
@@ -110,14 +110,14 @@ int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
             goto out_free_inode_free_bitmap;
         }
 
-        memcpy(in_mem_sb_info->inode_free_bitmap + idx * SIMPLE_FS_BLOCK_SIZE, bh->b_data,
-            SIMPLE_FS_BLOCK_SIZE);
+        memcpy(in_mem_sb_info->inode_free_bitmap + idx * SIMPLEFS_BLOCK_SIZE, bh->b_data,
+            SIMPLEFS_BLOCK_SIZE);
         brelse(bh);
     }
 
     // alloc the copy free block bitmap
     in_mem_sb_info->block_free_bitmap = kzalloc(
-        in_mem_sb_info->block_free_bitmap_block_num * SIMPLE_FS_BLOCK_SIZE,
+        in_mem_sb_info->block_free_bitmap_block_num * SIMPLEFS_BLOCK_SIZE,
         GFP_KERNEL);
     if (!in_mem_sb_info->block_free_bitmap) {
         ret = -ENOMEM;
@@ -133,8 +133,8 @@ int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
             goto out_free_block_free_bitmap;
         }
 
-        memcpy(in_mem_sb_info->block_free_bitmap + idx * SIMPLE_FS_BLOCK_SIZE, bh->b_data,
-            SIMPLE_FS_BLOCK_SIZE);
+        memcpy(in_mem_sb_info->block_free_bitmap + idx * SIMPLEFS_BLOCK_SIZE, bh->b_data,
+            SIMPLEFS_BLOCK_SIZE);
         brelse(bh);
     }
 

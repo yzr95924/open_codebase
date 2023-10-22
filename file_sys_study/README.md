@@ -27,3 +27,6 @@ the config in c_cpp_properties.json:
     "version": 4
 }
 ```
+
+## Process
+- my_simple_fs_mod.c --- done

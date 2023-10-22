@@ -11,6 +11,8 @@
 
 #include "../../include/my_simplefs/simplefs_sb_op.h"
 
+static struct kmem_cache *simplefs_inode_cache;
+
 static int simplefs_sb_op_statfs(struct dentry *dentry, struct kstatfs *stat)
 {
     struct super_block *sb = dentry->d_sb;
@@ -174,4 +176,25 @@ out_free_bh:
     brelse(bh);
 
     return ret;
+}
+
+int simplefs_init_inode_cache(void)
+{
+    ZUORU_ENTRY;
+    simplefs_inode_cache = kmem_cache_create(
+        "simplefs_inode_cache", sizeof(simplefs_inode_info), 0, 0, NULL);
+    if (!simplefs_inode_cache) {
+        ZUORU_KO_LOG_ERR("create simplefs_inode_cache failed\n");
+        return -ENOMEM;
+    }
+
+    ZUORU_EXIT;
+    return 0;
+}
+
+void simplefs_destroy_inode_cache(void)
+{
+    ZUORU_ENTRY;
+    kmem_cache_destroy(simplefs_inode_cache);
+    ZUORU_EXIT;
 }

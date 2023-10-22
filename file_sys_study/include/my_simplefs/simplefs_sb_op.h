@@ -32,5 +32,17 @@
  */
 int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent);
 
+/**
+ * @brief init the vfs inode cache
+ *
+ * @return int ret val
+ */
+int simplefs_init_inode_cache(void);
+
+/**
+ * @brief destroy vfs inode cache
+ *
+ */
+void simplefs_destroy_inode_cache(void);
 
 #endif

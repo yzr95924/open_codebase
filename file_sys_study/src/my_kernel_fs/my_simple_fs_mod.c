@@ -29,25 +29,59 @@ struct dentry *simplefs_mount(struct file_system_type *fs_type, int flags,
     return root_dentry;
 }
 
+void simplefs_kill_sb(struct super_block *sb)
+{
+    kill_block_super(sb);
+    ZUORU_KO_LOG_INFO("unmount simplefs\n");
+    return;
+}
+
 static struct file_system_type simplefs_file_sys_type = {
     .owner = THIS_MODULE,
     .name = "simplefs",
     .mount = simplefs_mount,
+    .kill_sb = simplefs_kill_sb,
+    .fs_flags = FS_REQUIRES_DEV,
+    .next = NULL,
 };
 
-static int __init my_simple_fs_init(void)
+static int __init simple_fs_mod_init(void)
 {
-    ZUORU_KO_LOG_INFO("my simplefs is loaded\n");
+    int ret = 0;
+    ret = simplefs_init_inode_cache();
+    if (ret) {
+        ZUORU_KO_LOG_ERR("init inode cache failed\n");
+        goto out_end;
+    }
+
+    ret = register_filesystem(&simplefs_file_sys_type);
+    if (ret) {
+        ZUORU_KO_LOG_ERR("register simplefs failed\n");
+        goto out_end;
+    }
+
+    ZUORU_KO_LOG_INFO("simplefs is loaded\n");
     return 0;
+
+out_end:
+    return ret;
 }
 
-static void __exit my_simple_fs_exit(void)
+static void __exit simple_fs_mod_exit(void)
 {
-    ZUORU_KO_LOG_INFO("my simplefs is unloaded\n");
+    int ret = 0;
+    ret = unregister_filesystem(&simplefs_file_sys_type);
+    if (ret) {
+        ZUORU_KO_LOG_ERR("unregister simplefs failed\n");
+    }
+
+    simplefs_destroy_inode_cache();
+    ZUORU_KO_LOG_INFO("simplefs is unloaded\n");
+    return;
 }
 
-module_init(my_simple_fs_init);
-module_exit(my_simple_fs_exit);
+module_init(simple_fs_mod_init);
+module_exit(simple_fs_mod_exit);
 
 MODULE_LICENSE("GPL v2");
 MODULE_AUTHOR("Zuoru YANG");

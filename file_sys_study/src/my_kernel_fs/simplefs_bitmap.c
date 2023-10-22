@@ -41,21 +41,29 @@ static uint32_t get_first_free_bits(unsigned long *free_bitmap,
 
 uint32_t get_free_inode(simplefs_sb_info *sb_info)
 {
-    uint32_t ret = get_first_free_bits((unsigned long*)sb_info->inode_free_bitmap,
+    uint32_t ret = 0;
+    ZUORU_ENTRY;
+    ret = get_first_free_bits((unsigned long*)sb_info->inode_free_bitmap,
         sb_info->total_inode_num, 1);
     if (ret) {
         sb_info->free_inode_num--;
     }
+
+    ZUORU_EXIT;
     return ret;
 }
 
 uint32_t get_free_blocks(simplefs_sb_info *sb_info, uint32_t len)
 {
-    uint32_t ret = get_first_free_bits((unsigned long*)sb_info->block_free_bitmap,
+    uint32_t ret = 0;
+    ZUORU_ENTRY;
+    ret = get_first_free_bits((unsigned long*)sb_info->block_free_bitmap,
         sb_info->total_block_num, len);
     if (ret) {
         sb_info->free_block_num -= len;
     }
+
+    ZUORU_EXIT;
     return ret;
 }
 

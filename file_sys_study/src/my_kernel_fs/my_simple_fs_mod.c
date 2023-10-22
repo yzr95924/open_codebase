@@ -10,9 +10,12 @@
  */
 
 #include "../../include/my_simplefs/simplefs.h"
-#include "../../include/my_simplefs/simplefs_sb_op.h"
 
 #include <linux/init.h>
+#include <linux/module.h>
+#include <linux/kernel.h>
+
+#include "../../include/my_simplefs/simplefs_sb_op.h"
 
 struct dentry *simplefs_mount(struct file_system_type *fs_type, int flags,
     const char *dev_name, void *data) {

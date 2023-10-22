@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef FILE_SYS_STUDY_SIMPLEFSDIR_OP_H
-#define FILE_SYS_STUDY_SIMPLEFSDIR_OP_H
+#ifndef FILE_SYS_STUDY_SIMPLEFS_DIR_OP_H
+#define FILE_SYS_STUDY_SIMPLEFS_DIR_OP_H
 
 #include "simplefs.h"
 

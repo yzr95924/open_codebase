@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef FILE_SYS_STUDY_MY_SIMPLEFS_H
-#define FILE_SYS_STUDY_MY_SIMPLEFS_H
+#ifndef FILE_SYS_STUDY_SIMPLEFS_H
+#define FILE_SYS_STUDY_SIMPLEFS_H
 
 #include <linux/types.h>
 #include <linux/fs.h>

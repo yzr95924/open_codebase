@@ -1,2 +1,2 @@
 # src/app
-add_executable(mkfs_simple mkfs_simple.c)
+add_executable(mkfs_simplefs mkfs_simple.c)

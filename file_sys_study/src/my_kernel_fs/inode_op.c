@@ -10,6 +10,7 @@
  */
 
 #include "../../include/my_simplefs/simplefs_inode_op.h"
+#include "../../include/my_simplefs/simplefs_dir_op.h"
 
 extern const struct file_operations simplefs_dir_ops;
 extern const struct file_operations simplefs_file_ops;
@@ -78,7 +79,7 @@ struct inode *simplefs_iget(struct super_block *sb, unsigned long inode_idx)
     if (S_ISDIR(l_vfs_inode->i_mode)) {
         l_simplefs_inode_info->i_extent_block =
             le32_to_cpu(l_simplefs_inode->i_extent_block);
-        l_vfs_inode->i_fop = &simplefs_dir_ops;
+        l_vfs_inode->i_fop = simplefs_get_inode_dir_op();
     } else if (S_ISREG(l_vfs_inode->i_mode)) {
         // TODO: for regular file --> inode operation
     } else if (S_ISLNK(l_vfs_inode->i_mode)) {

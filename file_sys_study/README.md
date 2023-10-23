@@ -29,4 +29,6 @@ the config in c_cpp_properties.json:
 ```
 
 ## Process
-- my_simple_fs_mod.c --- done
+- my_simple_fs_mod.c ---- done
+- dir_op.c ---- done
+- simplefs_bitmap.c ---- done

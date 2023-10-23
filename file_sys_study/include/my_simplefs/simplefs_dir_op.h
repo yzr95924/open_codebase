@@ -15,7 +15,7 @@
 #include "simplefs.h"
 
 /**
- * @brief get inode dir op table
+ * @brief get simplefs inode dir ops table
  *
  * @return struct file_operations*
  */

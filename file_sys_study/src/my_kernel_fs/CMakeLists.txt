@@ -22,7 +22,9 @@ FILE(REMOVE ${KBUILD_FILE})
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     message(STATUS "Debug build")
+    set(CCFLAG_Y "ccflags-y := -g -DDEBUG -std=gnu11 -I${PROJECT_SOURCE_DIR}/include ")
 elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(CCFLAG_Y "ccflags-y := -O3 -std=gnu11 -I${PROJECT_SOURCE_DIR}/include ")
     message(STATUS "Release build")
 endif()
 
@@ -31,9 +33,8 @@ add_custom_command(
     OUTPUT ${KBUILD_FILE}
     COMMAND echo "obj-m := ${KERNEL_MODULE_NAME}.o" > ${KBUILD_FILE}
     COMMAND echo "${KERNEL_MODULE_NAME}-objs := ${MY_KERNEL_OBJ_STR}" >> ${KBUILD_FILE}
-    # COMMAND echo "EXTRA_CFLAGS=-I${PROJECT_SOURCE_DIR}/include " >> ${KBUILD_FILE}
-    COMMAND echo "ccflags-y := -std=gnu11 -I${PROJECT_SOURCE_DIR}/include " >> ${KBUILD_FILE}
-    # COMMAND echo "ccflags-y := -g -DDEBUG -std=gnu11 -I${PROJECT_SOURCE_DIR}/include " >> ${KBUILD_FILE}
+    COMMAND echo ${CCFLAG_Y} >> ${KBUILD_FILE}
+    # ccflags-y := -std=gnu11 -I${PROJECT_SOURCE_DIR}/include " >> ${KBUILD_FILE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     VERBATIM
 )

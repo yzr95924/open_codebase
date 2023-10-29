@@ -20,19 +20,26 @@
 struct dentry *simplefs_mount(struct file_system_type *fs_type, int flags,
     const char *dev_name, void *data) {
     struct dentry *root_dentry = NULL;
+
+    ZUORU_ENTRY;
     root_dentry = mount_bdev(fs_type, flags, dev_name, data, simplefs_sb_op_fill);
     if (IS_ERR(root_dentry)) {
-        ZUORU_KO_LOG_INFO("simplefs mount failed\n");
+        ZUORU_KO_LOG_ERR("simplefs mount failed\n");
     } else {
-        ZUORU_KO_LOG_ERR("simplefs mount successful\n");
+        ZUORU_KO_LOG_INFO("simplefs mount successful\n");
     }
+
+    ZUORU_EXIT;
     return root_dentry;
 }
 
 void simplefs_kill_sb(struct super_block *sb)
 {
+    ZUORU_ENTRY;
     kill_block_super(sb);
     ZUORU_KO_LOG_INFO("unmount simplefs\n");
+
+    ZUORU_EXIT;
     return;
 }
 

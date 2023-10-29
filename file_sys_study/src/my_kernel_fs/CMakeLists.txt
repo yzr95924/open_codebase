@@ -20,6 +20,12 @@ set(KBUILD_FILE ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild)
 # Remove the old KBUILD file before start
 FILE(REMOVE ${KBUILD_FILE})
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    message(STATUS "Debug build")
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    message(STATUS "Release build")
+endif()
+
 # Generate the Kbuild file through cmake.
 add_custom_command(
     OUTPUT ${KBUILD_FILE}
@@ -27,6 +33,7 @@ add_custom_command(
     COMMAND echo "${KERNEL_MODULE_NAME}-objs := ${MY_KERNEL_OBJ_STR}" >> ${KBUILD_FILE}
     # COMMAND echo "EXTRA_CFLAGS=-I${PROJECT_SOURCE_DIR}/include " >> ${KBUILD_FILE}
     COMMAND echo "ccflags-y := -std=gnu11 -I${PROJECT_SOURCE_DIR}/include " >> ${KBUILD_FILE}
+    # COMMAND echo "ccflags-y := -g -DDEBUG -std=gnu11 -I${PROJECT_SOURCE_DIR}/include " >> ${KBUILD_FILE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     VERBATIM
 )

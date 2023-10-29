@@ -1,5 +1,5 @@
 /**
- * @file my_simple_fs.c
+ * @file simple_fs.c
  * @author Zuoru YANG (zryang@cse.cuhk.edu.hk)
  * @brief the main module implementation
  * @version 0.1
@@ -15,7 +15,7 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
 
-#include "../../include/my_simplefs/simplefs_sb_op.h"
+#include "../../include/my_simplefs/sb_op.h"
 
 struct dentry *simplefs_mount(struct file_system_type *fs_type, int flags,
     const char *dev_name, void *data) {

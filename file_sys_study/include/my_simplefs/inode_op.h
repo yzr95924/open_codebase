@@ -1,5 +1,5 @@
 /**
- * @file my_simple_fs_inode_op.h
+ * @file inode_op.h
  * @author Zuoru YANG (zryang@cse.cuhk.edu.hk)
  * @brief
  * @version 0.1

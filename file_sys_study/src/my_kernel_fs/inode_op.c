@@ -9,8 +9,9 @@
  *
  */
 
-#include "../../include/my_simplefs/simplefs_inode_op.h"
-#include "../../include/my_simplefs/simplefs_dir_op.h"
+#include "../../include/my_simplefs/inode_op.h"
+#include "../../include/my_simplefs/dir_op.h"
+#include "../../include/my_simplefs/file_op.h"
 
 extern const struct file_operations simplefs_dir_ops;
 extern const struct file_operations simplefs_file_ops;
@@ -43,7 +44,7 @@ struct inode *simplefs_iget(struct super_block *sb, unsigned long inode_idx)
         return l_vfs_inode;
     }
 
-    l_simplefs_inode_info = container_of(l_vfs_inode, simplefs_inode_info, vfs_inode);
+    l_simplefs_inode_info = SIMPLEFS_GET_INODE_INFO_FROM_INODE(l_vfs_inode);
     bh = sb_bread(sb, inode_block_idx); // read inode from disk and initialize
     if (!bh) {
         ZUORU_KO_LOG_ERR("bread inode block failed");
@@ -81,7 +82,10 @@ struct inode *simplefs_iget(struct super_block *sb, unsigned long inode_idx)
             le32_to_cpu(l_simplefs_inode->i_extent_block);
         l_vfs_inode->i_fop = simplefs_get_inode_dir_op();
     } else if (S_ISREG(l_vfs_inode->i_mode)) {
-        // TODO: for regular file --> inode operation
+        l_simplefs_inode_info->i_extent_block =
+            le32_to_cpu(l_simplefs_inode->i_extent_block);
+        l_vfs_inode->i_fop = simplefs_get_inode_file_op();
+        l_vfs_inode->i_mapping->a_ops = simplefs_get_address_op();
     } else if (S_ISLNK(l_vfs_inode->i_mode)) {
         // TODO: for hardlink file --> inode operation
     } else {

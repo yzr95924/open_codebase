@@ -1,5 +1,5 @@
 /**
- * @file super_block_op.c
+ * @file sb_op.c
  * @author Zuoru YANG (zryang@cse.cuhk.edu.hk)
  * @brief super block func operation
  * @version 0.1
@@ -9,7 +9,7 @@
  *
  */
 
-#include "../../include/my_simplefs/simplefs_sb_op.h"
+#include "../../include/my_simplefs/sb_op.h"
 
 static struct kmem_cache *simplefs_inode_cache;
 
@@ -18,6 +18,7 @@ static int simplefs_sb_op_statfs(struct dentry *dentry, struct kstatfs *stat)
     struct super_block *sb = dentry->d_sb;
     simplefs_sb_info *sb_info = sb->s_fs_info;
 
+    ZUORU_ENTRY;
     stat->f_type = SIMPLEFS_MAGIC;
     stat->f_bsize = SIMPLEFS_BLOCK_SIZE;
     stat->f_blocks = sb_info->total_block_num;
@@ -27,17 +28,22 @@ static int simplefs_sb_op_statfs(struct dentry *dentry, struct kstatfs *stat)
     stat->f_ffree = sb_info->free_inode_num;
     stat->f_namelen = SIMPLEFS_MAX_FILENAME_LEN;
 
+    ZUORU_EXIT;
     return 0;
 }
 
 static void simplefs_put_super(struct super_block *sb)
 {
     simplefs_sb_info *sb_info = sb->s_fs_info;
+
+    ZUORU_ENTRY;
     if (sb_info) {
         kfree(sb_info->inode_free_bitmap);
         kfree(sb_info->block_free_bitmap);
         kfree(sb_info);
     }
+
+    ZUORU_EXIT;
     return;
 }
 
@@ -55,6 +61,7 @@ int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
     struct inode *root_inode = NULL;
     int ret = 0;
 
+    ZUORU_ENTRY;
     // init sb
     sb->s_magic = SIMPLEFS_MAGIC;
     sb_set_blocksize(sb, SIMPLEFS_BLOCK_SIZE);
@@ -162,6 +169,7 @@ int simplefs_sb_op_fill(struct super_block *sb, void *data, int silent)
         goto out_put_root_inode;
     }
 
+    ZUORU_EXIT;
     return 0;
 
 out_put_root_inode:
@@ -197,4 +205,5 @@ void simplefs_destroy_inode_cache(void)
     ZUORU_ENTRY;
     kmem_cache_destroy(simplefs_inode_cache);
     ZUORU_EXIT;
+    return;
 }

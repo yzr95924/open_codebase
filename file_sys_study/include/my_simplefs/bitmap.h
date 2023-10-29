@@ -1,5 +1,5 @@
 /**
- * @file simplefs_bitmap.h
+ * @file bitmap.h
  * @author Zuoru YANG (zryang@cse.cuhk.edu.hk)
  * @brief simplefs bitmap interface
  * @version 0.1
@@ -13,7 +13,7 @@
 #define FILE_SYS_STUDY_SIMPLEFS_BITMAP_H
 
 #include <linux/bitmap.h>
-#include  "simplefs.h"
+#include "simplefs.h"
 
 /**
  * @brief Get the free inode object, return an unused inode number

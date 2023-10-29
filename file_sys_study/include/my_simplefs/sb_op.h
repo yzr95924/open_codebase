@@ -1,5 +1,5 @@
 /**
- * @file simple_fs_sb_op.h
+ * @file sb_op.h
  * @author Zuoru YANG (zryang@cse.cuhk.edu.hk)
  * @brief define the interfaces of superblock op
  * @version 0.1
@@ -20,7 +20,7 @@
 #include <linux/module.h>
 
 #include "simplefs.h"
-#include "simplefs_inode_op.h"
+#include "inode_op.h"
 
 /**
  * @brief fill vfs superblock from simplefs superblock

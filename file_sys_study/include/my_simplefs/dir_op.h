@@ -1,5 +1,5 @@
 /**
- * @file simplefs_dir_op.h
+ * @file dir_op.h
  * @author Zuoru YANG (zryang@cse.cuhk.edu.hk)
  * @brief my simplefs dir operation header
  * @version 0.1

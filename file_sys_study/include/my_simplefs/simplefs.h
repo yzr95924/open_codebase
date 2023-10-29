@@ -112,7 +112,7 @@ typedef struct {
     uint32_t e_len; // number of blocks covered by extent
 } simplefs_extent;
 
-#define SIMPLEFS_GET_SB_INFO_FROM_INODE(inode) \
+#define SIMPLEFS_GET_INODE_INFO_FROM_INODE(inode) \
     (container_of(inode, simplefs_inode_info, vfs_inode))
 
 typedef struct {

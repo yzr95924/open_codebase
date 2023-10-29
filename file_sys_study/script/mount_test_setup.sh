@@ -10,7 +10,7 @@ dd if=/dev/zero of=${TEST_IMG_FILE_NAME} bs=1M count=50
 ./mkfs_simplefs ${TEST_IMG_FILE_NAME}
 
 cd ..
-each "load the test module"
+echo "load the test module"
 sudo insmod "${MODULE_KO_FILE}"
 
 cd ./bin

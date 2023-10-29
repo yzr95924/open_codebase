@@ -9,7 +9,7 @@
  *
  */
 
-#include "../../include/my_simplefs/simplefs_dir_op.h"
+#include "../../include/my_simplefs/dir_op.h"
 
 #include <linux/buffer_head.h>
 
@@ -24,7 +24,7 @@ static int simplefs_dir_iterate_shared(struct file *dir, struct dir_context *ctx
 {
     struct inode *l_vfs_inode = file_inode(dir);
     simplefs_inode_info *l_simplefs_inode_info =
-        SIMPLEFS_GET_SB_INFO_FROM_INODE(l_vfs_inode);
+        SIMPLEFS_GET_INODE_INFO_FROM_INODE(l_vfs_inode);
     struct super_block *l_superblock = l_vfs_inode->i_sb;
     struct buffer_head *dir_index_block_bh = NULL;
     struct buffer_head *block_bh = NULL;

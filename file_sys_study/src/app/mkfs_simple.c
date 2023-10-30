@@ -17,7 +17,7 @@
 
 #include <linux/fs.h>
 
-#define MODULE_NAME "MKFS_SIMPLE"
+#define MODULE_ID "MKFS_SIMPLE"
 
 typedef struct {
     simplefs_sb_info info;
@@ -35,7 +35,7 @@ static simplefs_sb* write_superblock(int fd, struct stat *stat_buf)
 {
     simplefs_sb *sb = calloc(1, sizeof(simplefs_sb));
     if (!sb) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_NAME, "alloc superblock failed\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "alloc superblock failed\n");
         return NULL;
     }
 
@@ -70,8 +70,7 @@ static simplefs_sb* write_superblock(int fd, struct stat *stat_buf)
         return NULL;
     }
 
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME,
-        "write superblock: size=%ld, magic=%#x, total_block_num=%u, "
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "write superblock: size=%ld, magic=%#x, total_block_num=%u, "
         "total_inode_num=%u, inode_store_block_num=%u, "
         "inode_free_bitmap_block_num=%u, block_free_bitmap_block_num=%u, "
         "free_inode_num=%u, free_block_num=%u\n", sizeof(simplefs_sb), sb->info.magic,
@@ -135,10 +134,8 @@ static int write_inode_store_block(int fd, simplefs_sb *sb)
         }
     }
 
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME,
-        "write inode store block: %u, inode size=%ld\n",
-        le32toh(sb->info.inode_store_block_num),
-        sizeof(simplefs_inode));
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "write inode store block: %u, inode size=%ld\n",
+        le32toh(sb->info.inode_store_block_num), sizeof(simplefs_inode));
     ret = RETURN_OK;
 out:
     free(block);
@@ -173,7 +170,7 @@ static int write_inode_free_bitmap_block(int fd, simplefs_sb *sb)
         }
     }
     ret = RETURN_OK;
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "write inode free bitmap block: %u\n",
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "write inode free bitmap block: %u\n",
         le32toh(sb->info.inode_free_bitmap_block_num));
 out:
     free(block);
@@ -239,9 +236,9 @@ static int write_block_free_bitmap_block(int fd, simplefs_sb *sb)
         }
     }
 
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "init write block free bitmap block: %u\n",
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "init write block free bitmap block: %u\n",
         write_block_cnt);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "total write block free bitmap block: %u\n",
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "total write block free bitmap block: %u\n",
         le32toh(sb->info.block_free_bitmap_block_num));
     ret = RETURN_OK;
 out:
@@ -259,15 +256,15 @@ int main(int argc, char *argv[])
 {
     int ret = RETURN_OK;
     if (argc != 2) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_NAME, "Usage: %s disk\n", argv[0]);
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "Usage: %s disk\n", argv[0]);
         exit(EXIT_FAILURE);
     }
 
     // open disk image
     int fd = open(argv[1], O_RDWR);
     if (fd == -1) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_NAME,
-            "cannot open the disk image: %s, errno(%s)\n", argv[1], strerror(errno));
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "cannot open the disk image: %s, errno(%s)\n",
+            argv[1], strerror(errno));
         exit(EXIT_FAILURE);
     }
 
@@ -275,8 +272,8 @@ int main(int argc, char *argv[])
     struct stat stat_buf;
     ret = fstat(fd, &stat_buf);
     if (ret != RETURN_OK) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_NAME,
-            "get file stat failed, errno(%s)\n", strerror(errno));
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "get file stat failed, errno(%s)\n",
+            strerror(errno));
         ret = EXIT_FAILURE;
         goto out_close_file;
     }
@@ -286,21 +283,20 @@ int main(int argc, char *argv[])
         int64_t blk_size = 0;
         ret = ioctl(fd, BLKGETSIZE64, &blk_size);
         if (ret != RETURN_OK) {
-            ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_NAME,
-                "get dev size failed, errno(%s)\n", strerror(errno));
+            ZUORU_LOGGING(ERROR_LOG_LEVEL, "get dev size failed, errno(%s)\n",
+                strerror(errno));
             goto out_close_file;
         }
         stat_buf.st_size = blk_size;
     }
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME,
-        "get img/dev (%s) size: %ld, blk size: %ld\n", argv[1], stat_buf.st_size,
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "get img/dev (%s) size: %ld, blk size: %ld\n",
+        argv[1], stat_buf.st_size,
         stat_buf.st_blksize);
 
     // check if image/dev is large enough
     int64_t min_required_size = 100 * SIMPLEFS_BLOCK_SIZE;
     if (stat_buf.st_size < min_required_size) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_NAME,
-            "img/dev is not large enough(%ld), min(%ld)\n",
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "img/dev is not large enough(%ld), min(%ld)\n",
             stat_buf.st_size, min_required_size);
         ret = EXIT_FAILURE;
         goto out_close_file;
@@ -310,8 +306,7 @@ int main(int argc, char *argv[])
     simplefs_sb *sb = NULL;
     sb = write_superblock(fd, &stat_buf);
     if (!sb) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_NAME,
-            "write superblock failed\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "write superblock failed\n");
         ret = EXIT_FAILURE;
         goto out_close_file;
     }
@@ -319,8 +314,7 @@ int main(int argc, char *argv[])
     // write inode store blocks (from block 1)
     ret = write_inode_store_block(fd, sb);
     if (ret) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_NAME,
-            "write inode store block failed\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "write inode store block failed\n");
         ret = EXIT_FAILURE;
         goto out_free_sb;
     }
@@ -328,8 +322,7 @@ int main(int argc, char *argv[])
     // write inode free bitmap blocks
     ret = write_inode_free_bitmap_block(fd, sb);
     if (ret) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_NAME,
-            "write inode free bitmap block failed\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "write inode free bitmap block failed\n");
         ret = EXIT_FAILURE;
         goto out_free_sb;
     }
@@ -337,8 +330,7 @@ int main(int argc, char *argv[])
     // write block free bitmap blocks
     ret = write_block_free_bitmap_block(fd, sb);
     if (ret) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_NAME,
-            "write block free bitmap block failed\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "write block free bitmap block failed\n");
         ret = EXIT_FAILURE;
         goto out_free_sb;
     }
@@ -346,14 +338,12 @@ int main(int argc, char *argv[])
     // write the data block section
     ret = write_data_blocks(fd, sb);
     if (ret) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_NAME,
-            "write data blocks failed\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "write data blocks failed\n");
         ret = EXIT_FAILURE;
         goto out_free_sb;
     }
 
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_NAME, "finish the formatting of "
-        "%s\n", argv[1]);
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "finish the formatting of %s\n", argv[1]);
 
 out_free_sb:
     free(sb);

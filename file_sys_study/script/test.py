@@ -1,10 +1,9 @@
 import sys
-import time
 sys.path.append("common_include")
 
-from my_py_lib import util
-from my_py_lib import my_logger
-from my_py_lib import cmd_handle
+from py import my_logger
+from py import cmd_handle
+from py import util
 
 _G_SRC_FILE = util.get_format_cur_filename(__file__)
 
@@ -13,14 +12,14 @@ class TestClass:
     def __init__(self):
         self.name = "TestClass"
 
-
 if __name__ == "__main__":
-    print(util.get_current_utc_time())
+    cur_logger = my_logger.get_log(console_fmt=my_logger._G_FMT_FULL)
+    # cur_logger.ml_clear_log_propagate_func()
+    cur_logger.ml_debug_func("Test")
+    cur_logger.ml_info_func("Test")
+    cur_logger.ml_warning_func("Test")
+    cur_logger.ml_error_func("Test")
+    cur_logger.ml_stdout_func("Test")
 
-    filename, lineno, func = my_logger.find_caller(_G_SRC_FILE)
-    print(filename)
-    print(lineno)
-    print(func)
-
-    test_class = TestClass()
-    print(test_class.name)
+    cmd = "ls"
+    cmd_handle.run(command=cmd)

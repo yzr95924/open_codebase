@@ -59,8 +59,7 @@ void CryptoUtil::GenerateHash(EVP_MD_CTX *ctx, uint8_t *data, uint32_t size, uin
     switch (hash_type_) {
         case SHA_1: {
             if (!EVP_DigestInit_ex(ctx, EVP_sha1(), NULL)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "SHA_1 init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "SHA_1 init error.\n");
                 exit(EXIT_FAILURE);
             }
             expected_hash_size = 20;
@@ -68,8 +67,7 @@ void CryptoUtil::GenerateHash(EVP_MD_CTX *ctx, uint8_t *data, uint32_t size, uin
         }
         case SHA_256: {
             if (!EVP_DigestInit_ex(ctx, EVP_sha256(), NULL)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "SHA_256 init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "SHA_256 init error.\n");
                 exit(EXIT_FAILURE);
             }
             expected_hash_size = 32;
@@ -77,8 +75,7 @@ void CryptoUtil::GenerateHash(EVP_MD_CTX *ctx, uint8_t *data, uint32_t size, uin
         }
         case MD5: {
             if (!EVP_DigestInit_ex(ctx, EVP_md5(), NULL)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "MD5 init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "MD5 init error.\n");
                 exit(EXIT_FAILURE);
             }
             expected_hash_size = 16;
@@ -87,19 +84,16 @@ void CryptoUtil::GenerateHash(EVP_MD_CTX *ctx, uint8_t *data, uint32_t size, uin
     }
 
     if (!EVP_DigestUpdate(ctx, data, size)) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-            "update hash error.\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "update hash error.\n");
         exit(EXIT_FAILURE);
     }
     if (!EVP_DigestFinal_ex(ctx, hash, &len)) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-            "update final hash error.\n")
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "update final hash error.\n")
         exit(EXIT_FAILURE);
     }
 
     if (len != expected_hash_size) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-            "update hash size error.\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "update hash size error.\n");
         exit(EXIT_FAILURE);
     }
 
@@ -128,8 +122,7 @@ uint32_t CryptoUtil::EncryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *data, uint32
         case AES_128_CFB: {
             if (!EVP_EncryptInit_ex(ctx, EVP_aes_128_cfb(), NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_128_CFB enc init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_128_CFB enc init error.\n");
                 exit(EXIT_FAILURE);
             }
             break;
@@ -137,8 +130,7 @@ uint32_t CryptoUtil::EncryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *data, uint32
         case AES_256_CFB: {
             if (!EVP_EncryptInit_ex(ctx, EVP_aes_256_cfb(), NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_256_CFB enc init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_256_CFB enc init error.\n");
                 exit(EXIT_FAILURE);
             }
             break;
@@ -146,8 +138,7 @@ uint32_t CryptoUtil::EncryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *data, uint32
         case AES_256_CBC: {
             if (!EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_256_CBC enc init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_256_CBC enc init error.\n");
                 exit(EXIT_FAILURE);
             }
             EVP_CIPHER_CTX_set_padding(ctx, pad_flag_);
@@ -156,8 +147,7 @@ uint32_t CryptoUtil::EncryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *data, uint32
         case AES_128_CBC: {
             if (!EVP_EncryptInit_ex(ctx, EVP_aes_128_cbc(), NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_128_CBC enc init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_128_CBC enc init error.\n");
                 exit(EXIT_FAILURE);
             }
             EVP_CIPHER_CTX_set_padding(ctx, pad_flag_);
@@ -168,8 +158,7 @@ uint32_t CryptoUtil::EncryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *data, uint32
             EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_AEAD_SET_IVLEN, CRYPTO_BLOCK_SIZE, NULL);
             if (!EVP_EncryptInit_ex(ctx, NULL, NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_256_GCM enc init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_256_GCM enc init error.\n");
                 exit(EXIT_FAILURE);
             }
             EVP_EncryptUpdate(ctx, NULL, &cipher_len, gcm_aad, sizeof(gcm_aad));
@@ -180,8 +169,7 @@ uint32_t CryptoUtil::EncryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *data, uint32
             EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_AEAD_SET_IVLEN, CRYPTO_BLOCK_SIZE, NULL);
             if (!EVP_EncryptInit_ex(ctx, NULL, NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_128_GCM enc init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_128_GCM enc init error.\n");
                 exit(EXIT_FAILURE);
             }
             EVP_EncryptUpdate(ctx, NULL, &cipher_len, gcm_aad, sizeof(gcm_aad));
@@ -190,8 +178,7 @@ uint32_t CryptoUtil::EncryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *data, uint32
         case AES_256_CTR: {
             if (!EVP_EncryptInit_ex(ctx, EVP_aes_256_ctr(), NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_256_CTR enc init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_256_CTR enc init error.\n");
                 exit(EXIT_FAILURE);
             }
             break;
@@ -199,8 +186,7 @@ uint32_t CryptoUtil::EncryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *data, uint32
         case AES_128_CTR: {
             if (!EVP_EncryptInit_ex(ctx, EVP_aes_128_ctr(), NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_128_CTR enc init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_128_CTR enc init error.\n");
                 exit(EXIT_FAILURE);
             }
             break;
@@ -208,8 +194,7 @@ uint32_t CryptoUtil::EncryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *data, uint32
         case AES_256_ECB: {
             if (!EVP_EncryptInit_ex(ctx, EVP_aes_256_ecb(), NULL,
                 key, NULL)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_256_ECB enc init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_256_ECB enc init error.\n");
                 exit(EXIT_FAILURE);
             }
             EVP_CIPHER_CTX_set_padding(ctx, pad_flag_);
@@ -218,8 +203,7 @@ uint32_t CryptoUtil::EncryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *data, uint32
         case AES_128_ECB: {
             if (!EVP_EncryptInit_ex(ctx, EVP_aes_128_ecb(), NULL,
                 key, NULL)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_128_ECB enc init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_128_ECB enc init error.\n");
                 exit(EXIT_FAILURE);
             }
             EVP_CIPHER_CTX_set_padding(ctx, pad_flag_);
@@ -231,8 +215,7 @@ uint32_t CryptoUtil::EncryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *data, uint32
     if (!EVP_EncryptUpdate(ctx, cipher, &cipher_len, data,
         size)) {
         ERR_print_errors_fp(stderr);
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-            "encryption error.\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "encryption error.\n");
         exit(EXIT_FAILURE);
     }
     EVP_EncryptFinal_ex(ctx, cipher + cipher_len, &len);
@@ -263,8 +246,7 @@ uint32_t CryptoUtil::DecryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *cipher, cons
         case AES_128_CFB: {
             if (!EVP_DecryptInit_ex(ctx, EVP_aes_128_cfb(), NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_128_CFB dec init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_128_CFB dec init error.\n");
                 exit(EXIT_FAILURE);
             }
             break;
@@ -272,8 +254,7 @@ uint32_t CryptoUtil::DecryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *cipher, cons
         case AES_256_CFB: {
             if (!EVP_DecryptInit_ex(ctx, EVP_aes_256_cfb(), NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_256_CFB dec init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_256_CFB dec init error.\n");
                 exit(EXIT_FAILURE);
             }
             break;
@@ -281,8 +262,7 @@ uint32_t CryptoUtil::DecryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *cipher, cons
         case AES_256_CBC: {
             if (!EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_256_CBC dec init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_256_CBC dec init error.\n");
                 exit(EXIT_FAILURE);
             }
             EVP_CIPHER_CTX_set_padding(ctx, pad_flag_);
@@ -291,8 +271,7 @@ uint32_t CryptoUtil::DecryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *cipher, cons
         case AES_128_CBC: {
             if (!EVP_DecryptInit_ex(ctx, EVP_aes_128_cbc(), NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_128_CBC dec init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_128_CBC dec init error.\n");
                 exit(EXIT_FAILURE);
             }
             EVP_CIPHER_CTX_set_padding(ctx, pad_flag_);
@@ -303,8 +282,7 @@ uint32_t CryptoUtil::DecryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *cipher, cons
             EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_AEAD_SET_IVLEN,
                 CRYPTO_BLOCK_SIZE, NULL);
             if (!EVP_DecryptInit_ex(ctx, NULL, NULL, key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_128_GCM dec init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_128_GCM dec init error.\n");
                 exit(EXIT_FAILURE);
             }
             EVP_DecryptUpdate(ctx, NULL, &plain_len, gcm_aad, sizeof(gcm_aad));
@@ -315,8 +293,7 @@ uint32_t CryptoUtil::DecryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *cipher, cons
             EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_AEAD_SET_IVLEN,
                 CRYPTO_BLOCK_SIZE, NULL);
             if (!EVP_DecryptInit_ex(ctx, NULL, NULL, key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_256_GCM dec init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_256_GCM dec init error.\n");
                 exit(EXIT_FAILURE);
             }
             EVP_DecryptUpdate(ctx, NULL, &plain_len, gcm_aad, sizeof(gcm_aad));
@@ -325,8 +302,7 @@ uint32_t CryptoUtil::DecryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *cipher, cons
         case AES_256_CTR: {
             if (!EVP_DecryptInit_ex(ctx, EVP_aes_256_ctr(), NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_256_CTR dec init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_256_CTR dec init error.\n");
                 exit(EXIT_FAILURE);
             }
             break;
@@ -334,8 +310,7 @@ uint32_t CryptoUtil::DecryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *cipher, cons
         case AES_128_CTR: {
             if (!EVP_DecryptInit_ex(ctx, EVP_aes_128_ctr(), NULL,
                 key, iv)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_128_CTR dec init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_128_CTR dec init error.\n");
                 exit(EXIT_FAILURE);
             }
             break;
@@ -343,8 +318,7 @@ uint32_t CryptoUtil::DecryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *cipher, cons
         case AES_256_ECB: {
             if (!EVP_DecryptInit_ex(ctx, EVP_aes_256_ecb(), NULL,
                 key, NULL)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_256_ECB dec init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_256_ECB dec init error.\n");
                 exit(EXIT_FAILURE);
             }
             EVP_CIPHER_CTX_set_padding(ctx, pad_flag_);
@@ -353,8 +327,7 @@ uint32_t CryptoUtil::DecryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *cipher, cons
         case AES_128_ECB: {
             if (!EVP_DecryptInit_ex(ctx, EVP_aes_128_ecb(), NULL,
                 key, NULL)) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "AES_128_ECB dec init error.\n");
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "AES_128_ECB dec init error.\n");
                 exit(EXIT_FAILURE);
             }
             EVP_CIPHER_CTX_set_padding(ctx, pad_flag_);
@@ -366,8 +339,7 @@ uint32_t CryptoUtil::DecryptWithKeyIV(EVP_CIPHER_CTX *ctx, uint8_t *cipher, cons
     if (!EVP_DecryptUpdate(ctx, data, &plain_len, cipher,
         size)) {
         ERR_print_errors_fp(stderr);
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-            "decryption error.\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "decryption error.\n");
         exit(EXIT_FAILURE);
     }
 
@@ -398,8 +370,7 @@ void CryptoUtil::GenerateHMAC(EVP_MD_CTX *ctx, uint8_t *data, const int size,
         case SHA_1: {
             if (EVP_DigestSignInit(ctx, NULL, EVP_sha1(), NULL, p_key) !=
                 RETURN_LIB_CRYPTO_SUCC) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "SHA_1 HMAC init error, error 0x%lx\n", ERR_get_error());
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "SHA_1 HMAC init error, error 0x%lx\n", ERR_get_error());
                 exit(EXIT_FAILURE);
             }
             expected_hash_size = 20;
@@ -408,8 +379,7 @@ void CryptoUtil::GenerateHMAC(EVP_MD_CTX *ctx, uint8_t *data, const int size,
         case SHA_256: {
             if (EVP_DigestSignInit(ctx, NULL, EVP_sha256(), NULL, p_key) !=
                 RETURN_LIB_CRYPTO_SUCC) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "SHA_256 HMAC init error, error 0x%lx\n", ERR_get_error());
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "SHA_256 HMAC init error, error 0x%lx\n", ERR_get_error());
                 exit(EXIT_FAILURE);
             }
             expected_hash_size = 32;
@@ -418,8 +388,7 @@ void CryptoUtil::GenerateHMAC(EVP_MD_CTX *ctx, uint8_t *data, const int size,
         case MD5: {
             if (EVP_DigestSignInit(ctx, NULL, EVP_md5(), NULL, p_key) !=
                 RETURN_LIB_CRYPTO_SUCC) {
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "MD5 HMAC init error, error 0x%lx\n", ERR_get_error());
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "MD5 HMAC init error, error 0x%lx\n", ERR_get_error());
                 exit(EXIT_FAILURE);
             }
             expected_hash_size = 16;
@@ -428,21 +397,18 @@ void CryptoUtil::GenerateHMAC(EVP_MD_CTX *ctx, uint8_t *data, const int size,
     }
 
     if (EVP_DigestSignUpdate(ctx, data, size) != RETURN_LIB_CRYPTO_SUCC) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-            "HMAC update error, error 0x%lx\n", ERR_get_error());
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "HMAC update error, error 0x%lx\n", ERR_get_error());
         exit(EXIT_FAILURE);
     }
 
     // first call the buffer should be NULL, and receive the size of the signature
     if (EVP_DigestSignFinal(ctx, hmac, &sig_len) != RETURN_LIB_CRYPTO_SUCC) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-            "HMAC final error, error 0x%lx\n", ERR_get_error());
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "HMAC final error, error 0x%lx\n", ERR_get_error());
         exit(EXIT_FAILURE);
     }
 
     if (sig_len != expected_hash_size) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-            "HMAC sig len cannot match the expected size.\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "HMAC sig len cannot match the expected size.\n");
         exit(EXIT_FAILURE);
     }
 

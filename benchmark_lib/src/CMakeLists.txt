@@ -14,12 +14,17 @@ endif()
 include_directories(${Boost_INCLUDE_DIRS} ../include)
 link_directories(${Boost_LIBRARY_DIRS} ../lib)
 
-set(CMAKE_C_FLAGS_DEBUG "-O0 -Wall -g -ggdb3 -fsanitize=address -fno-omit-frame-pointer")
-# set(CMAKE_C_FLAGS_DEBUG "-O0 -Wall -g -ggdb3")
-set(CMAKE_CXX_FLAGS_DEBUG "-O0 -Wall -g -ggdb3 -fsanitize=address -fno-omit-frame-pointer")
-#set(CMAKE_CXX_FLAGS_DEBUG "-O0 -Wall -g -ggdb3") # for gdb, for valgrind
-set(CMAKE_C_FLAGS_RELEASE "-O3 -Wall")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall")
+set(COMMON_FLAG "-Wall")
+set(CMAKE_C_FLAGS_DEBUG "-O0 -g -ggdb3 -fsanitize=address -fno-omit-frame-pointer ${COMMON_FLAG}")
+# set(CMAKE_C_FLAGS_DEBUG "-O0 -g -ggdb3 ${COMMON_FLAG}")
+set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g -ggdb3 -fsanitize=address -fno-omit-frame-pointer ${COMMON_FLAG}")
+# set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g -ggdb3 ${COMMON_FLAG}") # for gdb, for valgrind
+set(CMAKE_C_FLAGS_RELEASE "-O3 ${COMMON_FLAG}")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 ${COMMON_FLAG}")
+
+add_link_options(
+    "-rdynamic"
+)
 
 # if use clang
 set(CMAKE_C_COMPILER "/usr/bin/clang")

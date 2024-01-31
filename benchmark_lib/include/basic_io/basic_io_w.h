@@ -12,10 +12,10 @@
 #ifndef OPEN_CODEBASE_BASIC_IO_W_H
 #define OPEN_CODEBASE_BASIC_IO_W_H
 
-#include "../../../common_include/cpp_include.h"
-#include "../../../common_include/my_log.h"
-#include "../../../common_include/define_const.h"
-#include "../../../common_include/my_util.h"
+#include "../../../common_include/cpp_c/cpp_include.h"
+#include "../../../common_include/cpp_c/logger.h"
+#include "../../../common_include/cpp_c/define_const.h"
+#include "../../../common_include/cpp_c/util.h"
 
 #define WRITE_ONCE_BYTE_SIZE (4096)
 #define WRITE_IO_COUNT (1024 * 1024ULL)

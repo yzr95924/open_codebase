@@ -24,7 +24,7 @@ using namespace std;
  */
 BasicWriteUtil::BasicWriteUtil()
 {
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "setting io size (KiB): %llu\n",
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "setting io size (KiB): %llu\n",
         sizeof(syn_data) * WRITE_IO_COUNT / KiB_2_B);
 }
 
@@ -50,8 +50,7 @@ void BasicWriteUtil::WriteWithBuf(uint32_t idx)
 
     ret = posix_fallocate(fd, 0, sizeof(syn_data) * WRITE_IO_COUNT);
     if (ret != 0) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID, "fallocate error: %d\n",
-            ret);
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "fallocate error: %d\n", ret);
     }
     lseek(fd, 0, SEEK_SET);
 
@@ -84,8 +83,7 @@ void BasicWriteUtil::WriteWithoutBuf(uint32_t idx)
         0644);
     ret = posix_fallocate(staging_fd, 0, DIRECT_WRITE_BUFFER_SIZE);
     if (ret != 0) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID, "fallocate error: %d\n",
-            ret);
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "fallocate error: %d\n", ret);
         close(staging_fd);
         return;
     }
@@ -93,7 +91,7 @@ void BasicWriteUtil::WriteWithoutBuf(uint32_t idx)
     staging_ptr = mmap(NULL, DIRECT_WRITE_BUFFER_SIZE, PROT_READ | PROT_WRITE,
         MAP_SHARED, staging_fd, 0);
     if (unlikely(staging_ptr == MAP_FAILED)) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID, "mmap error\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "mmap error\n");
         close(staging_fd);
         return;
     }
@@ -102,7 +100,7 @@ void BasicWriteUtil::WriteWithoutBuf(uint32_t idx)
         0644);
     ret = posix_fallocate(fd, 0, sizeof(syn_data) * WRITE_IO_COUNT);
     if (ret != 0) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID, "fallocate error: %d\n",
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "fallocate error: %d\n",
             ret);
         close(staging_fd);
         close(fd);
@@ -147,19 +145,19 @@ void BasicWriteUtil::RemoveTestFile(uint32_t idx, bool use_buffer)
     if (use_buffer) {
         ret = remove(input_path.c_str());
         if (ret != 0) {
-            ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID, "unable to remove test file %s\n",
+            ZUORU_LOGGING(ERROR_LOG_LEVEL, "unable to remove test file %s\n",
                 input_path.c_str());
         }
     } else {
         ret = remove(input_path.c_str());
         if (ret != 0) {
-            ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID, "unable to remove test file %s\n",
+            ZUORU_LOGGING(ERROR_LOG_LEVEL, "unable to remove test file %s\n",
                 input_path.c_str());
         }
 
         ret = remove(staging_path.c_str());
         if (ret != 0) {
-            ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID, "unable to remove test file %s\n",
+            ZUORU_LOGGING(ERROR_LOG_LEVEL, "unable to remove test file %s\n",
                 input_path.c_str());
         }
     }

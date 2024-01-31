@@ -10,8 +10,8 @@
  */
 
 #include "../../include/crypto/crypto_util.h"
-#include "../../../common_include/my_util.h"
-#include "../../../common_include/c_my_data_struct.h"
+#include "../../../common_include/cpp_c/util.h"
+#include "../../../common_include/cpp_c/define_const.h"
 
 #define MODULE_ID "CryptoBench"
 #define TEST_FILE_SIZE ((1ULL << 20) * 512)
@@ -69,7 +69,7 @@ void CryptoTestOneThead(INPUT_PARAM_T *in_param, OUTPUT_PARAM_T *out_param)
     EVP_MD_CTX *md_ctx = EVP_MD_CTX_new();
     uint32_t enc_chunk_size = 0;
 
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "start thread_id: %d\n", thread_id);
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "start thread_id: %d\n", thread_id);
 
     crypto_util = new CryptoUtil(cipher_type, hash_type);
     input_buf = (uint8_t*)malloc(chunk_size);
@@ -111,14 +111,12 @@ void CryptoTestOneThead(INPUT_PARAM_T *in_param, OUTPUT_PARAM_T *out_param)
     EVP_CIPHER_CTX_free(cipher_ctx);
     EVP_MD_CTX_free(md_ctx);
 
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "finish thread_id: %d\n", thread_id);
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "finish thread_id: %d\n", thread_id);
     return;
 }
 
 int main(int argc, char *argv[])
 {
-    fprintf(stderr, MY_DATA_STRUCT_LOG_FMT "queue is full\n",
-        MY_DATA_STRUCT_LOG_MSG);
     uint64_t chunk_size = 0;
     uint64_t thread_num = 0;
     const char opt_str[] = "c:h:t:s:";
@@ -129,7 +127,7 @@ int main(int argc, char *argv[])
     std::thread* cur_thread = NULL;
 
     if (argc != sizeof(opt_str)) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID, "wrong argc num.\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "wrong argc num.\n");
         Usage();
         return RETURN_ERROR;
     }
@@ -140,67 +138,56 @@ int main(int argc, char *argv[])
                 switch (atoi(optarg)) {
                     case AES_256_GCM: {
                         cipher_type = AES_256_GCM;
-                        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID,
-                            "using AES-256-GCM.\n");
+                        ZUORU_LOGGING(INFO_LOG_LEVEL, "using AES-256-GCM.\n");
                         break;
                     }
                     case AES_128_GCM: {
                         cipher_type = AES_128_GCM;
-                        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID,
-                            "using AES-128-GCM.\n");
+                        ZUORU_LOGGING(INFO_LOG_LEVEL, "using AES-128-GCM.\n");
                         break;
                     }
                     case AES_256_CFB: {
                         cipher_type = AES_256_CFB;
-                        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID,
-                            "using AES-256-CFB.\n");
+                        ZUORU_LOGGING(INFO_LOG_LEVEL, "using AES-256-CFB.\n");
                         break;
                     }
                     case AES_128_CFB: {
                         cipher_type = AES_128_CFB;
-                        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID,
-                            "using AES-128-CFB.\n");
+                        ZUORU_LOGGING(INFO_LOG_LEVEL, "using AES-128-CFB.\n");
                         break;
                     }
                     case AES_256_CBC: {
                         cipher_type = AES_256_CBC;
-                        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID,
-                            "using AES-256-CBC.\n");
+                        ZUORU_LOGGING(INFO_LOG_LEVEL, "using AES-256-CBC.\n");
                         break;
                     }
                     case AES_128_CBC: {
                         cipher_type = AES_128_CBC;
-                        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID,
-                            "using AES-128-CBC.\n");
+                        ZUORU_LOGGING(INFO_LOG_LEVEL, "using AES-128-CBC.\n");
                         break;
                     }
                     case AES_256_ECB: {
                         cipher_type = AES_256_ECB;
-                        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID,
-                            "using AES-256-ECB.\n");
+                        ZUORU_LOGGING(INFO_LOG_LEVEL, "using AES-256-ECB.\n");
                         break;
                     }
                     case AES_128_ECB: {
                         cipher_type = AES_128_ECB;
-                        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID,
-                            "using AES-128-ECB.\n");
+                        ZUORU_LOGGING(INFO_LOG_LEVEL, "using AES-128-ECB.\n");
                         break;
                     }
                     case AES_256_CTR: {
                         cipher_type = AES_256_CTR;
-                        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID,
-                            "using AES-256-CTR.\n");
+                        ZUORU_LOGGING(INFO_LOG_LEVEL, "using AES-256-CTR.\n");
                         break;
                     }
                     case AES_128_CTR: {
                         cipher_type = AES_128_CTR;
-                        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID,
-                            "using AES-128-CTR.\n");
+                        ZUORU_LOGGING(INFO_LOG_LEVEL, "using AES-128-CTR.\n");
                         break;
                     }
                     default: {
-                        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                            "wrong cipher type.\n");
+                        ZUORU_LOGGING(ERROR_LOG_LEVEL, "wrong cipher type.\n");
                         Usage();
                         return RETURN_ERROR;
                     }
@@ -211,25 +198,21 @@ int main(int argc, char *argv[])
                 switch (atoi(optarg)) {
                     case SHA_256: {
                         hash_type = SHA_256;
-                        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID,
-                            "using SHA-256.\n");
+                        ZUORU_LOGGING(INFO_LOG_LEVEL, "using SHA-256.\n");
                         break;;
                     }
                     case MD5: {
                         hash_type = MD5;
-                        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID,
-                            "using MD5.\n");
+                        ZUORU_LOGGING(INFO_LOG_LEVEL, "using MD5.\n");
                         break;
                     }
                     case SHA_1: {
                         hash_type = SHA_1;
-                        ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID,
-                            "using SHA-1.\n");
+                        ZUORU_LOGGING(INFO_LOG_LEVEL, "using SHA-1.\n");
                         break;
                     }
                     default: {
-                        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                            "wrong hash type.\n");
+                        ZUORU_LOGGING(ERROR_LOG_LEVEL, "wrong hash type.\n");
                         Usage();
                         return RETURN_ERROR;
                     }
@@ -239,8 +222,8 @@ int main(int argc, char *argv[])
             case 's': {
                 chunk_size = atoi(optarg) * 1024;
                 if (chunk_size > TEST_FILE_SIZE) {
-                    ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID,
-                    "the input chunk size (%u) is higher than %u\n",
+                    ZUORU_LOGGING(ERROR_LOG_LEVEL,
+                        "the input chunk size (%u) is higher than %u\n",
                         chunk_size, TEST_FILE_SIZE);
                     return RETURN_ERROR;
                 }
@@ -250,8 +233,8 @@ int main(int argc, char *argv[])
                 thread_num = atoi(optarg);
                 break;
             case '?':
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID, "error optopt: %c\n", optopt);
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID, "error opterr: %d\n", opterr);
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "error optopt: %c\n", optopt);
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "error opterr: %d\n", opterr);
                 Usage();
                 return RETURN_ERROR;
         }
@@ -284,22 +267,22 @@ int main(int argc, char *argv[])
         total_hash_time += out_param_array[idx].hash_time;
     }
 
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "enc time: %lf\n",
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "enc time: %lf\n",
         total_enc_time);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "dec time: %lf\n",
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "dec time: %lf\n",
         total_dec_time);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "hash time: %lf\n",
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "hash time: %lf\n",
         total_hash_time);
 
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "enc speed: %lf (MiB/s)\n",
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "enc speed: %lf (MiB/s)\n",
         TEST_FILE_SIZE * thread_num / MiB_2_B / total_enc_time);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "dec speed: %lf (MiB/s)\n",
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "dec speed: %lf (MiB/s)\n",
         TEST_FILE_SIZE * thread_num / MiB_2_B / total_dec_time);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "hash speed: %lf (MiB/s)\n",
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "hash speed: %lf (MiB/s)\n",
         TEST_FILE_SIZE * thread_num / MiB_2_B / total_hash_time);
 
     free(out_param_array);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "total mem usage: %llu (KiB)\n",
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "total mem usage: %llu (KiB)\n",
         ZUORU_GetMemUsage());
 
     return RETURN_OK;

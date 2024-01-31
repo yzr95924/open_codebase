@@ -15,9 +15,9 @@
 #include <openssl/evp.h>
 #include <openssl/crypto.h>
 #include <openssl/err.h>
-#include "../../../common_include/cpp_include.h"
-#include "../../../common_include/define_const.h"
-#include "../../../common_include/my_log.h"
+#include "../../../common_include/cpp_c/cpp_include.h"
+#include "../../../common_include/cpp_c/define_const.h"
+#include "../../../common_include/cpp_c/logger.h"
 
 using namespace std;
 

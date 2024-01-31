@@ -27,7 +27,7 @@ typedef struct {
 void Usage()
 {
     fprintf(stdout, "%s -t [thread num] -w [use buffer]\n"
-        "\t use buffer: == 0: without, > 0 with",
+        "\t use buffer: == 0: without, > 0 with\n",
         MODULE_ID);
     return;
 }
@@ -39,8 +39,7 @@ void BasicWriteOneThread(INPUT_PARAM_T *in_param, OUTPUT_PARAM_T *out_param)
     struct timeval etime;
     pid_t thread_id = gettid();
 
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "start thread_id: %d\n",
-        thread_id);
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "start thread_id: %d\n", thread_id);
     out_param->run_time = 0;
 
     gettimeofday(&stime, NULL);
@@ -67,7 +66,7 @@ int main(int argc, char *argv[])
 
     const char opt_str[] = "t:w:";
     if (argc != sizeof(opt_str)) {
-        ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID, "wrong argc num.\n");
+        ZUORU_LOGGING(ERROR_LOG_LEVEL, "wrong argc num.\n");
         Usage();
         return RETURN_ERROR;
     }
@@ -83,8 +82,8 @@ int main(int argc, char *argv[])
                 thread_num = atoi(optarg);
                 break;
             case '?':
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID, "error optopt: %c\n", optopt);
-                ZUORU_LOGGING(ERROR_LOG_LEVEL, MODULE_ID, "error opterrL %d\n", opterr);
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "error optopt: %c\n", optopt);
+                ZUORU_LOGGING(ERROR_LOG_LEVEL, "error opterrL %d\n", opterr);
                 Usage();
                 return RETURN_ERROR;
         }
@@ -113,9 +112,9 @@ int main(int argc, char *argv[])
         total_running_time += out_param_array[idx].run_time;
     }
 
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "total time: %lf\n",
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "total time: %lf\n",
         total_running_time);
-    ZUORU_LOGGING(INFO_LOG_LEVEL, MODULE_ID, "speed: %lf (MiB/s)\n",
+    ZUORU_LOGGING(INFO_LOG_LEVEL, "speed: %lf (MiB/s)\n",
         thread_num * WRITE_ONCE_BYTE_SIZE * WRITE_IO_COUNT / MiB_2_B /
             total_running_time);
 

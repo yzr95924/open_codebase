@@ -11,8 +11,8 @@
 
 #include "../../../common_include/cpp_c/c_include.h"
 #include "../../../common_include/cpp_c/define_const.h"
-#include "../../../common_include/cpp_c/my_log.h"
-#include "../../../common_include/cpp_c/my_util.h"
+#include "../../../common_include/cpp_c/logger.h"
+#include "../../../common_include/cpp_c/util.h"
 #include "../../include/my_simplefs/simplefs.h"
 
 #include <linux/fs.h>
